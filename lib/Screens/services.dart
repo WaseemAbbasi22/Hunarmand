@@ -28,7 +28,7 @@ class Services extends StatelessWidget {
                     decoration: BoxDecoration(
                         border: Border(
                             top: BorderSide(
-                                width: 2.0, color: Colors.amber[200]))),
+                                width: 2.0, color: Colors.blueGrey[200]))),
                     child: Padding(
                       padding: EdgeInsets.all(5),
                       child: Stack(children: <Widget>[
@@ -113,7 +113,7 @@ class Services extends StatelessWidget {
                   '0',
                   style: TextStyle(
                       //fontWeight: FontWeight.bold,
-                      color: Colors.amber,
+                      color: Colors.grey[700],
                       fontSize: 20),
                 ),
                 IconButton(

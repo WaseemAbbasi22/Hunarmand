@@ -43,13 +43,14 @@ class _ServiceDetailState extends State<ServiceDetail>
 
   @override
   Widget build(BuildContext context) {
+    Color textcolor = Colors.white;
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
-        backgroundColor: Colors.orange[600],
+        backgroundColor: Colors.blueGrey,
         title: Text(
           'Jobs',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: textcolor),
         ),
         centerTitle: true,
         // leading: Icon(
@@ -59,7 +60,7 @@ class _ServiceDetailState extends State<ServiceDetail>
         bottom: TabBar(
           controller: tabController,
           //isScrollable: true,
-          indicatorColor: Colors.amber,
+          // indicatorColor: Colors.black,
 
           indicator: UnderlineTabIndicator(
               insets: EdgeInsets.symmetric(horizontal: 30.0)),
@@ -68,7 +69,7 @@ class _ServiceDetailState extends State<ServiceDetail>
               // text: 'Fixed Jobs',
               child: Text('Fixed Jobs',
                   style: TextStyle(
-                      color: Colors.black,
+                      color: textcolor,
                       fontSize: 18.0,
                       fontFamily: 'avenir',
                       fontWeight: FontWeight.w600)),
@@ -76,15 +77,15 @@ class _ServiceDetailState extends State<ServiceDetail>
             Tab(
               child: Text('Hourly Jobs',
                   style: TextStyle(
-                      color: Colors.black,
+                      color: textcolor,
                       fontSize: 18.0,
                       fontFamily: 'avenir',
                       fontWeight: FontWeight.w600)),
             ),
             Tab(
-              child: Text('Post Task',
+              child: Text('Post Job',
                   style: TextStyle(
-                      color: Colors.black,
+                      color: textcolor,
                       fontSize: 18.0,
                       fontFamily: 'avenir',
                       fontWeight: FontWeight.w600)),
@@ -120,7 +121,7 @@ class _ServiceDetailState extends State<ServiceDetail>
                 //fixedjob(),
                 Services(),
                 Container(
-                  color: Colors.white,
+                  color: Colors.grey[300],
                   width: double.infinity,
                   padding: EdgeInsets.all(5.0),
                   child: Column(
@@ -193,8 +194,9 @@ class _ServiceDetailState extends State<ServiceDetail>
                           : Border.all(
                               color: Colors.grey,
                             ),
-                      color:
-                          index == selectedIndex ? Colors.orange : Colors.white,
+                      color: index == selectedIndex
+                          ? Colors.blueGrey[300]
+                          : Colors.white,
                     ),
                     child: Text(
                       categories[index],

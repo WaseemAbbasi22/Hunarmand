@@ -86,7 +86,7 @@ class _UploadImageState extends State<UploadImage> {
             ),
             Container(
               child: Image(
-                image: AssetImage('assets/image_icon.JPG'),
+                image: AssetImage('assets/uploadimage_icon.jpg'),
                 height: 40,
               ),
             ),

@@ -10,7 +10,7 @@ class Postjob extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(241, 236, 236, 1),
+      backgroundColor: Colors.grey[300],
       body: Container(
           // decoration: BoxDecoration(
           //   gradient: LinearGradient(
@@ -53,7 +53,7 @@ class Postjob extends StatelessWidget {
                           // ),
                           Image(
                             image: AssetImage(
-                              'assets/job_icon.png',
+                              'assets/iconjob.jpg',
                             ),
                             height: 60,
                           ),

@@ -20,55 +20,71 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      backgroundColor: Colors.grey[300],
+      // resizeToAvoidBottomPadding: false,
       body: Container(
-        child: Column(
-          children: <Widget>[
-            HeaderContainer("Login"),
-            Expanded(
-              flex: 1,
-              child: Container(
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              HeaderContainer("Login"),
+              Container(
                 margin: EdgeInsets.only(left: 20, right: 20, top: 20),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
-                    _textInput(hint: "Email", icon: Icons.email),
-                    _textInput(hint: "Password", icon: Icons.vpn_key),
-                    Container(
-                      margin: EdgeInsets.only(top: 10),
-                      alignment: Alignment.centerRight,
-                      child: Text("Forget Password"),
+                    _textInput(
+                      hint: "Phone Number",
+                      icon: Icons.call,
                     ),
-                    Expanded(
-                      child: Center(
-                        child: ButtonWidget(
-                          onClick: () {
-                            _auth.signInWithEmailAndPassword(
-                                email: _user.email, password: _user.password);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => Logout()),
-                            );
-                          },
-                          btnText: "Login",
+                    _textInput(hint: "PIN", icon: Icons.vpn_key),
+                    Container(
+                      margin: EdgeInsets.only(top: 20),
+                      alignment: Alignment.centerRight,
+                      child: GestureDetector(
+                        onTap: () {
+                          //password reset screen....
+                        },
+                        child: Text(
+                          "Forget Password",
+                          style: TextStyle(fontSize: 16),
                         ),
                       ),
+                    ),
+                    SizedBox(
+                      height: 60.0,
+                    ),
+                    Center(
+                      child: ButtonWidget(
+                        onClick: () {
+                          _auth.signInWithEmailAndPassword(
+                              email: _user.email, password: _user.password);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Logout()),
+                          );
+                        },
+                        btnText: "Login",
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20.0,
                     ),
                     RichText(
                       text: TextSpan(children: [
                         TextSpan(
                             text: "Don't have an account ? ",
-                            style: TextStyle(color: Colors.black)),
+                            style: TextStyle(
+                                color: Colors.grey[900], fontSize: 16)),
                         TextSpan(
                             text: "Register",
-                            style: TextStyle(color: orangeColors)),
+                            style: TextStyle(color: bluegrayColors)),
                       ]),
                     ),
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -79,8 +95,9 @@ class _LoginScreenState extends State<LoginScreen> {
     return Container(
       margin: EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(20)),
+        //color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.zero),
+        color: Colors.grey[200],
       ),
       child: TextFormField(
         decoration: InputDecoration(
