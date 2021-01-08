@@ -54,7 +54,10 @@ class _ClipperDesignState extends State<ClipperDesign>
                         gradient: LinearGradient(
                             begin: Alignment.bottomLeft,
                             end: Alignment.topRight,
-                            colors: [Colors.orange[700], Colors.orange[300]]),
+                            colors: [
+                              Colors.blueGrey[600],
+                              Colors.blueGrey[300]
+                            ]),
                       ),
                     ),
                   );

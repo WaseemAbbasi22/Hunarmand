@@ -16,9 +16,9 @@ class StarterScreen extends StatelessWidget {
       child: Scaffold(
         //backgroundColor: Color(0xFF81F2836),
         appBar: AppBar(
-          backgroundColor: Colors.orange[500],
+          backgroundColor: Colors.blueGrey,
           elevation: 0,
-          title: Text("HUNARMAND", style: TextStyle(color: Colors.black)),
+          title: Text("HUNARMAND"),
           centerTitle: true,
         ),
         drawer: MainDrawer(),

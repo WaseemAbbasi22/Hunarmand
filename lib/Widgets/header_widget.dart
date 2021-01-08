@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class HeaderContainer extends StatelessWidget {
-  var text = "Login";
+  var text = "";
 
   HeaderContainer(this.text);
 
@@ -13,7 +13,7 @@ class HeaderContainer extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.4,
       decoration: BoxDecoration(
           gradient: LinearGradient(
-              colors: [orangeColors, orangeLightColors],
+              colors: [bluegrayColors, bluegrayLightColor],
               end: Alignment.bottomCenter,
               begin: Alignment.topCenter),
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(100))),

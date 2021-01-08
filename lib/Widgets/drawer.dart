@@ -25,7 +25,9 @@ class _MainDrawerState extends State<MainDrawer> {
             Container(
               width: double.infinity,
               padding: EdgeInsets.all(10.0),
-              color: Colors.orange[700],
+              // color: Colors.orange[700],
+              color: Colors.blueGrey[700],
+
               child: Column(
                 // mainAxisAlignment: .s,
                 children: [
@@ -40,11 +42,11 @@ class _MainDrawerState extends State<MainDrawer> {
                   SizedBox(height: 10.0),
                   Text(
                     'username',
-                    style: TextStyle(fontSize: 20, color: Colors.grey[700]),
+                    style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                   Text(
                     'username@gmail.com',
-                    style: TextStyle(fontSize: 20, color: Colors.grey[700]),
+                    style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                 ],
               ),
@@ -160,7 +162,9 @@ class _MainDrawerState extends State<MainDrawer> {
 
   Widget _listtiles({String text, IconData icon, Function onClick}) {
     double iSize = 20.0;
-    Color iColor = Colors.orange;
+    //Color iColor = Colors.orange;
+    Color iColor = Colors.blueGrey[600];
+    Color fcolor = Colors.white;
     return ListTile(
       leading: FaIcon(
         icon,
