@@ -1,3 +1,4 @@
+import 'package:Hunarmand_signIn_Ui/Screens/duplicate/clipper_screen.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/registration_screen.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/services.dart';
 import 'package:flutter/material.dart';
@@ -65,8 +66,10 @@ class _MainDrawerState extends State<MainDrawer> {
                     icon: FontAwesomeIcons.arrowLeft,
                     onClick: () {
                       Navigator.pop(context);
-                      // Navigator.push(context,
-                      //     MaterialPageRoute(builder: (context) => Services()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ClipperDesign()));
                     }),
               ),
             ] else ...[

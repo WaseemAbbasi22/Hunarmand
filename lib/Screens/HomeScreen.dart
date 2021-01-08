@@ -1,6 +1,7 @@
 //import 'dart:html';
 
 import 'package:Hunarmand_signIn_Ui/Screens/duplicate/Home2.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/duplicate/clipper_screen.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/service_detail_screen.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/slider.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/header_widget.dart';
@@ -41,7 +42,8 @@ class _HomeState extends State<Home> {
 
           children: <Widget>[
             //,
-            Cslider(),
+            //Cslider(),
+            //ClipperDesign(),
             // HomeS(),
 
             // SingleChildScrollView(
@@ -99,7 +101,7 @@ class _HomeState extends State<Home> {
                       image: 'assets/gardnerk.png', text: 'Electrician'),
                   _cardWidget(
                       image: 'assets/gardnerk.png', text: 'Electrician'),
-                ],//hhhyiyyubbb jjhjh
+                ], //hhhyiyyubbb jjhjh
               ),
             ),
           ],
