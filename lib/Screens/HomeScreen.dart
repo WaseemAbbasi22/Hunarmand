@@ -160,8 +160,7 @@ class _HomeState extends State<Home> {
   Widget _cardWidget({String image, String text}) {
     return InkWell(
       onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ServiceDetail()));
+        Navigator.of(context).pushNamed('/services');
       },
       child: Card(
         color: Colors.grey[395],

@@ -1,5 +1,9 @@
+import 'package:Hunarmand_signIn_Ui/BusinessLogic/services.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/HomeScreen.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/service_detail_screen.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/slider.dart';
+import 'package:Hunarmand_signIn_Ui/utils/color.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -36,7 +40,7 @@ class _ClipperDesignState extends State<ClipperDesign>
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[300],
       resizeToAvoidBottomPadding: false,
       body: Column(
         children: [
@@ -49,60 +53,74 @@ class _ClipperDesignState extends State<ClipperDesign>
                   return ClipPath(
                     clipper: DrawClip(_controller.value),
                     child: Container(
-                      height: size.height * 0.25,
+                      height: size.height * 0.4,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                             begin: Alignment.bottomLeft,
                             end: Alignment.topRight,
                             colors: [
-                              Colors.blueGrey[600],
-                              Colors.blueGrey[300]
+                              bluegrayColors,
+                              bluegrayLightColor,
                             ]),
                       ),
                     ),
                   );
                 },
               ),
-              Container(
-                margin: EdgeInsets.only(top: 20.0),
-                child: Card(
-                  color: Colors.grey[200],
-                  elevation: 4.0,
-                  child: Container(
-                    padding: EdgeInsets.all(30.0),
-                    child: Text(
-                      'Popular Services',
-                      style: TextStyle(
-                        color: Colors.grey[900],
-                        //fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+
+              // Container(
+              //   margin: EdgeInsets.only(top: 60.0),
+              //   child: Card(
+              //     color: Colors.grey[200],
+              //     elevation: 4.0,
+              //     child: Container(
+              //       padding: EdgeInsets.all(30.0),
+              //       child: Text(
+              //         'Popular Services',
+              //         style: TextStyle(
+              //           color: Colors.grey[900],
+              //           //fontWeight: FontWeight.bold,
+              //           fontSize: 20.0,
+              //           letterSpacing: 0.5,
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              Cslider(),
             ],
           ),
-
-          Expanded(
-            child: GridView.count(
-              mainAxisSpacing: 4,
-              crossAxisSpacing: 15,
-              primary: false,
-              crossAxisCount: 2,
-              children: <Widget>[
-                _cardWidget(
-                    image: 'assets/electriciank.png', text: 'Electrician'),
-                _cardWidget(image: 'assets/plumberk.png', text: 'Plumber'),
-                _cardWidget(image: 'assets/carpenterk.png', text: 'Carpenter'),
-                _cardWidget(image: 'assets/painterk.png', text: 'Pinter'),
-                _cardWidget(image: 'assets/gardnerk.png', text: 'Gardner'),
-                _cardWidget(image: 'assets/gardnerk.png', text: 'Painter'),
-                _cardWidget(image: 'assets/gardnerk.png', text: 'Electrician'),
-                _cardWidget(image: 'assets/gardnerk.png', text: 'Electrician'),
-              ], //hhhyiyyubbb jjhjh
+          Container(
+            //margin: EdgeInsets.only(top: 10.0),
+            alignment: Alignment.topLeft,
+            child: Container(
+              padding: EdgeInsets.all(10.0),
+              child: Text(
+                'kia kaam karvana chaty han?',
+                style: TextStyle(
+                  color: Colors.grey[900],
+                  //fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                  letterSpacing: 0.5,
+                ),
+              ),
             ),
+          ),
+          Expanded(
+            child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  mainAxisSpacing: 6,
+                  crossAxisSpacing: 6,
+                  // primary: false,
+                  crossAxisCount: 3,
+                ),
+                // itemCount: ,
+                itemCount: services.length,
+                itemBuilder: (context, index) {
+                  final service = services[index];
+                  return _cardWidget(
+                      image: service.serviceImage, text: service.title);
+                }),
           ),
           //Expanded(child: Home()),
         ],
@@ -113,33 +131,35 @@ class _ClipperDesignState extends State<ClipperDesign>
   Widget _cardWidget({String image, String text}) {
     return InkWell(
       onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => ServiceDetail()));
+        Navigator.of(context).pushNamed('/services');
       },
-      child: Card(
-        color: Colors.grey[395],
-        elevation: 2,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Image(
-              image: AssetImage(
-                image,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+        child: Card(
+          color: Colors.grey[200],
+          elevation: 6,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Image(
+                image: AssetImage(
+                  image,
+                ),
+                height: 80.0,
+                //width: 150.0,
               ),
-              height: 80.0,
-              //width: 150.0,
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            Text(text,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.bold,
-                ))
-          ],
+              SizedBox(
+                height: 10.0,
+              ),
+              Text(text,
+                  style: TextStyle(
+                    color: Colors.grey[800],
+                    fontSize: 15.0,
+                    fontWeight: FontWeight.bold,
+                  ))
+            ],
+          ),
         ),
       ),
     );

@@ -32,7 +32,7 @@ class StarterScreen extends StatelessWidget {
             //,
             ClipperDesign(),
             //Home(),
-            //HomeS(),
+            // HomeS(),
 
             //CollapsingNavigationDrawer(),
           ],
