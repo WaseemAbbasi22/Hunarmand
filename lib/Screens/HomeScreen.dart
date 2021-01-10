@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
 
           children: <Widget>[
             //,
-            //Cslider(),
+            Cslider(),
             //ClipperDesign(),
             // HomeS(),
 

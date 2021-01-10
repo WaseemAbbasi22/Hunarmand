@@ -1,3 +1,4 @@
+import 'package:Hunarmand_signIn_Ui/BusinessLogic/routegernator.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/splash_screen.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      initialRoute: '/',
+      onGenerateRoute: RouteGernator.generateRoute,
     );
   }
 }
