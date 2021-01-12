@@ -1,4 +1,7 @@
+import 'package:Hunarmand_signIn_Ui/Screens/authenticate/authenticate.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/authenticate/sign_in.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/duplicate/clipper_screen.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/duplicate/phone_signin.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/registration_screen.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/services.dart';
 import 'package:flutter/material.dart';
@@ -135,8 +138,11 @@ class _MainDrawerState extends State<MainDrawer> {
               icon: FontAwesomeIcons.userLock,
               onClick: () {
                 Navigator.pop(context);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => RegPage()));
+                Navigator.push(
+                    context,
+                    // MaterialPageRoute(builder: (context) => PhoneLogin(false)));
+
+                    MaterialPageRoute(builder: (context) => Authenticate()));
               }),
           Divider(
             color: dcolor,
