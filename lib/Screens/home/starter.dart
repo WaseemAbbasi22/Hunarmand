@@ -1,10 +1,6 @@
 //import 'package:Hunarmand_signIn_Ui/Screens/HomeScreen.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/HomeScreen.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/duplicate/Home2.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/duplicate/clipper_screen.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/drawer.dart';
-import 'package:Hunarmand_signIn_Ui/sidebar/collapsing_navigation_drawer_widget.dart';
-import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:flutter/material.dart';
 
 class StarterScreen extends StatelessWidget {

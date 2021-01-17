@@ -1,14 +1,11 @@
 import 'dart:developer';
 
 import 'package:Hunarmand_signIn_Ui/Models/navigation_model.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/login_screen.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/registration_screen.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/service_detail_screen.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/services.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/slider.dart';
-import 'package:Hunarmand_signIn_Ui/sidebar/collapsing_list_tile_widget.dart';
-import 'package:Hunarmand_signIn_Ui/utils/color.dart';
-import 'package:Hunarmand_signIn_Ui/utils/theme.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/authenticate/login_screen.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/home/slider.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/job_services/plumber_service/service_detail_screen.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/job_services/plumber_service/services.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/sidebar/collapsing_list_tile_widget.dart';
 import 'package:flutter/material.dart';
 
 class CollapsingNavigationDrawer extends StatefulWidget {

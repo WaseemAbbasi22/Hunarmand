@@ -1,7 +1,5 @@
 import 'package:Hunarmand_signIn_Ui/BusinessLogic/services.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/HomeScreen.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/service_detail_screen.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/slider.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/home/slider.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

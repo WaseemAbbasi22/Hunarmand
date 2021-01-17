@@ -1,5 +1,5 @@
+import 'package:Hunarmand_signIn_Ui/Screens/authenticate/login_screen.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/authenticate/otp.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/login_screen.dart';
 import 'package:Hunarmand_signIn_Ui/Service/auth.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/header_widget.dart';

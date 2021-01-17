@@ -1,9 +1,7 @@
 import 'package:Hunarmand_signIn_Ui/Screens/authenticate/authenticate.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/authenticate/sign_in.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/duplicate/clipper_screen.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/duplicate/phone_signin.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/registration_screen.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/services.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/job_services/plumber_service/services.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

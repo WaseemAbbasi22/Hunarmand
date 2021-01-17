@@ -1,7 +1,6 @@
 import 'dart:async';
-import 'package:Hunarmand_signIn_Ui/Screens/HomeScreen.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/starter.dart';
 //import 'package:Hunarmand_signIn_Ui/Screens/registration_screen.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/home/starter.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:flutter/material.dart';
 

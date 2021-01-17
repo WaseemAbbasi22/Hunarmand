@@ -1,6 +1,5 @@
 //import 'dart:js';
-
-import 'package:Hunarmand_signIn_Ui/Screens/googlemap_screens/map.dart';
+import 'package:Hunarmand_signIn_Ui/Service/map.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/calander.dart';
 import 'package:intl/intl.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/small_btn.dart';

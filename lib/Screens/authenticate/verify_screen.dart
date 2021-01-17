@@ -1,7 +1,6 @@
 //import 'package:flutter/cupertino.dart';
 import 'dart:async';
-
-import 'package:Hunarmand_signIn_Ui/Screens/login_screen.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/authenticate/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

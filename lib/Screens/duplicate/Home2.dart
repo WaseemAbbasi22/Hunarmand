@@ -2,9 +2,8 @@
 
 import 'package:Hunarmand_signIn_Ui/BusinessLogic/services.dart';
 import 'package:Hunarmand_signIn_Ui/Models/service_model.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/service_detail_screen.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/slider.dart';
-
+import 'package:Hunarmand_signIn_Ui/Screens/home/slider.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/job_services/plumber_service/service_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 

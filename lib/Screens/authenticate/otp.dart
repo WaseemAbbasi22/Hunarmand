@@ -1,4 +1,4 @@
-import 'package:Hunarmand_signIn_Ui/Screens/HomeScreen.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/home/HomeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pin_put/pin_put.dart';

@@ -1,7 +1,6 @@
 import 'package:Hunarmand_signIn_Ui/Models/user.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/login_screen.dart';
-//import 'package:Hunarmand_signIn_Ui/Screens/login_screen.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/verify_screen.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/authenticate/login_screen.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/authenticate/verify_screen.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/header_widget.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';

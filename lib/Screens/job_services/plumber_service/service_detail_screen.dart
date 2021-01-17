@@ -1,11 +1,7 @@
-import 'package:Hunarmand_signIn_Ui/Models/electric_model.dart';
-import 'package:Hunarmand_signIn_Ui/Models/massage_model.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/electricScreen/hourlyjob.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/electricScreen/post_job.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/fixedjob.dart';
-
-import 'package:Hunarmand_signIn_Ui/Screens/services.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/tasks/taskdetail_screen.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/job_services/plumber_service/hourlyjob.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/job_services/plumber_service/post_job.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/job_services/plumber_service/services.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/job_services/plumber_service/taskdetail_screen.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/bottomcontainer_widget.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
 import 'package:flutter/material.dart';
@@ -97,63 +93,83 @@ class _ServiceDetailState extends State<ServiceDetail>
         controller: tabController,
         children: [
           //Icon(Icons.apps),
-          Expanded(
-            child: Column(
-              children: <Widget>[
-                _categorySelector(),
-                Divider(
-                  height: 2.0,
-                ),
-                Container(
-                  width: double.infinity,
-                  color: Colors.white,
-                  // margin: EdgeInsets.only(top: 5.0),
-                  padding:
-                      EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-                  child: Text(
-                    categories[0],
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey[600]),
+          Stack(
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  _categorySelector(),
+                  Divider(
+                    height: 2.0,
                   ),
-                ),
-                //fixedjob(),
-                Services(),
-                Container(
-                  color: Colors.grey[300],
-                  width: double.infinity,
-                  padding: EdgeInsets.all(5.0),
-                  child: Column(
-                    children: [
-                      Bottom(),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      ButtonWidget(
-                          btnText: 'Next',
-                          onClick: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Jobdetail()));
-                          }),
-                    ],
+                  Container(
+                    width: double.infinity,
+                    color: Colors.white,
+                    // margin: EdgeInsets.only(top: 5.0),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                    child: Text(
+                      categories[0],
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[600]),
+                    ),
                   ),
-                ),
-                // ButtonWidget(
-                //     btnText: 'Next',
-                //     onClick: () {
-                //       Navigator.push(context,
-                //           MaterialPageRoute(builder: (context) => Jobdetail()));
-                //     },
-                //Bottom(),
-                // SizedBox(
-                //   height: 30.0,
-                // ),
-                // Services(),
-              ],
-            ),
+                  //fixedjob(),
+                  Services(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    color: Colors.white,
+                    // margin: EdgeInsets.only(top: 5.0),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                    child: Text(
+                      categories[1],
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[600]),
+                    ),
+                  ),
+                  //Services(),
+                  Container(
+                    color: Colors.grey[300],
+                    width: double.infinity,
+                    padding: EdgeInsets.all(5.0),
+                    child: Column(
+                      children: [
+                        Bottom(),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        ButtonWidget(
+                            btnText: 'Next',
+                            onClick: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Jobdetail()));
+                            }),
+                      ],
+                    ),
+                  ),
+                  // ButtonWidget(
+                  //     btnText: 'Next',
+                  //     onClick: () {
+                  //       Navigator.push(context,
+                  //           MaterialPageRoute(builder: (context) => Jobdetail()));
+                  //     },
+                  //Bottom(),
+                  // SizedBox(
+                  //   height: 30.0,
+                  // ),
+                  // Services(),
+                ],
+              ),
+            ],
           ),
           Hourlyjob(),
           Postjob(),

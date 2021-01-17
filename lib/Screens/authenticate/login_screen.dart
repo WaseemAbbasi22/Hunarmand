@@ -1,6 +1,5 @@
 import 'package:Hunarmand_signIn_Ui/Models/user.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/registration_screen.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/testscreen.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/authenticate/testscreen.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/header_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
