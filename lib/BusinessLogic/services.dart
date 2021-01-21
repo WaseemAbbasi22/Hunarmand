@@ -5,31 +5,31 @@ List<Services> services = <Services>[
   Services(
     title: 'Electrician',
     color: Colors.orange,
-    serviceImage: 'assets/electriciank.png',
+    serviceImage: 'assets/eclip.JPG',
   ),
   Services(
     title: 'Plumber',
     color: Colors.blue,
-    serviceImage: 'assets/plumberk.png',
+    serviceImage: 'assets/plclip.JPG',
   ),
   Services(
     title: 'Painter',
     color: Colors.deepPurple,
-    serviceImage: 'assets/painterk.png',
+    serviceImage: 'assets/pclip.JPG',
   ),
   Services(
     title: 'Carpanter',
     color: Colors.green,
-    serviceImage: 'assets/carpenterk.png',
+    serviceImage: 'assets/cclip.JPG',
   ),
   Services(
     title: 'Cleaner',
     color: Colors.red,
-    serviceImage: 'assets/painterk.png',
+    serviceImage: 'assets/clclip.JPG',
   ),
   Services(
     title: 'Gardner',
     color: Colors.amber,
-    serviceImage: 'assets/gardnerk.png',
+    serviceImage: 'assets/gclip.JPG',
   ),
 ];

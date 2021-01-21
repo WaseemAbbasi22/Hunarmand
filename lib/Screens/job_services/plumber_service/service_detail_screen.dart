@@ -4,6 +4,7 @@ import 'package:Hunarmand_signIn_Ui/Screens/job_services/plumber_service/service
 import 'package:Hunarmand_signIn_Ui/Screens/job_services/plumber_service/taskdetail_screen.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/bottomcontainer_widget.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
+import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:flutter/material.dart';
 
 class ServiceDetail extends StatefulWidget {
@@ -41,9 +42,9 @@ class _ServiceDetailState extends State<ServiceDetail>
   Widget build(BuildContext context) {
     Color textcolor = Colors.white;
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: deepOrangeColor,
         title: Text(
           'Jobs',
           style: TextStyle(color: textcolor),
@@ -120,42 +121,45 @@ class _ServiceDetailState extends State<ServiceDetail>
                   SizedBox(
                     height: 10.0,
                   ),
-                  Container(
-                    width: double.infinity,
-                    color: Colors.white,
-                    // margin: EdgeInsets.only(top: 5.0),
-                    padding:
-                        EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-                    child: Text(
-                      categories[1],
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[600]),
-                    ),
-                  ),
+                  // Container(
+                  //   width: double.infinity,
+                  //   color: Colors.white,
+                  //   // margin: EdgeInsets.only(top: 5.0),
+                  //   padding:
+                  //       EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                  //   child: Text(
+                  //     categories[1],
+                  //     style: TextStyle(
+                  //         fontSize: 18,
+                  //         fontWeight: FontWeight.bold,
+                  //         color: Colors.grey[600]),
+                  //   ),
+                  // ),
                   //Services(),
-                  Container(
-                    color: Colors.grey[300],
-                    width: double.infinity,
-                    padding: EdgeInsets.all(5.0),
-                    child: Column(
-                      children: [
-                        Bottom(),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        ButtonWidget(
-                            btnText: 'Next',
-                            onClick: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Jobdetail()));
-                            }),
-                      ],
-                    ),
+                  // Container(
+                  //   color: Colors.white,
+                  //   width: double.infinity,
+                  //   padding: EdgeInsets.all(5.0),
+                  //   child: Column(
+                  //     children: [
+                  //       Bottom(),
+                  //       SizedBox(
+                  //         height: 10.0,
+                  //       ),
+                  ButtonWidget(
+                      btnText: 'Next',
+                      onClick: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Jobdetail()));
+                      }),
+                  SizedBox(
+                    height: 10.0,
                   ),
+                  // ],
+                  // ),
+                  // ),
                   // ButtonWidget(
                   //     btnText: 'Next',
                   //     onClick: () {
@@ -211,7 +215,7 @@ class _ServiceDetailState extends State<ServiceDetail>
                               color: Colors.grey,
                             ),
                       color: index == selectedIndex
-                          ? Colors.blueGrey[300]
+                          ? deepOrangelightColor
                           : Colors.white,
                     ),
                     child: Text(

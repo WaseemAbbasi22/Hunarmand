@@ -1,6 +1,8 @@
 //import 'package:Hunarmand_signIn_Ui/Screens/HomeScreen.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/duplicate/clipper_screen.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/duplicate/dashborad.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/drawer.dart';
+import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:flutter/material.dart';
 
 class StarterScreen extends StatelessWidget {
@@ -12,10 +14,19 @@ class StarterScreen extends StatelessWidget {
       child: Scaffold(
         //backgroundColor: Color(0xFF81F2836),
         appBar: AppBar(
-          backgroundColor: Colors.blueGrey,
+          backgroundColor: deepOrangeColor,
           elevation: 0,
           title: Text("HUNARMAND"),
           centerTitle: true,
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.notifications,
+                color: Colors.white,
+              ),
+              onPressed: () => {},
+            ),
+          ],
         ),
         drawer: MainDrawer(),
 
@@ -26,7 +37,8 @@ class StarterScreen extends StatelessWidget {
         body: Stack(
           children: <Widget>[
             //,
-            ClipperDesign(),
+            //ClipperDesign(),
+            HomeDashboard(),
             //Home(),
             // HomeS(),
 

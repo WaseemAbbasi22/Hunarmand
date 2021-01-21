@@ -65,7 +65,7 @@ class _PhoneLoginState extends State<PhoneLogin> {
                     padding: EdgeInsets.all(10.0),
                     child: ListTile(
                       title: Text(
-                          "Enter phone number. We might send SMS to you. Fee may occur.",
+                          "Enter phone number. We might send SMS to you.",
                           style: TextStyle(color: Colors.blue)),
                     )),
                 Padding(
@@ -73,7 +73,7 @@ class _PhoneLoginState extends State<PhoneLogin> {
                   child: TextFormField(
                     controller: phoneController,
                     decoration: InputDecoration(
-                      labelText: "Format: +1 555 555 5555",
+                      labelText: "Format: +92 0340 555 5555",
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
                       ),

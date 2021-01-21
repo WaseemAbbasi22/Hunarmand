@@ -1,8 +1,11 @@
 import 'package:Hunarmand_signIn_Ui/Models/user.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/authenticate/login_screen.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/authenticate/verify_screen.dart';
+import 'package:Hunarmand_signIn_Ui/Service/auth.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
+import 'package:Hunarmand_signIn_Ui/Widgets/feild_decoration.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/header_widget.dart';
+import 'package:Hunarmand_signIn_Ui/Widgets/loading.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
@@ -15,6 +18,12 @@ class RegPage extends StatefulWidget {
 
 class _RegPageState extends State<RegPage> {
   final _user = new MyUser();
+  AuthService _authService = AuthService();
+  final _formkey = GlobalKey<FormState>();
+  String error = '';
+  String email = '';
+  String password = '';
+  bool loading = false;
   final _auth = FirebaseAuth.instance;
 
   @override
@@ -42,6 +51,38 @@ class _RegPageState extends State<RegPage> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
+                      Form(
+                        key: _formkey,
+                        child: Column(
+                          children: <Widget>[
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            TextFormField(
+                                decoration: textInputDecoration.copyWith(
+                                    hintText: 'Enter Email'),
+                                validator: (val) =>
+                                    val.isEmpty ? 'Enter Email ' : null,
+                                onChanged: (val) {
+                                  setState(() => email = val);
+                                }),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      TextFormField(
+                        decoration: textInputDecoration.copyWith(
+                            hintText: 'Enter Password'),
+                        obscureText: true,
+                        validator: (val) => val.isEmpty || val.length < 4
+                            ? 'Enter password more than 4 digits '
+                            : null,
+                        onChanged: (val) {
+                          setState(() => password = val);
+                        },
+                      ),
                       // _textInput(
                       //     hint: "Fullname",
                       //     icon: Icons.person,
@@ -58,39 +99,46 @@ class _RegPageState extends State<RegPage> {
                       //         _user.setemail(value);
                       //       });
                       //     }),
-                      _textInput(
-                          hint: "Phone Number",
-                          icon: Icons.call,
-                          onchange: (value) {
-                            setState(() {
-                              _user.setphoneNo(value);
-                            });
-                          }),
-                      _textInput(
-                          hint: "Enter 4 digit password",
-                          icon: Icons.vpn_key,
-                          onchange: (value) {
-                            setState(() {
-                              _user.setpassword(value);
-                            });
-                          }),
+                      // _textInput(
+                      //     hint: "Phone Number",
+                      //     icon: Icons.call,
+                      //     onchange: (value) {
+                      //       setState(() {
+                      //         _user.setphoneNo(value);
+                      //       });
+                      //     }),
+                      // _textInput(
+                      //     hint: "Enter password",
+                      //     icon: Icons.vpn_key,
+                      //     onchange: (value) {
+                      //       setState(() {
+                      //         _user.setpassword(value);
+                      //       });
+                      //     }),
                       SizedBox(
                         height: 80.0,
                       ),
                       Center(
                         child: ButtonWidget(
-                          btnText: "REGISTER",
-                          onClick: () {
-                            _auth.createUserWithEmailAndPassword(
-                                email: _user.getemail(),
-                                password: _user.getpassword());
-                            //Navigator.pop(context);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => VerifyScreen()));
-                          },
-                        ),
+                            btnText: "REGISTER",
+                            onClick: () async {
+                              if (_formkey.currentState.validate()) {
+                                setState(() {
+                                  loading = true;
+                                });
+                                dynamic result = await _authService
+                                    .registerWithEmailandPassword(
+                                        email, password);
+                                if (result == null) {
+                                  setState(() {
+                                    error = 'Please enter valid information';
+                                    loading = false;
+                                  });
+                                }
+                                // print(_user.getEmail());
+                                // print(_user.getPass());
+                              }
+                            }),
                       ),
                       SizedBox(
                         height: 20.0,
@@ -152,3 +200,14 @@ class _RegPageState extends State<RegPage> {
     );
   }
 }
+
+// () {
+//                             _auth.createUserWithEmailAndPassword(
+//                                 email: _user.getemail(),
+//                                 password: _user.getpassword());
+//                             //Navigator.pop(context);
+//                             Navigator.push(
+//                                 context,
+//                                 MaterialPageRoute(
+//                                     builder: (context) => VerifyScreen()));
+//                           },

@@ -1,7 +1,10 @@
 import 'package:Hunarmand_signIn_Ui/Screens/authenticate/authenticate.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/authenticate/sign_in.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/duplicate/clipper_screen.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/duplicate/phone_signin.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/job_services/plumber_service/services.dart';
+import 'package:Hunarmand_signIn_Ui/Widgets/worker_card.dart';
+import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -27,7 +30,7 @@ class _MainDrawerState extends State<MainDrawer> {
               width: double.infinity,
               padding: EdgeInsets.all(10.0),
               // color: Colors.orange[700],
-              color: Colors.blueGrey[700],
+              color: deepOrangeColor,
 
               child: Column(
                 // mainAxisAlignment: .s,
@@ -138,7 +141,7 @@ class _MainDrawerState extends State<MainDrawer> {
                 Navigator.pop(context);
                 Navigator.push(
                     context,
-                    // MaterialPageRoute(builder: (context) => PhoneLogin(false)));
+                    //  MaterialPageRoute(builder: (context) => SignIn()));
 
                     MaterialPageRoute(builder: (context) => Authenticate()));
               }),
@@ -147,7 +150,18 @@ class _MainDrawerState extends State<MainDrawer> {
             indent: 20.0,
             //endIndent: 20.0,
           ),
-          _listtiles(text: 'Tasks', icon: FontAwesomeIcons.tasks),
+          _listtiles(
+              text: 'Tasks',
+              icon: FontAwesomeIcons.tasks,
+              onClick: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    //  MaterialPageRoute(builder: (context) => SignIn()));
+
+                    MaterialPageRoute(builder: (context) => WorkerCard()));
+              }),
+
           Divider(
             color: dcolor,
             indent: 20.0,
@@ -167,7 +181,7 @@ class _MainDrawerState extends State<MainDrawer> {
   Widget _listtiles({String text, IconData icon, Function onClick}) {
     double iSize = 20.0;
     //Color iColor = Colors.orange;
-    Color iColor = Colors.blueGrey[600];
+    Color iColor = deepOrangelightColor;
     Color fcolor = Colors.white;
     return ListTile(
       leading: FaIcon(

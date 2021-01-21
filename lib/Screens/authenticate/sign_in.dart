@@ -1,5 +1,6 @@
 import 'package:Hunarmand_signIn_Ui/Screens/authenticate/login_screen.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/authenticate/otp.dart';
+import 'package:international_phone_input/international_phone_input.dart';
 import 'package:Hunarmand_signIn_Ui/Service/auth.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/header_widget.dart';
@@ -19,6 +20,15 @@ class _SignInState extends State<SignIn> {
   String pin = "";
   //TextEditingController _controller = TextEditingController();
   final AuthService _auth = AuthService();
+  void onPhoneNumberChange(
+      String number, String internationalizedPhoneNumber, String isoCode) {
+    setState(() {
+      phone = internationalizedPhoneNumber;
+      print(phone);
+      //phoneIsoCode = isoCode;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     TapGestureRecognizer _gestureRecognizer = TapGestureRecognizer()
@@ -60,31 +70,66 @@ class _SignInState extends State<SignIn> {
                       //         _user.setemail(value);
                       //       });
                       //     }),
-                      _textInput(
-                          hint: "Phone Number",
-                          icon: Icons.call,
-                          onchange: (value) {
-                            setState(() {
-                              // _user.setphoneNo(value);
-                              phone = value;
-                              value = '';
-                            });
-                          }),
-                      _textInput(
-                          hint: "Enter 4 digit password",
-                          icon: Icons.vpn_key,
-                          onchange: (value) {
-                            setState(() {
-                              // _user.setpassword(value);
-                            });
-                          }),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      Container(
+                        color: Colors.white,
+                        child: InternationalPhoneInput(
+                            decoration: InputDecoration(
+                              fillColor: Colors.white,
+                              hintText: '(0300) 123-4567',
+                              prefixIcon: Icon(
+                                Icons.phone,
+                                color: Colors.grey,
+                                // size: 20.0,
+                              ),
+                              border: InputBorder.none,
+
+                              // enabled: true,
+                              // enabledBorder: OutlineInputBorder(
+                              //   borderSide:
+                              //       BorderSide(color: Colors.white, width: 2.0),
+                              // ),
+                              // disabledBorder: OutlineInputBorder(
+                              //   borderRadius: BorderRadius.circular(10.0),
+                              //   borderSide:
+                              //       BorderSide(color: Colors.white, width: 2.0),
+                              // ),
+                            ),
+                            //hintText: '(0300) 123-4567'),
+                            onPhoneNumberChange: onPhoneNumberChange,
+                            initialPhoneNumber: phone,
+                            // initialSelection: phoneIsoCode,
+                            enabledCountries: ['+92'],
+                            showCountryCodes: true),
+                      ),
+                      // _textInput(
+                      //     hint: "Phone Number",
+                      //     icon: Icons.call,
+                      //     onchange: (value) {
+                      //       setState(() {
+                      //         // _user.setphoneNo(value);
+                      //         phone = value;
+                      //         value = '';
+                      //       });
+                      //     }),
+                      // _textInput(
+                      //     hint: "Enter 4 digit password",
+                      //     icon: Icons.vpn_key,
+                      //     onchange: (value) {
+                      //       setState(() {
+                      //         // _user.setpassword(value);
+                      //       });
+                      //     }),
                       SizedBox(
                         height: 80.0,
                       ),
                       Center(
                         child: ButtonWidget(
                           btnText: "REGISTER",
-                          onClick: () {
+                          onClick: () async {
+                            var result = await _auth.signInWithPhone(phone);
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => OTPScreen(phone)));
                             // dynamic result = await _auth.signInAnon();

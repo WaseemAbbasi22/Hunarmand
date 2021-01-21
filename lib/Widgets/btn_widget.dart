@@ -17,8 +17,9 @@ class ButtonWidget extends StatelessWidget {
         width: double.infinity,
         height: 50,
         decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.0),
           gradient: LinearGradient(
-              colors: [bluegrayColors, bluegrayLightColor],
+              colors: [deepOrangeColor, deepOrangelightColor],
               end: Alignment.centerLeft,
               begin: Alignment.centerRight),
           // borderRadius: BorderRadius.all(

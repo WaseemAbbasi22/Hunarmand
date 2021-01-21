@@ -15,7 +15,7 @@ class Cslider extends StatelessWidget {
       child: CarouselSlider(
         options: CarouselOptions(
           disableCenter: true,
-          height: 220.0,
+          height: 180.0,
           enlargeCenterPage: true,
           autoPlay: true,
           aspectRatio: 16 / 9,
@@ -48,7 +48,7 @@ class Cslider extends StatelessWidget {
 
   Widget _sliderContainer({String image, String heading, String sub_heading}) {
     return Opacity(
-      opacity: 0.9,
+      opacity: 1,
       child: Container(
         // margin: EdgeInsets.only(),
         decoration: BoxDecoration(
