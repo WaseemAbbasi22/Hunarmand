@@ -1,6 +1,7 @@
 import 'package:Hunarmand_signIn_Ui/Models/posted_job_model.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/drawer.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/postedjob_detail.dart';
 import 'package:flutter/material.dart';
 
 class WorkerDashboard extends StatefulWidget {
@@ -282,21 +283,27 @@ class _WorkerDashboardState extends State<WorkerDashboard> {
           ]),
           SizedBox(height: 15.0),
           Expanded(
-              child: Container(
-                  width: 200.0,
-                  decoration: BoxDecoration(
-                    color: Colors.deepOrange.withOpacity(0.95),
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(10.0),
-                        bottomRight: Radius.circular(10.0)),
+              child: InkWell(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => PostedJobDetail()));
+            },
+            child: Container(
+                width: 200.0,
+                decoration: BoxDecoration(
+                  color: Colors.deepOrange.withOpacity(0.95),
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10.0),
+                      bottomRight: Radius.circular(10.0)),
+                ),
+                child: Center(
+                  child: Text(
+                    'View Detail',
+                    style:
+                        TextStyle(color: Colors.white, fontFamily: 'Quicksand'),
                   ),
-                  child: Center(
-                    child: Text(
-                      'View Detail',
-                      style: TextStyle(
-                          color: Colors.white, fontFamily: 'Quicksand'),
-                    ),
-                  )))
+                )),
+          ))
         ],
       ),
       // margin: cardIndex.isEven
