@@ -17,8 +17,8 @@ List<Electric> taps = [
     price: "Rs. 800",
   ),
   Electric(
-    heading: 'Complete Shower Tap/mixer(Installation)',
-    subheading: "Fitting the tap/mixer along with pipe and shower head",
+    heading: 'Shower Tap/mixer(Installation)',
+    subheading: "Fitting the tap/mixer along with shower head",
     price: "Rs. 1000",
   ),
   Electric(

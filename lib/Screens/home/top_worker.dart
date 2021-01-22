@@ -1,6 +1,8 @@
 import 'package:Hunarmand_signIn_Ui/Models/Worker_model.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/home/HomeScreen.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/rating_bar.dart';
+import 'package:Hunarmand_signIn_Ui/commons/radial_progressbar.dart';
+import 'package:Hunarmand_signIn_Ui/commons/ridial_image.dart';
 import 'package:flutter/material.dart';
 
 class TopWorkers extends StatelessWidget {
@@ -49,10 +51,18 @@ class TopWorkers extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    CircleAvatar(
-                      radius: 30.0,
-                      backgroundImage: AssetImage(workers[index].imageUrl),
+                    RadialProgress(
+                      width: 4,
+                      goalCompleted: 0.9,
+                      child: RoundedImage(
+                        imagePath: workers[index].imageUrl,
+                        size: Size.fromWidth(80.0),
+                      ),
                     ),
+                    // CircleAvatar(
+                    //   radius: 30.0,
+                    //   backgroundImage: AssetImage(workers[index].imageUrl),
+                    // ),
                     SizedBox(
                       height: 6.0,
                     ),

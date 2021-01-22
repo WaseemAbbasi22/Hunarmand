@@ -5,6 +5,7 @@ import 'package:Hunarmand_signIn_Ui/Screens/duplicate/phone_signin.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/job_services/plumber_service/services.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/worker_card.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/home/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -167,7 +168,17 @@ class _MainDrawerState extends State<MainDrawer> {
             indent: 20.0,
             //endIndent: 20.0,
           ),
-          _listtiles(text: 'Feedback', icon: FontAwesomeIcons.solidIdBadge),
+          _listtiles(
+              text: 'Feedback',
+              icon: FontAwesomeIcons.solidIdBadge,
+              onClick: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    //  MaterialPageRoute(builder: (context) => SignIn()));
+
+                    MaterialPageRoute(builder: (context) => WorkerDashboard()));
+              }),
           // Divider(
           //   color: dcolor,
           //   indent: 20.0,

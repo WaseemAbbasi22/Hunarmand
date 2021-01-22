@@ -32,10 +32,32 @@ class _WorkerCardState extends State<WorkerCard> {
           ),
         ],
       ),
-      drawer: MainDrawer(),
+      // drawer: MainDrawer(),
       body: Column(children: <Widget>[
         _top(),
-
+        SizedBox(
+          height: 10.0,
+        ),
+        Padding(
+          padding: EdgeInsets.all(10.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Workers",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+              ),
+              // Text(
+              //   "view All",
+              //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0),
+              // ),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 10.0,
+        ),
         Container(
           //height: 500,
           child: Expanded(
@@ -47,161 +69,6 @@ class _WorkerCardState extends State<WorkerCard> {
                 }),
           ),
         ),
-
-        // _cardItem(workers:),
-        // _cardItem(1),
-        // _cardItem(1),
-        // _cardItem(1),
-        // _cardItem(1),
-        // _cardItem(1),
-        // _cardItem(1),
-        // _cardItem(1),
-        // _cardItem(1),
-        // _cardItem(1),
-        // _cardItem(1),
-        // _cardItem(1),
-        // _cardItem(1),
-        // Padding(
-        //   padding: EdgeInsets.all(10.0),
-        //   child: Text(
-        //     "Workers",
-        //     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-        //   ),
-        // ),
-        // Container(
-        //   color: Colors.red,
-        //   child: ListView.builder(
-        //     itemCount: workers.length,
-        //     itemBuilder: (context, index) {
-        //       return Center(
-        //         child: Padding(
-        //           padding: const EdgeInsets.all(16.0),
-        //           child: Stack(
-        //             children: <Widget>[
-        //               Container(
-        //                 height: 150,
-        //                 decoration: BoxDecoration(
-        //                   borderRadius: BorderRadius.circular(_borderRadius),
-        //                   gradient: LinearGradient(
-        //                       colors: [
-        //                         workers[index].startColor,
-        //                         workers[index].endColor
-        //                       ],
-        //                       begin: Alignment.topLeft,
-        //                       end: Alignment.bottomRight),
-        //                   boxShadow: [
-        //                     BoxShadow(
-        //                       color: workers[index].endColor,
-        //                       blurRadius: 6,
-        //                       offset: Offset(0, 2),
-        //                     ),
-        //                   ],
-        //                 ),
-        //               ),
-        //               Positioned(
-        //                 right: 0,
-        //                 bottom: 0,
-        //                 top: 0,
-        //                 child: CustomPaint(
-        //                   size: Size(100, 150),
-        //                   painter: CustomCardShapePainter(
-        //                       _borderRadius,
-        //                       workers[index].startColor,
-        //                       workers[index].endColor),
-        //                 ),
-        //               ),
-        //               // Positioned.fill(
-        //               //   child: Row(
-        //               //     children: <Widget>[
-        //               //       Container(
-        //               //         height: 100,
-        //               //         width: 100,
-        //               //         margin: EdgeInsets.only(right: 10.0),
-        //               //         padding: EdgeInsets.all(10.0),
-        //               //         child: CircleAvatar(
-        //               //           backgroundImage: AssetImage(
-        //               //             'assets/elec.jpg',
-        //               //           ),
-        //               //           // child: Image.asset(
-        //               //           //   'assets/elec.jpg',
-        //               //           //   height: 64,
-        //               //           //   width: 64,
-        //               //           // ),
-        //               //         ),
-        //               //       ),
-        //               //       Expanded(
-        //               //         flex: 4,
-        //               //         child: Column(
-        //               //           mainAxisSize: MainAxisSize.min,
-        //               //           crossAxisAlignment: CrossAxisAlignment.start,
-        //               //           children: <Widget>[
-        //               //             Text(
-        //               //               topuser[index].name,
-        //               //               style: TextStyle(
-        //               //                   color: Colors.white,
-        //               //                   // fontFamily: 'Avenir',
-        //               //                   fontSize: 18.0,
-        //               //                   fontWeight: FontWeight.w700),
-        //               //             ),
-        //               //             Text(
-        //               //               topuser[index].category,
-        //               //               style: TextStyle(
-        //               //                 color: Colors.white,
-        //               //                 fontFamily: 'Avenir',
-        //               //                 fontSize: 18.0,
-        //               //               ),
-        //               //             ),
-        //               //             SizedBox(height: 16),
-        //               //             Row(
-        //               //               children: <Widget>[
-        //               //                 Icon(
-        //               //                   Icons.location_on,
-        //               //                   color: Colors.white,
-        //               //                   size: 16,
-        //               //                 ),
-        //               //                 SizedBox(
-        //               //                   width: 8,
-        //               //                 ),
-        //               //                 Flexible(
-        //               //                   child: Text(
-        //               //                     topuser[index].location,
-        //               //                     style: TextStyle(
-        //               //                       color: Colors.white,
-        //               //                       fontFamily: 'Avenir',
-        //               //                       fontSize: 20.0,
-        //               //                     ),
-        //               //                   ),
-        //               //                 ),
-        //               //               ],
-        //               //             ),
-        //               //           ],
-        //               //         ),
-        //               //       ),
-        //               Column(
-        //                 mainAxisSize: MainAxisSize.min,
-        //                 children: <Widget>[
-        //                   Text(workers[index].rating.toString()),
-        //                   // Text(
-        //                   //   topuser[index].rating.toString(),
-        //                   //   style: TextStyle(
-        //                   //       color: Colors.white,
-        //                   //       //`fontFamily: 'Avenir',
-        //                   //       fontSize: 18,
-        //                   //       fontWeight: FontWeight.w700),
-        //                   // ),
-        //                   RatingBar(rating: workers[index].rating),
-        //                 ],
-        //               ),
-        //               //   ],
-        //               // ),
-        //               // ),
-        //             ],
-        //           ),
-        //         ),
-        //       );
-        //     },
-        //   ),
-        // ),
       ]),
     );
   }
@@ -265,7 +132,7 @@ class _WorkerCardState extends State<WorkerCard> {
                 ], begin: Alignment.topLeft, end: Alignment.bottomRight),
                 boxShadow: [
                   BoxShadow(
-                    color: Color(0xff73A1F9),
+                    color: Colors.grey,
                     blurRadius: 6,
                     offset: Offset(0, 2),
                   ),
@@ -280,7 +147,7 @@ class _WorkerCardState extends State<WorkerCard> {
             child: CustomPaint(
               size: Size(100, 150),
               painter: CustomCardShapePainter(
-                  _borderRadius, Colors.deepOrange, Colors.deepOrange),
+                  _borderRadius, worker.startColor, worker.endColor),
             ),
           ),
           Positioned.fill(
@@ -347,7 +214,7 @@ class _WorkerCardState extends State<WorkerCard> {
                           ],
                         ),
                         SizedBox(
-                          width: 60.0,
+                          width: 50.0,
                         ),
                         Column(
                           children: <Widget>[
@@ -360,9 +227,9 @@ class _WorkerCardState extends State<WorkerCard> {
                                   fontWeight: FontWeight.w700),
                             ),
                             Text(
-                              worker.rate.toString(),
+                              worker.rate.toString() + '/hr',
                               style: TextStyle(
-                                color: Colors.grey[700],
+                                color: Colors.grey[900],
                                 fontFamily: 'Avenir',
                                 fontSize: 18.0,
                               ),

@@ -20,19 +20,28 @@ class _ServicesState extends State<Services> {
           itemCount: length,
           itemBuilder: (context, index) {
             return Container(
-              margin: EdgeInsets.only(top: 05),
+              margin: EdgeInsets.fromLTRB(10, 5, 10, 0),
+              decoration: BoxDecoration(
+                  //borderRadius: BorderRadius.circular(30.0),
+                  ),
               //padding: EdgeInsets.only(top: 10),
               height: 125,
               width: double.maxFinite,
               child: Card(
                 color: Colors.white,
-                elevation: 6.0,
+                elevation: 10.0,
                 shadowColor: Colors.white,
                 child: Container(
+                  //margin: EdgeInsets.symmetric(horizontal: 30.0),
+                  // margin: EdgeInsets.fromLTRB(25.0, 0, 25.0, 0.0),
                   decoration: BoxDecoration(
+                      //borderRadius: BorderRadius.circular(20.0),
+                      boxShadow: [
+                        BoxShadow(blurRadius: 2.0, color: Colors.white)
+                      ],
                       border: Border(
                           top: BorderSide(
-                              width: 2.0, color: Colors.blueGrey[200]))),
+                              width: 2.0, color: Colors.deepOrange[200]))),
                   child: Padding(
                     padding: EdgeInsets.all(5),
                     child: Align(

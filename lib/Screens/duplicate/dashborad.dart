@@ -85,7 +85,11 @@ class _HomeDashboardState extends State<HomeDashboard> {
             children: [
               Text(
                 "Top Rated Worker",
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Quicksand',
+                ),
               ),
               GestureDetector(
                 onTap: () {
@@ -112,72 +116,79 @@ class _HomeDashboardState extends State<HomeDashboard> {
   }
 
   _gridItem({@required Services service, var ontap}) {
-    return InkWell(
-      onTap: ontap,
-      child: Column(
-        children: [
-          Container(
-            // padding: EdgeInsets.all(.0),
-            height: 50,
-            width: 50,
-            //color: deepOrangeColor,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: deepOrangelightColor,
-                image: DecorationImage(
-                    image: AssetImage(service.serviceImage),
-                    fit: BoxFit.cover)),
-          ),
-          SizedBox(
-            height: 15.0,
-          ),
-          Text(service.title,
-              style: TextStyle(
-                color: Colors.grey[900],
-                fontWeight: FontWeight.w700,
-                fontSize: 14.0,
-                //fontWeight: FontWeight.bold,
-              ))
-        ],
+    return Expanded(
+      flex: 3,
+      child: InkWell(
+        onTap: ontap,
+        child: Column(
+          children: [
+            Container(
+              // padding: EdgeInsets.all(.0),
+              height: 50,
+              width: 50,
+              //color: deepOrangeColor,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: deepOrangelightColor,
+                  image: DecorationImage(
+                      image: AssetImage(service.serviceImage),
+                      fit: BoxFit.cover)),
+            ),
+            SizedBox(
+              height: 15.0,
+            ),
+            Text(service.title,
+                style: TextStyle(
+                  color: Colors.grey[900],
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14.0,
+                  letterSpacing: 1.5,
+                  //fontWeight: FontWeight.bold,
+                ))
+          ],
+        ),
       ),
     );
   }
 
   _top() {
-    return Container(
-      padding: EdgeInsets.all(16.0),
-      decoration: BoxDecoration(
-        color: deepOrangeColor,
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(30.0),
-          bottomRight: Radius.circular(30.0),
-        ),
-      ),
-      child: Column(
-        children: [
-          Cslider(),
-          SizedBox(
-            height: 30.0,
+    return Expanded(
+      flex: 4,
+      child: Container(
+        padding: EdgeInsets.all(16.0),
+        decoration: BoxDecoration(
+          color: deepOrangeColor,
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(30.0),
+            bottomRight: Radius.circular(30.0),
           ),
-          TextField(
-            decoration: InputDecoration(
-              hintText: "Search",
-              fillColor: Colors.white,
-              filled: true,
-              suffixIcon: Icon(Icons.filter_list),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.0),
-                borderSide: BorderSide(color: Colors.transparent),
-              ),
-              disabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.0),
-                borderSide: BorderSide(color: Colors.transparent),
-              ),
-              contentPadding:
-                  EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+        ),
+        child: Column(
+          children: [
+            Cslider(),
+            SizedBox(
+              height: 30.0,
             ),
-          )
-        ],
+            TextField(
+              decoration: InputDecoration(
+                hintText: "Search",
+                fillColor: Colors.white,
+                filled: true,
+                suffixIcon: Icon(Icons.filter_list),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                  borderSide: BorderSide(color: Colors.transparent),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                  borderSide: BorderSide(color: Colors.transparent),
+                ),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
