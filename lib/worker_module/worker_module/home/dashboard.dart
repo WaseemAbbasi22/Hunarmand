@@ -1,7 +1,10 @@
+import 'package:Hunarmand_signIn_Ui/Models/Worker_model.dart';
 import 'package:Hunarmand_signIn_Ui/Models/posted_job_model.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/drawer.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/home/searchfilter_form.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/postedjob_detail.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class WorkerDashboard extends StatefulWidget {
@@ -31,116 +34,54 @@ class _WorkerDashboardState extends State<WorkerDashboard> {
         ],
       ),
       drawer: MainDrawer(),
-      body: Container(
-        child: Column(
-          // shrinkWrap: true,
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                _top(),
-                // Container(
-                //   alignment: Alignment(0.0, -0.40),
-                //   height: 100.0,
-                //   color: Colors.white,
-                //   child: Text(
-                //     'Get coaching',
-                //     style: TextStyle(fontFamily: 'Montserrat', fontSize: 20.0),
-                //   ),
-                // ),
-                // Container(
-                //   margin: EdgeInsets.fromLTRB(25.0, 90.0, 25.0, 0.0),
-                //   decoration: BoxDecoration(
-                //       color: Colors.white,
-                //       borderRadius: BorderRadius.circular(20.0),
-                //       boxShadow: [
-                //         BoxShadow(blurRadius: 2.0, color: Colors.grey)
-                //       ]),
-                //   child: Row(
-                //     crossAxisAlignment: CrossAxisAlignment.center,
-                //     children: <Widget>[
-                //       Stack(
-                //         children: <Widget>[
-                //           Container(
-                //             padding: EdgeInsets.fromLTRB(25.0, 25.0, 5.0, 5.0),
-                //             child: Text(
-                //               'YOU HAVE',
-                //               style: TextStyle(
-                //                   color: Colors.grey,
-                //                   fontFamily: 'Quicksand',
-                //                   fontWeight: FontWeight.bold,
-                //                   fontSize: 14.0),
-                //             ),
-                //           ),
-                // Container(
-                //   padding: EdgeInsets.fromLTRB(25.0, 40.0, 5.0, 25.0),
-                //   child: Text(
-                //     '206',
-                //     style: TextStyle(
-                //         color: Colors.black,
-                //         fontFamily: 'Quicksand',
-                //         fontWeight: FontWeight.bold,
-                //         fontSize: 40.0),
-                //   ),
-                // )
-              ],
-            ),
-            // SizedBox(width: 60.0),
-            // Container(
-            //   height: 60.0,
-            //   width: 125.0,
-            //   decoration: BoxDecoration(
-            //       // color: ,
-            //       borderRadius: BorderRadius.circular(10.0)),
-            //   child: Center(
-            //     child: Text('Buy more',
-            //         style: TextStyle(
-            //             fontFamily: 'Quicksand',
-            //             fontWeight: FontWeight.bold,
-            //             color: Colors.green)),
-            //   ),
-            // )
-
-            SizedBox(height: 20.0),
-            Container(
-                padding: EdgeInsets.only(
-                  left: 25.0,
-                  right: 25.0,
-                ),
-                margin: EdgeInsets.only(bottom: 20.0),
-                child: Text(
-                  'All JOBS',
-                  style: TextStyle(
-                      color: Colors.grey[700],
-                      fontFamily: 'Quicksand',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14.0),
-                )),
-            SizedBox(height: 10.0),
-            Expanded(
-              child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    //primary: false,
-                    crossAxisSpacing: 0.0,
-                    mainAxisSpacing: 10.0,
-                    // shrinkWrap: true,
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: Container(
+          child: Column(
+            // shrinkWrap: true,
+            children: <Widget>[
+              Stack(
+                children: <Widget>[
+                  _top(),
+                  //
+                ],
+              ),
+              //
+              SizedBox(height: 20.0),
+              Container(
+                  padding: EdgeInsets.only(
+                    left: 25.0,
+                    right: 25.0,
                   ),
-                  itemCount: posted_job.length,
-                  itemBuilder: (context, index) {
-                    final posted_jobs = posted_job[index];
-                    return _buildCard(pjobs: posted_jobs, ontap: () {});
-
-                    // children: <Widget>[
-                    //   _buildCard('Tom', 'Available', 1),
-                    //   _buildCard('Tom', 'Away', 2),
-                    //   _buildCard('Tom', 'Away', 3),
-                    //   _buildCard('Tom', 'Available', 4),
-                    //   _buildCard('Tom', 'Away', 5),
-                    //   _buildCard('Tom', 'Available', 6),
-                    // ],
-                  }),
-            )
-          ],
+                  margin: EdgeInsets.only(bottom: 20.0),
+                  child: Text(
+                    'All JOBS',
+                    style: TextStyle(
+                        color: Colors.grey[700],
+                        fontFamily: 'Quicksand',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14.0),
+                  )),
+              SizedBox(height: 10.0),
+              Expanded(
+                child: GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      //primary: false,
+                      crossAxisSpacing: 0.0,
+                      mainAxisSpacing: 10.0,
+                      // shrinkWrap: true,
+                    ),
+                    itemCount: posted_job.length,
+                    itemBuilder: (context, index) {
+                      final posted_jobs = posted_job[index];
+                      return _buildCard(pjobs: posted_jobs, ontap: () {});
+                    }),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -161,9 +102,8 @@ class _WorkerDashboardState extends State<WorkerDashboard> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30.0),
                   color: Colors.deepOrange.withOpacity(0.5),
-                  image: DecorationImage(
-                      image: NetworkImage(
-                          'https://pixel.nymag.com/imgs/daily/vulture/2017/06/14/14-tom-cruise.w700.h700.jpg'))),
+                  image:
+                      DecorationImage(image: AssetImage(workers[3].imageUrl))),
             ),
             Container(
               margin: EdgeInsets.only(left: 40.0),
@@ -313,6 +253,22 @@ class _WorkerDashboardState extends State<WorkerDashboard> {
   }
 
   _top() {
+    void _showBottomSheet() {
+      showModalBottomSheet(
+          context: context,
+          builder: (context) {
+            return Container(
+              //height: 1000,
+              color: Colors.brown[50],
+              padding: EdgeInsets.symmetric(
+                horizontal: 60.0,
+                vertical: 20.0,
+              ),
+              child: SearchFilter(),
+            );
+          });
+    }
+
     return Container(
       padding: EdgeInsets.all(16.0),
       decoration: BoxDecoration(
@@ -327,29 +283,34 @@ class _WorkerDashboardState extends State<WorkerDashboard> {
           SizedBox(
             height: 30.0,
           ),
-          TextField(
-            decoration: InputDecoration(
-              icon: Icon(
-                Icons.search,
-                color: Colors.white,
+          Container(
+            child: Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
               ),
-              hintText: "Search",
-              fillColor: Colors.white,
-              filled: true,
-              suffixIcon: Icon(Icons.filter_list, color: Colors.deepOrange),
-              enabled: true,
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.0),
-                borderSide: BorderSide(color: Colors.transparent),
+              //margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: "Search",
+                  fillColor: Colors.white,
+                  //enabled: true,
+                  //filled: true,
+                  prefixIcon: Icon(Icons.search, color: Colors.deepOrange),
+                  suffixIcon: InkWell(
+                    child: Icon(Icons.filter_list, color: Colors.deepOrange),
+                    onTap: () {
+                      // keybo
+
+                      _showBottomSheet();
+                    },
+                  ),
+                  //suffixIcon: Icon(Icons.filter_list),
+                ),
               ),
-              disabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.0),
-                borderSide: BorderSide(color: Colors.transparent),
-              ),
-              contentPadding:
-                  EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
             ),
-          )
+          ),
         ],
       ),
     );

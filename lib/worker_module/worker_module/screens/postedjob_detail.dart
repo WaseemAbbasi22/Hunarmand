@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:Hunarmand_signIn_Ui/Models/Worker_model.dart';
 import 'package:Hunarmand_signIn_Ui/Models/posted_job_model.dart';
+import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/make_offer.dart';
 import 'package:flutter/material.dart';
 
 class PostedJobDetail extends StatefulWidget {
@@ -9,6 +13,9 @@ class PostedJobDetail extends StatefulWidget {
 }
 
 class _PostedJobDetailState extends State<PostedJobDetail> {
+  String btnText = 'MAKE OFFER';
+  bool offerboxshow = false;
+  bool btnshow = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,7 +102,7 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
                                   color: deepOrangeColor,
                                   fontFamily: 'Quicksand',
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 40.0),
+                                  fontSize: 30.0),
                             ),
                           ],
                         ),
@@ -125,6 +132,7 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
                     height: 20,
                   ),
                   Row(
+                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Container(
                         width: 40,
@@ -132,11 +140,11 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
-                                image: AssetImage(workers[1].imageUrl),
+                                image: AssetImage(workers[3].imageUrl),
                                 fit: BoxFit.cover)),
                       ),
                       SizedBox(
-                        width: 20,
+                        width: 30,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,127 +165,202 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
                             workers[1].name,
                             style: TextStyle(
                               fontSize: 14,
-                              color: deepOrangeColor,
+                              color: Colors.grey,
                               fontFamily: 'Quicksand',
                               letterSpacing: 1.5,
+                              fontWeight: FontWeight.bold,
                             ),
                           )
                         ],
                       ),
-                      Text(
-                        '1 HOUR AGO',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: deepOrangeColor,
-                          fontFamily: 'Quicksand',
-                          letterSpacing: 1.5,
+                      SizedBox(
+                        width: 100.0,
+                      ),
+                      SafeArea(
+                        child: Align(
+                          //alignment: Alignment.topLeft,
+                          child: Text(
+                            '1 HOUR AGO',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey,
+                              fontFamily: 'Quicksand',
+                              //letterSpacing: 1.5,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       )
                     ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  // _divider(),
+                  Divider(
+                    color: Colors.grey,
+                    // height: 50,
                   ),
                   SizedBox(
                     height: 20,
                   ),
                   Row(
+                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(3)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: Text("Interior"),
-                        ),
+                      Icon(
+                        Icons.place,
+                        color: deepOrangeColor,
+                        size: 35,
                       ),
                       SizedBox(
-                        width: 20,
+                        width: 30,
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(3)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: Text("40m2"),
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            //color: Colors.red,
+                            width: 170,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "LOCATION",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey,
+                                    fontFamily: 'Quicksand',
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  posted_job[1].location,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey,
+                                    fontFamily: 'Quicksand',
+                                    letterSpacing: 1.5,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(
-                        width: 20,
+                        width: 20.0,
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(3)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: Text("Ideas"),
+                      InkWell(
+                        onTap: () {},
+                        child: Align(
+                          //alignment: Alignment.topLeft,
+                          child: Text(
+                            'VIEW ON MAP',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: deepOrangelightColor,
+                              fontFamily: 'Quicksand',
+                              //letterSpacing: 1.5,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       )
                     ],
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    "Nobody wants to stare at a blank wall all day long, which is why wall art is such a crucial step in the decorating process. And once you start brainstorming, the rest is easy. From gallery walls to DIY pieces like framing your accessories and large-scale photography, we've got plenty of wall art ideas to spark your creativity. And where better to look for inspiration that interior designer-decorated walls",
-                    style: TextStyle(height: 1.6),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    "Gallery",
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(right: 20),
-                          child: Container(
-                            width: 150,
-                            height: 150,
-                            // decoration: BoxDecoration(
-                            //     borderRadius: BorderRadius.circular(10),
-                            //     image: DecorationImage(
-                            //         image:
-                            //             AssetImage("assets/images/image_2.png"),
-                            //         fit: BoxFit.cover)),
+                  _divider(),
+                  Row(
+                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Icon(
+                        Icons.calendar_today,
+                        color: deepOrangeColor,
+                        size: 35,
+                      ),
+                      SizedBox(
+                        width: 30,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            "DUE DATE",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey,
+                              fontFamily: 'Quicksand',
+                            ),
                           ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            '30 Jan 2021',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey,
+                              fontFamily: 'Quicksand',
+                              letterSpacing: 1.5,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+
+                  _divider(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "TASK DETAIL",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
+                          fontFamily: 'Quicksand',
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 20),
-                          child: Container(
-                            width: 150,
-                            height: 150,
-                            // decoration: BoxDecoration(
-                            //     borderRadius: BorderRadius.circular(10),
-                            //     image: DecorationImage(
-                            //         image:
-                            //             AssetImage("assets/images/image_3.png"),
-                            //         fit: BoxFit.cover)),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 20),
-                          child: Container(
-                            width: 150,
-                            height: 150,
-                            // decoration: BoxDecoration(
-                            //     borderRadius: BorderRadius.circular(10),
-                            //     image: DecorationImage(
-                            //         image:
-                            //             AssetImage("assets/images/image_4.png"),
-                            //         fit: BoxFit.cover)),
-                          ),
-                        )
-                      ],
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Text(
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                        style: TextStyle(
+                            fontSize: 18, color: Colors.grey, height: 2),
+                        //textAlign: TextAlign.center,
+                      )
+                    ],
+                  ),
+
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Visibility(
+                      visible: offerboxshow,
+                      child: Container(
+                          child: offerboxshow
+                              ? MakeOffer()
+                              : SizedBox(height: 0.0))),
+                  Visibility(
+                    visible: btnshow,
+                    child: ButtonWidget(
+                      btnText: btnText,
+                      onClick: () {
+                        setState(() {
+                          //btnText = 'SEND OFFER';
+                          offerboxshow = !offerboxshow;
+                          btnshow = false;
+                        });
+                      },
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -287,6 +370,36 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
     );
   }
 }
+
+Widget _divider() {
+  return Column(
+    children: [
+      SizedBox(
+        height: 20,
+      ),
+      // _divider(),
+      Divider(
+        color: Colors.grey,
+        // height: 50,
+      ),
+      SizedBox(
+        height: 20,
+      ),
+    ],
+  );
+}
+
+// Widget _offerbox() {
+//   return Column(
+//     children: [
+//       SizedBox(
+//         height: 30.0,
+//       ),
+//       Text('hellow wolrd',
+//           style: TextStyle(color: Colors.black, fontSize: 60.0)),
+//     ],
+//   );
+// }
 
 // import 'package:Hunarmand_signIn_Ui/Models/posted_job_model.dart';
 // import 'package:Hunarmand_signIn_Ui/utils/color.dart';

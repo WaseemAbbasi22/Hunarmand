@@ -19,7 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.grey[200],
       // resizeToAvoidBottomPadding: false,
       body: Container(
         child: SingleChildScrollView(
@@ -31,11 +31,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
-                    _textInput(
-                      hint: "Phone Number",
-                      icon: Icons.call,
-                    ),
-                    _textInput(hint: "PIN", icon: Icons.vpn_key),
+                    _inputcard(hintText: 'Email', icon: Icon(Icons.email)),
+                    _inputcard(hintText: "Password", icon: Icon(Icons.vpn_key)),
                     Container(
                       margin: EdgeInsets.only(top: 20),
                       alignment: Alignment.centerRight,
@@ -76,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 color: Colors.grey[900], fontSize: 16)),
                         TextSpan(
                             text: "Register",
-                            style: TextStyle(color: bluegrayColors)),
+                            style: TextStyle(color: deepOrangeColor)),
                       ]),
                     ),
                   ],
@@ -89,23 +86,49 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // ignore: unused_element
-  Widget _textInput({controller, hint, icon}) {
+  Widget _inputcard({String hintText, Icon icon}) {
     return Container(
-      margin: EdgeInsets.only(top: 20),
-      decoration: BoxDecoration(
-        //color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.zero),
-        color: Colors.grey[200],
-      ),
-      child: TextFormField(
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          hintText: hint,
-          // contentPadding: EdgeInsets.only(left: 20),
-          prefixIcon: Icon(icon),
+      child: Card(
+        elevation: 4,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        //margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8.0),
+        child: TextField(
+          //controller: controller,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: hintText,
+            fillColor: Colors.white,
+            contentPadding: EdgeInsets.all(20),
+            //enabled: true,
+            //filled: true,
+            prefixIcon: icon,
+
+            //suffixIcon: Icon(Icons.filter_list),
+          ),
         ),
       ),
     );
   }
+
+  // ignore: unused_element
+  // Widget _textInput({controller, hint, icon}) {
+  //   return Container(
+  //     margin: EdgeInsets.only(top: 20),
+  //     decoration: BoxDecoration(
+  //       //color: Colors.white,
+  //       borderRadius: BorderRadius.all(Radius.zero),
+  //       color: Colors.grey[200],
+  //     ),
+  //     child: TextFormField(
+  //       decoration: InputDecoration(
+  //         border: InputBorder.none,
+  //         hintText: hint,
+  //         // contentPadding: EdgeInsets.only(left: 20),
+  //         prefixIcon: Icon(icon),
+  //       ),
+  //     ),
+  //   );
+  // }
 }

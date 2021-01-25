@@ -10,41 +10,39 @@ class StarterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        //backgroundColor: Color(0xFF81F2836),
-        appBar: AppBar(
-          backgroundColor: deepOrangeColor,
-          elevation: 0,
-          title: Text("HUNARMAND"),
-          centerTitle: true,
-          actions: [
-            IconButton(
-              icon: Icon(
-                Icons.notifications,
-                color: Colors.white,
-              ),
-              onPressed: () => {},
+    return Scaffold(
+      //backgroundColor: Color(0xFF81F2836),
+      appBar: AppBar(
+        backgroundColor: deepOrangeColor,
+        elevation: 0,
+        title: Text("HUNARMAND"),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.notifications,
+              color: Colors.white,
             ),
-          ],
-        ),
-        drawer: MainDrawer(),
+            onPressed: () => {},
+          ),
+        ],
+      ),
+      drawer: MainDrawer(),
 
-        // drawer: Drawer(
-        //   child: CollapsingNavigationDrawer(),
-        //   elevation: 0.0,
-        // ),
-        body: Stack(
-          children: <Widget>[
-            //,
-            //ClipperDesign(),
-            HomeDashboard(),
-            //Home(),
-            // HomeS(),
+      // drawer: Drawer(
+      //   child: CollapsingNavigationDrawer(),
+      //   elevation: 0.0,
+      // ),
+      body: Stack(
+        children: <Widget>[
+          //,
+          //ClipperDesign(),
+          HomeDashboard(),
+          //Home(),
+          // HomeS(),
 
-            //CollapsingNavigationDrawer(),
-          ],
-        ),
+          //CollapsingNavigationDrawer(),
+        ],
       ),
     );
   }

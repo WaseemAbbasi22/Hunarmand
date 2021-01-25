@@ -1,6 +1,7 @@
 import 'package:Hunarmand_signIn_Ui/Screens/authenticate/authenticate.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/authenticate/sign_in.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/duplicate/clipper_screen.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/duplicate/login.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/duplicate/phone_signin.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/job_services/plumber_service/services.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/worker_card.dart';
@@ -116,7 +117,14 @@ class _MainDrawerState extends State<MainDrawer> {
             color: dcolor,
             indent: 20.0,
           ),
-          _listtiles(text: 'Notifications', icon: FontAwesomeIcons.solidBell),
+          _listtiles(
+              text: 'Notifications',
+              icon: FontAwesomeIcons.solidBell,
+              onClick: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => ALogin()));
+              }),
           // Divider(
           //   color: dcolor,
           //   indent: 20.0,
