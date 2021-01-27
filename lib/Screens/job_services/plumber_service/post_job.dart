@@ -112,8 +112,12 @@ class Postjob extends StatelessWidget {
 
   Widget _descriptionCard() {
     return Container(
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
+            color: Colors.white, offset: Offset(10, 30), blurRadius: 30.0),
+      ]),
       padding: EdgeInsets.all(15.0),
-      color: Colors.white,
+      //color: Colors.white,
       child: Column(
         children: [
           TextFormField(
@@ -126,6 +130,35 @@ class Postjob extends StatelessWidget {
               ),
             ),
           ),
+
+          SizedBox(
+            height: 20.0,
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+              // labelText: 'Title',
+              hintText: 'Enter Job Budget',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                //borderSide: new BorderSide(),
+              ),
+            ),
+          ),
+
+          SizedBox(
+            height: 20.0,
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+              // labelText: 'Title',
+              hintText: 'Enter Job Location',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                //borderSide: new BorderSide(),
+              ),
+            ),
+          ),
+
           SizedBox(
             height: 20.0,
           ),

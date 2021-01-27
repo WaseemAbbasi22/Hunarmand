@@ -100,22 +100,25 @@ class _ServiceDetailState extends State<ServiceDetail>
                 children: <Widget>[
                   _categorySelector(),
                   Divider(
-                    height: 2.0,
+                    height: 10.0,
                   ),
-                  Container(
-                    width: double.infinity,
-                    color: Colors.white,
-                    // margin: EdgeInsets.only(top: 5.0),
-                    padding:
-                        EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
-                    child: Text(
-                      categories[0],
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[600]),
-                    ),
-                  ),
+                  // Divider(
+                  //   height: 2.0,
+                  // ),
+                  // Container(
+                  //   width: double.infinity,
+                  //   color: Colors.white,
+                  //   // margin: EdgeInsets.only(top: 5.0),
+                  //   padding:
+                  //       EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+                  //   child: Text(
+                  //     categories[0],
+                  //     style: TextStyle(
+                  //         fontSize: 18,
+                  //         fontWeight: FontWeight.bold,
+                  //         color: Colors.grey[600]),
+                  //   ),
+                  // ),
                   //fixedjob(),
                   Services(),
                   SizedBox(
@@ -215,7 +218,7 @@ class _ServiceDetailState extends State<ServiceDetail>
                               color: Colors.grey,
                             ),
                       color: index == selectedIndex
-                          ? deepOrangelightColor
+                          ? Colors.amberAccent
                           : Colors.white,
                     ),
                     child: Text(

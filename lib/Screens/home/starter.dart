@@ -1,8 +1,11 @@
 //import 'package:Hunarmand_signIn_Ui/Screens/HomeScreen.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/duplicate/clipper_screen.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/duplicate/dashborad.dart';
-import 'package:Hunarmand_signIn_Ui/Widgets/drawer.dart';
-import 'package:Hunarmand_signIn_Ui/utils/color.dart';
+import 'package:Hunarmand_signIn_Ui/Widgets/awesome_button.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/home/dashboard.dart';
+// import 'package:Hunarmand_signIn_Ui/Screens/duplicate/dashborad.dart';
+// import 'package:Hunarmand_signIn_Ui/Widgets/drawer.dart';
+// import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:flutter/material.dart';
 
 class StarterScreen extends StatelessWidget {
@@ -11,37 +14,54 @@ class StarterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Color(0xFF81F2836),
-      appBar: AppBar(
-        backgroundColor: deepOrangeColor,
-        elevation: 0,
-        title: Text("HUNARMAND"),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.notifications,
-              color: Colors.white,
-            ),
-            onPressed: () => {},
-          ),
-        ],
-      ),
-      drawer: MainDrawer(),
-
-      // drawer: Drawer(
-      //   child: CollapsingNavigationDrawer(),
-      //   elevation: 0.0,
-      // ),
       body: Stack(
         children: <Widget>[
-          //,
-          //ClipperDesign(),
-          HomeDashboard(),
-          //Home(),
-          // HomeS(),
+          Container(
+            width: double.infinity,
+            //height: double.infinity,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/images/starter_bg2.jpg'),
+                  fit: BoxFit.fill),
+            ),
 
-          //CollapsingNavigationDrawer(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AwesomeButton(
+                    text: 'Worker',
+                    icon: Icons.dashboard,
+                    cColor: Colors.greenAccent,
+                    onpress: () {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (_) => WorkerDashboard()));
+                    }),
+                SizedBox(
+                  height: 30.0,
+                ),
+                AwesomeButton(
+                    text: 'Client',
+                    icon: Icons.dashboard,
+                    cColor: Colors.deepOrange,
+                    onpress: () {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (_) => HomeDashboard()));
+                    }),
+                SizedBox(
+                  height: 30.0,
+                ),
+                AwesomeButton(
+                    text: 'Guest',
+                    icon: Icons.dashboard,
+                    cColor: Colors.indigoAccent,
+                    onpress: () {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (_) => HomeDashboard()));
+                    }),
+              ],
+            ),
+          ),
         ],
       ),
     );

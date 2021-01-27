@@ -1,6 +1,7 @@
 import 'package:Hunarmand_signIn_Ui/Screens/home/HomeScreen.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/home/splash_screen.dart';
+//import 'package:Hunarmand_signIn_Ui/Screens/home/splash_screen.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/job_services/plumber_service/service_detail_screen.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/splash/splash_screen.dart';
 
 import 'package:flutter/material.dart';
 

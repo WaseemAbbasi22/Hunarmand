@@ -2,6 +2,7 @@ import 'package:Hunarmand_signIn_Ui/BusinessLogic/services.dart';
 import 'package:Hunarmand_signIn_Ui/Models/service_model.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/home/slider.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/home/top_worker.dart';
+import 'package:Hunarmand_signIn_Ui/Widgets/drawer.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/worker_card.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:flutter/material.dart';
@@ -22,101 +23,110 @@ class _HomeDashboardState extends State<HomeDashboard> {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: Scaffold(
-          body: ListView(
-        children: <Widget>[
-          _top(),
-          SizedBox(
-            height: 20.0,
-          ),
-          Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Our Services",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+          appBar: AppBar(
+            backgroundColor: deepOrangeColor,
+            elevation: 0,
+            title: Text("HUNARMAND"),
+            centerTitle: true,
+            actions: [
+              IconButton(
+                icon: Icon(
+                  Icons.notifications,
+                  color: Colors.white,
                 ),
-                // Text(
-                //   "view All",
-                //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0),
-                // ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 20.0,
-          ),
-          Container(
-            height: 200.0,
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                childAspectRatio: 3 / 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
+                onPressed: () => {},
               ),
-              itemCount: services.length,
-              itemBuilder: (context, index) {
-                final service = services[index];
+            ],
+          ),
+          drawer: MainDrawer(),
+          body: ListView(
+            children: <Widget>[
+              _top(),
+              SizedBox(
+                height: 20.0,
+              ),
+              Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Our Services",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 20.0),
+                    ),
+                    // Text(
+                    //   "view All",
+                    //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0),
+                    // ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Container(
+                height: 200.0,
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    childAspectRatio: 3 / 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                  ),
+                  itemCount: services.length,
+                  itemBuilder: (context, index) {
+                    final service = services[index];
 
-                return _gridItem(
-                  service: service,
-                  ontap: () {
-                    Navigator.of(context).pushNamed('/services');
+                    return _gridItem(
+                      service: service,
+                      ontap: () {
+                        Navigator.of(context).pushNamed('/services');
+                      },
+                    );
                   },
-                );
-              },
-              // children: <Widget>[
-              //   _gridItem(Icons.airport_shuttle),
-              //   _gridItem(Icons.airport_shuttle),
-              //   _gridItem(Icons.airport_shuttle),
-              //   _gridItem(Icons.airport_shuttle),
-              //   _gridItem(Icons.airport_shuttle),
-              //   _gridItem(Icons.airport_shuttle),
-              // ],
-            ),
-          ),
-          SizedBox(
-            height: 10.0,
-          ),
-          Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Top Rated Worker",
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Quicksand',
-                  ),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => WorkerCard()));
-                  },
-                  child: Text(
-                    "view All",
-                    style: TextStyle(
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Top Rated Worker",
+                      style: TextStyle(
+                        fontSize: 18.0,
                         fontWeight: FontWeight.bold,
-                        fontSize: 16.0,
-                        color: Colors.deepOrange),
-                  ),
+                        fontFamily: 'Quicksand',
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => WorkerCard()));
+                      },
+                      child: Text(
+                        "view All",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16.0,
+                            color: Colors.deepOrange),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 10.0,
-          ),
-          TopWorkers(),
-        ],
-      )),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              TopWorkers(),
+            ],
+          )),
     );
   }
 
