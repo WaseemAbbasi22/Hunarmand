@@ -1,9 +1,9 @@
 import 'package:Hunarmand_signIn_Ui/Models/Worker_model.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/customcard_shaper.dart';
-import 'package:Hunarmand_signIn_Ui/Widgets/drawer.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/rating_bar.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class WorkerCard extends StatefulWidget {
   WorkerCard({Key key}) : super(key: key);
@@ -48,10 +48,6 @@ class _WorkerCardState extends State<WorkerCard> {
                 "Workers",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
               ),
-              // Text(
-              //   "view All",
-              //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0),
-              // ),
             ],
           ),
         ),
@@ -123,7 +119,7 @@ class _WorkerCardState extends State<WorkerCard> {
             padding:
                 const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
             child: Container(
-              height: 110,
+              height: 155,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(_borderRadius),
                 gradient: LinearGradient(colors: [
@@ -145,7 +141,7 @@ class _WorkerCardState extends State<WorkerCard> {
             bottom: 10,
             top: 10,
             child: CustomPaint(
-              size: Size(100, 150),
+              size: Size(80, 150),
               painter: CustomCardShapePainter(
                   _borderRadius, worker.startColor, worker.endColor),
             ),
@@ -153,95 +149,93 @@ class _WorkerCardState extends State<WorkerCard> {
           Positioned.fill(
             child: Row(
               children: <Widget>[
-                Container(
-                  height: 100,
-                  width: 100,
-                  margin: EdgeInsets.only(right: 10.0, left: 5.0),
-                  padding: EdgeInsets.all(10.0),
-                  child: CircleAvatar(
-                    backgroundImage: AssetImage(
-                      worker.imageUrl,
-                    ),
+                Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      Container(
+                        height: 100,
+                        width: 100,
+                        margin: EdgeInsets.only(right: 10.0, left: 5.0),
+                        padding: EdgeInsets.all(10.0),
+                        child: CircleAvatar(
+                          backgroundImage: AssetImage(
+                            worker.imageUrl,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10.0),
+                      Text('Varification',
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold)),
+                    ],
                   ),
                 ),
-                SizedBox(width: 10.0),
+                //SizedBox(width: 10.0),
 
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      worker.name,
-                      style: TextStyle(
-                          color: Colors.black,
-                          // fontFamily: 'Avenir',
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w700),
-                    ),
-                    Text(
-                      worker.category,
-                      style: TextStyle(
-                        color: Colors.grey[700],
-                        fontFamily: 'Avenir',
-                        fontSize: 18.0,
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      _profileContent(
+                          title: worker.name, description: worker.category),
+                      SizedBox(
+                        height: 5.0,
                       ),
-                    ),
-                    SizedBox(
-                      height: 5.0,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Column(
-                          children: <Widget>[
-                            Text(
-                              "Jobs",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  // fontFamily: 'Avenir',
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.w700),
-                            ),
-                            Text(
-                              "12",
-                              style: TextStyle(
-                                color: Colors.grey[700],
-                                fontFamily: 'Avenir',
-                                fontSize: 18.0,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          width: 50.0,
-                        ),
-                        Column(
-                          children: <Widget>[
-                            Text(
-                              "Rate",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  // fontFamily: 'Avenir',
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.w700),
-                            ),
-                            Text(
-                              worker.rate.toString() + '/hr',
-                              style: TextStyle(
-                                color: Colors.grey[900],
-                                fontFamily: 'Avenir',
-                                fontSize: 18.0,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          _profileContent(title: 'Jobs', description: '12'),
+                          SizedBox(
+                            width: 35.0,
+                          ),
+                          _profileContent(
+                            title: 'Rate',
+                            description: worker.rate.toString() + '/hr',
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 3.0,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          _verificationContent(
+                              text: 'Email',
+                              icon: Icons.email,
+                              iColor: deepOrangeColor),
+                          SizedBox(
+                            width: 20.0,
+                          ),
+                          _verificationContent(
+                              text: 'Phone',
+                              icon: Icons.phone,
+                              iColor: Colors.blueGrey),
+                          SizedBox(
+                            width: 20.0,
+                          ),
+                          _verificationContent(
+                              text: 'CNIC',
+                              icon: FontAwesomeIcons.solidIdCard,
+                              iColor: Colors.blueGrey),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(
-                  width: 20.0,
+                  width: 25.0,
                 ),
                 //SizedBox(height: 16),
                 Positioned(
@@ -271,6 +265,58 @@ class _WorkerCardState extends State<WorkerCard> {
         ],
         //
       ),
+    );
+  }
+
+  Widget _profileContent({String title, String description}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          title,
+          style: TextStyle(
+              color: Colors.black,
+              // fontFamily: 'Avenir',
+              fontSize: 16.0,
+              fontWeight: FontWeight.bold),
+        ),
+        Text(
+          description,
+          style: TextStyle(
+            color: Colors.grey,
+            fontFamily: 'Avenir',
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _verificationContent({
+    String text,
+    IconData icon,
+    Color iColor,
+  }) {
+    return Column(
+      children: <Widget>[
+        Text(
+          text,
+          style: TextStyle(
+              color: Colors.black,
+              // fontFamily: 'Avenir',
+              fontSize: 16.0,
+              fontWeight: FontWeight.w700),
+        ),
+        SizedBox(
+          height: 3.0,
+        ),
+        Icon(
+          icon,
+          color: iColor,
+          size: 20,
+        ),
+      ],
     );
   }
 }

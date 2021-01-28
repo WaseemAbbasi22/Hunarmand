@@ -20,7 +20,7 @@ class _WorkerDashboardState extends State<WorkerDashboard> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: deepOrangeColor,
-        elevation: 0,
+        // elevation: 0,
         title: Text("HUNARMAND"),
         centerTitle: true,
         actions: [

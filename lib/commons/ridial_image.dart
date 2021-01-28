@@ -12,12 +12,24 @@ class RoundedImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipOval(
-      child: Image.asset(
-        imagePath,
-        width: size.width,
-        height: size.width,
-        fit: BoxFit.fitWidth,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(80.0),
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 5.0,
+            color: Colors.black.withOpacity(0.8),
+            offset: Offset(5.0, 6.0),
+          ),
+        ],
+      ),
+      child: ClipOval(
+        child: Image.asset(
+          imagePath,
+          width: size.width,
+          height: size.width,
+          fit: BoxFit.fitWidth,
+        ),
       ),
     );
   }

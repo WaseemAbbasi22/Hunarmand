@@ -1,191 +1,120 @@
 import 'package:Hunarmand_signIn_Ui/Widgets/bottomcontainer_widget.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/image_picker.dart';
+import 'package:Hunarmand_signIn_Ui/commons/form_textfeild.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:flutter/material.dart';
 
-class Postjob extends StatelessWidget {
+class Postjob extends StatefulWidget {
   const Postjob({Key key}) : super(key: key);
 
+  @override
+  _PostjobState createState() => _PostjobState();
+}
+
+class _PostjobState extends State<Postjob> {
+  final _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       body: Container(
-          // decoration: BoxDecoration(
-          //   gradient: LinearGradient(
-          //       colors: [orangeColors, orangeLightColors],
-          //       end: Alignment.centerLeft,
-          //       begin: Alignment.centerRight),
-          //   image: DecorationImage(
-          //     image: AssetImage(
-          //       'assets/app_bg_2.JPG',
-          //     ),
-          //     fit: BoxFit.cover,
-          //   ),
-          // ),
-          // margin: EdgeInsets.only(top: 10.0),
-          //color: Colors.grey,
-          child: Container(
-        //margin: EdgeInsets.only(top: 10.0),
-        child: Padding(
-          padding: const EdgeInsets.all(0.0),
-          child: ListView(
-            children: <Widget>[
-              Column(
-                children: [
-                  Card(
-                    color: Colors.white,
-                    //elevation: 4.0,
-                    child: Container(
-                      // margin: EdgeInsets.only(top: 5.0),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 15.0, vertical: 0.0),
-                      // padding: EdgeInsets.only(top: 10.0, left: 20.0),
-                      height: 170,
-                      //color: Colors.blue,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          // SizedBox(
-                          //   height: 5.0,
-                          // ),
-                          Image(
-                            image: AssetImage(
-                              'assets/iconjob.jpg',
+          padding: EdgeInsets.all(5),
+          child: Padding(
+            padding: const EdgeInsets.all(0.0),
+            child: ListView(
+              children: <Widget>[
+                Column(
+                  children: [
+                    Card(
+                      color: Colors.white,
+                      elevation: 6.0,
+                      child: Container(
+                        //height: 170,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 10.0,
                             ),
-                            height: 60,
-                          ),
-                          SizedBox(
-                            height: 15.0,
-                          ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: _textWidget(
-                              text:
-                                  'If the service you are looking for is not in the list, describe it here relevant Hunarmand will help you',
-                              fontsize: 20.0,
-                              fontW: FontWeight.normal,
-                              fontcolor: Colors.grey[800],
+                            Center(
+                              child: Image(
+                                image: AssetImage(
+                                  'assets/icons/taskupload_icon.JPG',
+                                ),
+                                height: 80,
+                              ),
                             ),
-                          ),
-
-                          // _textWidget(
-                          //     text: 'not in the list, describe it here relevant',
-                          //     fontsize: 20.0,
-                          //     fontW: FontWeight.normal,
-                          //     fontcolor: Colors.grey[800]),
-
-                          // Text(
-                          //   'not in the list, describe it here relevant',
-                          //   style: TextStyle(
-                          //     color: Colors.grey[800],
-                          //     fontSize: 20.0,
-                          //     letterSpacing: 0.5,
-                          //     //wordSpacing: 3.8,
-                          //   ),
-                          // ),
-                          // Text(
-                          //   ' Hunarmand will help you',
-                          //   style: TextStyle(
-                          //     color: Colors.grey[800],
-                          //     fontSize: 20.0,
-                          //     letterSpacing: 0.5,
-                          //     //wordSpacing: 3.8,
-                          //   ),
-                          // ),
-                        ],
+                            SizedBox(
+                              height: 10.0,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: _textWidget(
+                                text:
+                                    'If the service you are looking for is not in the list, describe it here relevant Hunarmand will help you',
+                                fontsize: 20.0,
+                                fontW: FontWeight.w600,
+                                fontcolor: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  _descriptionCard(),
-                  SizedBox(height: 10.0),
-                ],
-              ),
-            ],
-          ),
-        ),
-      )),
+                    SizedBox(height: 15.0),
+                    _descriptionCard(),
+                  ],
+                ),
+              ],
+            ),
+          )),
     );
   }
 
   Widget _descriptionCard() {
     return Container(
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-            color: Colors.white, offset: Offset(10, 30), blurRadius: 30.0),
-      ]),
-      padding: EdgeInsets.all(15.0),
-      //color: Colors.white,
       child: Column(
         children: [
-          TextFormField(
-            decoration: InputDecoration(
-              // labelText: 'Title',
-              hintText: 'Enter job title',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                //borderSide: new BorderSide(),
-              ),
+          Form(
+            key: _formkey,
+            child: Column(
+              children: [
+                FormInputFeild(
+                  hintText: 'Enter job title',
+                ),
+                SizedBox(
+                  height: 15.0,
+                ),
+                FormInputFeild(
+                  hintText: 'Enter job Location',
+                ),
+                SizedBox(
+                  height: 15.0,
+                ),
+                FormInputFeild(
+                  hintText: 'Enter job Budget',
+                ),
+                SizedBox(
+                  height: 15.0,
+                ),
+                FormInputFeild(
+                  hintText: 'Enter job Detail',
+                  feildHeight: 15,
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+              ],
             ),
           ),
-
-          SizedBox(
-            height: 20.0,
-          ),
-          TextFormField(
-            decoration: InputDecoration(
-              // labelText: 'Title',
-              hintText: 'Enter Job Budget',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                //borderSide: new BorderSide(),
-              ),
-            ),
-          ),
-
-          SizedBox(
-            height: 20.0,
-          ),
-          TextFormField(
-            decoration: InputDecoration(
-              // labelText: 'Title',
-              hintText: 'Enter Job Location',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                //borderSide: new BorderSide(),
-              ),
-            ),
-          ),
-
-          SizedBox(
-            height: 20.0,
-          ),
-          TextFormField(
-            decoration: InputDecoration(
-              //labelText: 'Description',
-
-              hintText: 'Enter Details here',
-              // helperMaxLines: 20,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                //borderSide: new BorderSide(),
-              ),
-            ),
-            // maxLength: 10,
-            maxLines: 8,
-          ),
-          // SizedBox(
-          //   height: 100,
-          // ),
           SizedBox(
             height: 10.0,
           ),
           UploadImage(),
-
           Container(
-            margin: EdgeInsets.only(top: 10.0),
+            margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
             child: ButtonWidget(
               btnText: 'Post',
               onClick: () => {},
@@ -209,9 +138,68 @@ class Postjob extends StatelessWidget {
         fontSize: fontsize,
         letterSpacing: 0.5,
         fontWeight: fontW,
-
-        //wordSpacing: 3.8,
       ),
+      textAlign: TextAlign.center,
     );
   }
 }
+
+// TextFormField(
+//   decoration: InputDecoration(
+//     // labelText: 'Title',
+//     hintText: 'Enter job title',
+//     border: OutlineInputBorder(
+//       borderRadius: BorderRadius.circular(10),
+//       //borderSide: new BorderSide(),
+//     ),
+//   ),
+// ),
+
+// SizedBox(
+//   height: 20.0,
+// ),
+// TextFormField(
+//   decoration: InputDecoration(
+//     // labelText: 'Title',
+//     hintText: 'Enter Job Budget',
+//     border: OutlineInputBorder(
+//       borderRadius: BorderRadius.circular(10),
+//       //borderSide: new BorderSide(),
+//     ),
+//   ),
+// ),
+
+// SizedBox(
+//   height: 20.0,
+// ),
+// TextFormField(
+//   decoration: InputDecoration(
+//     // labelText: 'Title',
+//     hintText: 'Enter Job Location',
+//     border: OutlineInputBorder(
+//       borderRadius: BorderRadius.circular(10),
+//       //borderSide: new BorderSide(),
+//     ),
+//   ),
+// ),
+
+// SizedBox(
+//   height: 20.0,
+// ),
+// TextFormField(
+//   decoration: InputDecoration(
+//     //labelText: 'Description',
+
+//     hintText: 'Enter Details here',
+//     // helperMaxLines: 20,
+//     border: OutlineInputBorder(
+//       borderRadius: BorderRadius.circular(10),
+//       //borderSide: new BorderSide(),
+//     ),
+//   ),
+//   // maxLength: 10,
+//   maxLines: 8,
+// ),
+// SizedBox(
+//   height: 100,
+// ),

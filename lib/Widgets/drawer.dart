@@ -8,6 +8,7 @@ import 'package:Hunarmand_signIn_Ui/Screens/job_services/plumber_service/service
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/home/dashboard.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/group_screen/HomeScreen.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/workerProfile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -104,7 +105,7 @@ class _MainDrawerState extends State<MainDrawer> {
               onClick: () {
                 Navigator.pop(context);
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Services()));
+                    MaterialPageRoute(builder: (context) => ProfilePage()));
               }),
           Divider(
             color: dcolor,

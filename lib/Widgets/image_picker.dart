@@ -1,5 +1,6 @@
 import 'dart:io';
 //import 'package:image_picker/image_picker.dart';
+import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -70,27 +71,38 @@ class _UploadImageState extends State<UploadImage> {
         onTap: () {
           _showChoiceDialoge(context);
         },
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              'Upload Image',
-              style: TextStyle(
-                  color: Colors.black87,
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w800),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Container(
-              child: Image(
-                image: AssetImage('assets/uploadimage_icon.jpg'),
-                height: 40,
+        child: Container(
+          color: Colors.grey[300],
+          padding: EdgeInsets.all(10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Center(
+                child: Text(
+                  'UPLOAD IMAGE',
+                  style: TextStyle(
+                      color: Colors.blueGrey,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w800),
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
-          ],
+              SizedBox(
+                height: 10,
+              ),
+              Center(
+                child: IconButton(
+                  icon: Icon(
+                    Icons.add_a_photo,
+                    size: 40.0,
+                    color: deepOrangelightColor,
+                  ),
+                  onPressed: () {},
+                ),
+              ),
+            ],
+          ),
         ),
       );
     } else {
@@ -114,7 +126,7 @@ class _UploadImageState extends State<UploadImage> {
     return Container(
       margin: EdgeInsets.only(right: 290.0),
       //color: Colors.amber,
-      color: Color.fromRGBO(255, 255, 255, 0.8),
+      color: Colors.grey[300],
       //height: 100,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
