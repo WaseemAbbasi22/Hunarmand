@@ -6,8 +6,13 @@ class FormInputFeild extends StatelessWidget {
   var ontap;
   var onvalchange;
   int feildHeight;
+  String labelText;
   FormInputFeild(
-      {this.hintText, this.ontap, this.onvalchange, this.feildHeight});
+      {this.hintText,
+      this.ontap,
+      this.onvalchange,
+      this.feildHeight,
+      this.labelText});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +24,12 @@ class FormInputFeild extends StatelessWidget {
         ),
         child: TextField(
           decoration: InputDecoration(
+            labelText: labelText,
+            labelStyle: TextStyle(
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
+                fontSize: 16.0,
+                letterSpacing: 1.5),
             border: InputBorder.none,
             hintText: hintText,
             hintStyle: TextStyle(

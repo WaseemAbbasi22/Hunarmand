@@ -1,4 +1,5 @@
 import 'package:Hunarmand_signIn_Ui/Models/massage_model.dart';
+import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/group_screen/chat_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -108,7 +109,7 @@ class RecentChats extends StatelessWidget {
                                     height: 20.0,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(30.0),
-                                      color: Theme.of(context).primaryColor,
+                                      color: deepOrangeColor,
                                     ),
                                     alignment: Alignment.center,
                                     child: Text(

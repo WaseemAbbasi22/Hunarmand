@@ -35,7 +35,7 @@ class _AboutInfoState extends State<AboutInfo> {
               height: 5.0,
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -85,7 +85,7 @@ class _AboutInfoState extends State<AboutInfo> {
               ),
             ),
             SizedBox(
-              height: 5,
+              height: 10,
             ),
             Text(
               subheading,

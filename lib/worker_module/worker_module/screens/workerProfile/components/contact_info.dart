@@ -23,7 +23,7 @@ class _ContactInfoState extends State<ContactInfo> {
             Padding(
               padding: const EdgeInsets.only(left: 20.0),
               child: Text(
-                "Contact Info",
+                "Contact Information",
                 style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
@@ -35,21 +35,22 @@ class _ContactInfoState extends State<ContactInfo> {
               height: 5.0,
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+              margin: EdgeInsets.only(bottom: 20.0),
+              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _rowWidget(
                       heading: 'EMAIL',
                       subheading: 'user123@gmail.com',
-                      icon: Icons.place),
+                      icon: Icons.email),
                   SizedBox(
                     height: 20.0,
                   ),
                   _rowWidget(
                       heading: 'MOBILE',
                       subheading: '0342000000',
-                      icon: Icons.calendar_today),
+                      icon: Icons.phone),
                 ],
               ),
             ),
@@ -85,7 +86,7 @@ class _ContactInfoState extends State<ContactInfo> {
               ),
             ),
             SizedBox(
-              height: 5,
+              height: 10,
             ),
             Text(
               subheading,

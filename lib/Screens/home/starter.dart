@@ -21,8 +21,7 @@ class StarterScreen extends StatelessWidget {
             //height: double.infinity,
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('assets/images/starter_bg2.jpg'),
-                  fit: BoxFit.fill),
+                  image: AssetImage('assets/app_bg_2.JPG'), fit: BoxFit.fill),
             ),
 
             child: Column(

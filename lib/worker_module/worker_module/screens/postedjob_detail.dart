@@ -4,6 +4,7 @@ import 'package:Hunarmand_signIn_Ui/Models/Worker_model.dart';
 import 'package:Hunarmand_signIn_Ui/Models/posted_job_model.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/joboffers/job_offers.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/make_offer.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,7 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
   String btnText = 'MAKE OFFER';
   bool offerboxshow = false;
   bool btnshow = true;
+  bool allOfferbtn = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,38 +75,45 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.fromLTRB(25.0, 0, 25.0, 0.0),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20.0),
-                        boxShadow: [
-                          BoxShadow(blurRadius: 6.0, color: Colors.grey)
-                        ]),
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Job Budget Estimated',
-                              style: TextStyle(
-                                  color: Colors.grey,
-                                  fontFamily: 'Quicksand',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20.0),
-                            ),
-                            Text(
-                              posted_job[1].budget,
-                              style: TextStyle(
-                                  color: deepOrangeColor,
-                                  fontFamily: 'Quicksand',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 30.0),
-                            ),
-                          ],
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        btnshow = false;
+                      });
+                    },
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(25.0, 0, 25.0, 0.0),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20.0),
+                          boxShadow: [
+                            BoxShadow(blurRadius: 6.0, color: Colors.grey)
+                          ]),
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Job Budget Estimated',
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontFamily: 'Quicksand',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20.0),
+                              ),
+                              Text(
+                                posted_job[1].budget,
+                                style: TextStyle(
+                                    color: deepOrangeColor,
+                                    fontFamily: 'Quicksand',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 30.0),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -361,6 +370,26 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
                       },
                     ),
                   ),
+                  Visibility(
+                      visible: true,
+                      child: Center(
+                        child: RaisedButton(
+                          color: deepOrangeColor,
+                          child: Text('View AllOffers',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold)),
+                          onPressed: () {
+                            setState(() {
+                              btnshow = false;
+                            });
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => JobOffers()));
+                          },
+                        ),
+                      )),
                 ],
               ),
             ),

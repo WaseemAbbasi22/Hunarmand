@@ -15,85 +15,85 @@ class Message {
 final User currentuser = User(
   id: 0,
   name: 'Current User',
-  imageUrl: 'assets/images/greg.jpg',
+  imageUrl: 'assets/userimages/user1.png',
 );
 
-final User james = User(
+final User hamad = User(
   id: 1,
-  name: 'james',
-  imageUrl: 'assets/images/james.jpg',
+  name: 'Hammad',
+  imageUrl: 'assets/userimages/user2.png',
 );
 
-final User john = User(
+final User ali = User(
   id: 2,
-  name: 'john',
-  imageUrl: 'assets/images/john.jpg',
+  name: 'Ali',
+  imageUrl: 'assets/userimages/user3.png',
 );
 
-final User olivia = User(
+final User adeel = User(
   id: 3,
-  name: 'olivia',
-  imageUrl: 'assets/images/olivia.jpg',
+  name: 'Adeel',
+  imageUrl: 'assets/userimages/user4.png',
 );
 
-final User sam = User(
+final User jawad = User(
   id: 4,
-  name: 'sam',
-  imageUrl: 'assets/images/sam.jpg',
+  name: 'Jawad',
+  imageUrl: 'assets/userimages/user5.png',
 );
 
-final User sophia = User(
+final User mubeen = User(
   id: 5,
-  name: 'sophia',
-  imageUrl: 'assets/images/sophia.jpg',
+  name: 'Mubeen',
+  imageUrl: 'assets/userimages/user6.png',
 );
 
-final User steven = User(
+final User haroon = User(
   id: 6,
-  name: 'steven',
-  imageUrl: 'assets/images/steven.jpg',
+  name: 'haroon',
+  imageUrl: 'assets/userimages/user1.png',
 );
 
-List<User> favrites = [john, steven, olivia, sam, steven];
+List<User> favrites = [ali, jawad, mubeen, adeel, haroon];
 
 List<Message> chats = [
   Message(
-    sender: james,
+    sender: ali,
     time: "5:30 PM",
     text: "Hii buddy how are you",
     islinked: false,
     unread: true,
   ),
   Message(
-    sender: sophia,
+    sender: hamad,
     time: "5:30 PM",
     text: "Hii buddy how are you",
     islinked: false,
     unread: true,
   ),
   Message(
-    sender: james,
+    sender: mubeen,
     time: "9:30 PM",
     text: "Hii buddy how are you",
     islinked: true,
     unread: false,
   ),
   Message(
-    sender: john,
+    sender: adeel,
     time: "8:30 PM",
     text: "Hii buddy how are you",
     islinked: false,
     unread: false,
   ),
   Message(
-    sender: olivia,
+    sender: jawad,
     time: "7:30 PM",
     text: "Hii buddy how are you",
     islinked: false,
     unread: false,
   ),
   Message(
-    sender: sam,
+    sender: haroon,
     time: "6:30 PM",
     text: "Hii buddy how are you",
     islinked: false,
@@ -109,7 +109,7 @@ List<Message> messages = [
     unread: true,
   ),
   Message(
-    sender: sophia,
+    sender: ali,
     time: "4:30 PM",
     text: "hellow i m fine what about you",
     islinked: true,
@@ -123,7 +123,7 @@ List<Message> messages = [
     unread: false,
   ),
   Message(
-    sender: sophia,
+    sender: hamad,
     time: "8:30 PM",
     text: "Nothing special just reading a book what about you",
     islinked: false,
@@ -137,7 +137,7 @@ List<Message> messages = [
     unread: false,
   ),
   Message(
-    sender: sophia,
+    sender: adeel,
     time: "6:30 PM",
     text: "Oh! which type of assingment ,may i help you",
     islinked: false,

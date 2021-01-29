@@ -16,23 +16,26 @@ class FavoriteContacts extends StatelessWidget {
               horizontal: 20.0,
               //vertical: 10.0,
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  'Group Members',
-                  style: TextStyle(
-                    color: Colors.blueGrey,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Group Members',
+                    style: TextStyle(
+                      color: Colors.blueGrey,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                IconButton(
-                  icon: Icon(Icons.more_horiz),
-                  onPressed: () {},
-                  color: Colors.blueGrey,
-                ),
-              ],
+                  // IconButton(
+                  //   icon: Icon(Icons.more_horiz),
+                  //   onPressed: () {},
+                  //   color: Colors.blueGrey,
+                  // ),
+                ],
+              ),
             ),
           ),
           SizedBox(

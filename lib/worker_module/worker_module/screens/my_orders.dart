@@ -1,42 +1,28 @@
 import 'package:Hunarmand_signIn_Ui/Models/Worker_model.dart';
 import 'package:Hunarmand_signIn_Ui/Models/posted_job_model.dart';
-import 'package:Hunarmand_signIn_Ui/Widgets/drawer.dart';
-import 'package:Hunarmand_signIn_Ui/Widgets/notifications.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/home/searchfilter_form.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/joboffers/job_offers.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/postedjob_detail.dart';
 import 'package:flutter/material.dart';
 
-class WorkerDashboard extends StatefulWidget {
-  WorkerDashboard({Key key}) : super(key: key);
+class MyOrders extends StatefulWidget {
+  MyOrders({Key key}) : super(key: key);
 
   @override
-  _WorkerDashboardState createState() => _WorkerDashboardState();
+  _MyOrdersState createState() => _MyOrdersState();
 }
 
-class _WorkerDashboardState extends State<WorkerDashboard> {
+class _MyOrdersState extends State<MyOrders> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: deepOrangeColor,
         // elevation: 0,
-        title: Text("HUNARMAND"),
+        title: Text("My Orders"),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.notifications,
-              color: Colors.white,
-            ),
-            onPressed: () => {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => NotificationPage())),
-            },
-          ),
-        ],
       ),
-      drawer: MainDrawer(),
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
@@ -58,9 +44,9 @@ class _WorkerDashboardState extends State<WorkerDashboard> {
                     left: 25.0,
                     right: 25.0,
                   ),
-                  margin: EdgeInsets.only(bottom: 20.0),
+                  margin: EdgeInsets.only(bottom: 10.0),
                   child: Text(
-                    'All JOBS',
+                    'My Jobs',
                     style: TextStyle(
                         color: Colors.grey[700],
                         fontFamily: 'Quicksand',
@@ -69,23 +55,41 @@ class _WorkerDashboardState extends State<WorkerDashboard> {
                   )),
               SizedBox(height: 10.0),
               Expanded(
-                child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      //primary: false,
-                      crossAxisSpacing: 0.0,
-                      mainAxisSpacing: 10.0,
-                      // shrinkWrap: true,
-                    ),
+                child: ListView.builder(
                     itemCount: posted_job.length,
                     itemBuilder: (context, index) {
                       final posted_jobs = posted_job[index];
-                      return _buildCard(pjobs: posted_jobs, ontap: () {});
+                      return _buildListCard(pjobs: posted_jobs);
                     }),
               )
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildListCard({PostedJob pjobs}) {
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: Card(
+        elevation: 6.0,
+        child: ListTile(
+            contentPadding: EdgeInsets.all(10.0),
+            leading: CircleAvatar(
+                backgroundImage: AssetImage('assets/images/user_avatar.png')),
+            title: Text(pjobs.title),
+            subtitle: Text(pjobs.location),
+            trailing: RaisedButton(
+              color: deepOrangeColor,
+              child: Text('View Detail',
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold)),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => PostedJobDetail()));
+              },
+            )),
       ),
     );
   }

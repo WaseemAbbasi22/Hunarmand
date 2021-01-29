@@ -4,7 +4,7 @@ import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/group_sc
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/group_screen/components/recent_chat.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class GroupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -12,12 +12,12 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: deepOrangeColor,
         appBar: AppBar(
           backgroundColor: deepOrangeColor,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            iconSize: 20.0,
-            color: Colors.white,
-            onPressed: () {},
-          ),
+          // leading: IconButton(
+          //   icon: Icon(Icons.arrow_back),
+          //   iconSize: 20.0,
+          //   color: Colors.white,
+          //   onPressed: () {},
+          // ),
           title: Text(
             "Group Chats",
             style: TextStyle(
@@ -26,15 +26,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           centerTitle: true,
-          elevation: 0.0,
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.search),
-              iconSize: 20.0,
-              color: Colors.white,
-              onPressed: () {},
-            ),
-          ],
+          //elevation: 0.0,
         ),
         body: Column(
           children: <Widget>[

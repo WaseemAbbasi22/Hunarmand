@@ -1,13 +1,10 @@
-import 'package:Hunarmand_signIn_Ui/Screens/authenticate/authenticate.dart';
-
-import 'package:Hunarmand_signIn_Ui/Screens/duplicate/clipper_screen.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/duplicate/login.dart';
-
-import 'package:Hunarmand_signIn_Ui/Screens/job_services/plumber_service/services.dart';
-
+import 'package:Hunarmand_signIn_Ui/Screens/home/starter.dart';
+import 'package:Hunarmand_signIn_Ui/Widgets/notifications.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
-import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/home/dashboard.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/group_screen/HomeScreen.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/group_screen/chat_screen.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/my_orders.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/verification/ids_verification.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/workerProfile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -22,7 +19,7 @@ class MainDrawer extends StatefulWidget {
 class _MainDrawerState extends State<MainDrawer> {
   @override
   Widget build(BuildContext context) {
-    String uimage = 'assets/user_img.jpg';
+    String uimage = 'assets/images/user_avatar.png';
     Color dcolor = Colors.grey[600];
     bool show = true;
     return Drawer(
@@ -61,13 +58,15 @@ class _MainDrawerState extends State<MainDrawer> {
             ),
             SizedBox(height: 0.0),
             _containerWidget(),
-            SizedBox(
-              height: 5.0,
-            ),
+            // SizedBox(
+            //   height: 5.0,
+            // ),
+
             _containersecondWidget(),
-            SizedBox(
-              height: 10.0,
-            ),
+            // SizedBox(
+            //   height: 10.0,
+            // ),
+
             if (show) ...[
               Container(
                 color: Colors.white,
@@ -79,7 +78,7 @@ class _MainDrawerState extends State<MainDrawer> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ClipperDesign()));
+                              builder: (context) => StarterScreen()));
                     }),
               ),
             ] else ...[
@@ -112,9 +111,16 @@ class _MainDrawerState extends State<MainDrawer> {
             indent: 20.0,
           ),
           _listtiles(
-            text: 'Orders',
-            icon: FontAwesomeIcons.box,
-          ),
+              text: 'My Jobs',
+              icon: FontAwesomeIcons.box,
+              onClick: () {
+                Navigator.pop(context);
+                Navigator.push(
+                    context,
+                    //  MaterialPageRoute(builder: (context) => SignIn()));
+
+                    MaterialPageRoute(builder: (context) => MyOrders()));
+              }),
           Divider(
             color: dcolor,
             indent: 20.0,
@@ -125,7 +131,12 @@ class _MainDrawerState extends State<MainDrawer> {
               onClick: () {
                 Navigator.pop(context);
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => ALogin()));
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => NotificationPage()));
+                // Navigator.pop(context);
+                // Navigator.push(
+                //     context, MaterialPageRoute(builder: (context) => ALogin()));
               }),
           // Divider(
           //   color: dcolor,
@@ -145,32 +156,32 @@ class _MainDrawerState extends State<MainDrawer> {
       color: Colors.white,
       child: Column(
         children: [
-          _listtiles(
-              text: 'Register',
-              icon: FontAwesomeIcons.userLock,
-              onClick: () {
-                Navigator.pop(context);
-                Navigator.push(
-                    context,
-                    //  MaterialPageRoute(builder: (context) => SignIn()));
+          // _listtiles(
+          //     text: 'Register',
+          //     icon: FontAwesomeIcons.userLock,
+          //     onClick: () {
+          //       Navigator.pop(context);
+          //       Navigator.push(
+          //           context,
+          //           //  MaterialPageRoute(builder: (context) => SignIn()));
 
-                    MaterialPageRoute(builder: (context) => Authenticate()));
-              }),
+          //           MaterialPageRoute(builder: (context) => Authenticate()));
+          //     }),
           Divider(
             color: dcolor,
             indent: 20.0,
             //endIndent: 20.0,
           ),
           _listtiles(
-              text: 'Tasks',
-              icon: FontAwesomeIcons.tasks,
+              text: 'Verification',
+              icon: Icons.verified_user_sharp,
               onClick: () {
                 Navigator.pop(context);
                 Navigator.push(
                     context,
                     //  MaterialPageRoute(builder: (context) => SignIn()));
 
-                    MaterialPageRoute(builder: (context) => HomeScreen()));
+                    MaterialPageRoute(builder: (context) => IdVerification()));
               }),
 
           Divider(
@@ -179,21 +190,21 @@ class _MainDrawerState extends State<MainDrawer> {
             //endIndent: 20.0,
           ),
           _listtiles(
-              text: 'Feedback',
-              icon: FontAwesomeIcons.solidIdBadge,
+              text: 'MY Groups',
+              icon: Icons.group,
               onClick: () {
                 Navigator.pop(context);
                 Navigator.push(
                     context,
                     //  MaterialPageRoute(builder: (context) => SignIn()));
 
-                    MaterialPageRoute(builder: (context) => WorkerDashboard()));
+                    MaterialPageRoute(builder: (context) => GroupScreen()));
               }),
-          // Divider(
-          //   color: dcolor,
-          //   indent: 20.0,
-          //   endIndent: 20.0,
-          // ),
+          Divider(
+            color: dcolor,
+            indent: 20.0,
+            endIndent: 20.0,
+          ),
         ],
       ),
     );
