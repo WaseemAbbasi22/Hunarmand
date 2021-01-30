@@ -34,7 +34,7 @@ var workers = [
       startColor: Colors.deepOrange,
       endColor: Colors.deepOrange[600],
       rating: 4.4,
-      category: 'electracian',
+      category: 'electrician ',
       rate: 2000.0),
   Workers(
       imageUrl: 'assets/userimages/user3.png',

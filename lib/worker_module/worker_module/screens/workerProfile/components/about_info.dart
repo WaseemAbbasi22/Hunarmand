@@ -41,7 +41,7 @@ class _AboutInfoState extends State<AboutInfo> {
                 children: [
                   _rowWidget(
                       heading: 'LOCATION',
-                      subheading: 'i-14 Islamabad',
+                      subheading: 'I-14 Islamabad,',
                       icon: Icons.place),
                   SizedBox(
                     height: 20.0,

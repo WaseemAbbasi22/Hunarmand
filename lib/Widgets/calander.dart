@@ -1,17 +1,18 @@
+import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-const MaterialColor _buttonTextColor = MaterialColor(0xFFFFA726, <int, Color>{
-  50: Colors.orange,
-  100: Colors.orange,
-  200: Colors.orange,
-  300: Colors.orange,
-  400: Colors.orange,
-  500: Colors.orange,
-  600: Colors.orange,
-  700: Colors.orange,
-  800: Colors.orange,
-  900: Colors.orange,
+const MaterialColor _buttonTextColor = MaterialColor(0xFFFF5722, <int, Color>{
+  50: Colors.deepOrange,
+  100: Colors.deepOrange,
+  200: Colors.deepOrange,
+  300: Colors.deepOrange,
+  400: Colors.deepOrange,
+  500: Colors.deepOrange,
+  600: Colors.deepOrange,
+  700: Colors.deepOrange,
+  800: Colors.deepOrange,
+  900: Colors.deepOrange,
 });
 
 Future<TimeOfDay> _selectTime(BuildContext context,
@@ -49,8 +50,8 @@ Future<DateTime> _selectDateTime(BuildContext context,
       builder: (BuildContext context, Widget child) {
         return Theme(
           data: ThemeData(
-            primaryColor: Colors.orange,
-            accentColor: Colors.orange,
+            primaryColor: deepOrangeColor,
+            accentColor: deepOrangeColor,
             primarySwatch: _buttonTextColor,
           ),
           child: child,
@@ -114,7 +115,7 @@ class _ScheduleState extends State<Schedule> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               RaisedButton(
-                color: Colors.orange[500],
+                color: deepOrangeColor,
                 child: Text(DateFormat('yyyy-MM-dd').format(selectedDate)),
                 onPressed: () async {
                   final date =
@@ -136,7 +137,7 @@ class _ScheduleState extends State<Schedule> {
               ),
               const SizedBox(width: 8),
               RaisedButton(
-                color: Colors.orange[500],
+                color: deepOrangeColor,
                 child: Text(DateFormat('HH:mm').format(selectedDate)),
                 onPressed: () async {
                   final time =
@@ -160,7 +161,7 @@ class _ScheduleState extends State<Schedule> {
           ),
           const SizedBox(height: 16),
           RaisedButton(
-            color: Color(0xFFFFA726),
+            color: Colors.green,
             child: Text('Done!'),
             onPressed: () {
               Navigator.of(context).pop();

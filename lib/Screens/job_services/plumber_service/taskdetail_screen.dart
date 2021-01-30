@@ -1,6 +1,7 @@
 //import 'dart:js';
 import 'package:Hunarmand_signIn_Ui/Service/map.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/calander.dart';
+import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:intl/intl.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/small_btn.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +22,9 @@ class _JobdetailState extends State<Jobdetail> {
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
         iconTheme: IconThemeData(
-          color: Colors.black, //change your color here
+          color: Colors.white, //change your color here
         ),
-        backgroundColor: Colors.orange[700],
+        backgroundColor: deepOrangeColor,
         bottomOpacity: 0.5,
         title: Text(
           'Job Details',
@@ -90,7 +91,7 @@ class _JobdetailState extends State<Jobdetail> {
                   style: TextStyle(fontSize: 19.0, color: Colors.black87),
                 ),
                 IconButton(
-                  color: Colors.amber,
+                  color: deepOrangeColor,
                   icon: Icon(Icons.forward_outlined),
                   onPressed: () {
                     Navigator.push(context,

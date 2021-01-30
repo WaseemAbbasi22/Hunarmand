@@ -282,12 +282,13 @@ class _EnterSMSState extends State<EnterSMS> {
                       await FirebaseAuth.instance.verifyPhoneNumber(
                         phoneNumber: widget.phoneN,
                         forceResendingToken: widget.tkn,
-                        //verificationCompleted: (PhoneAuthCredential credential) {},
-                        //verificationFailed: (FirebaseAuthException e) {},
+                        verificationCompleted:
+                            (PhoneAuthCredential credential) {},
+                        verificationFailed: (FirebaseAuthException e) {},
                         codeSent: (String verificationId, int resendToken) {
                           setState(() {});
                         },
-                        //codeAutoRetrievalTimeout: (String verificationId) {},
+                        codeAutoRetrievalTimeout: (String verificationId) {},
                       );
                     },
                   )),

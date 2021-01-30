@@ -14,6 +14,7 @@ class WorkerCard extends StatefulWidget {
 
 class _WorkerCardState extends State<WorkerCard> {
   final double _borderRadius = 24;
+  bool verified = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -214,21 +215,24 @@ class _WorkerCardState extends State<WorkerCard> {
                           _verificationContent(
                               text: 'Email',
                               icon: Icons.email,
-                              iColor: deepOrangeColor),
+                              iColor: deepOrangeColor,
+                              verify: true),
                           SizedBox(
                             width: 20.0,
                           ),
                           _verificationContent(
                               text: 'Phone',
                               icon: Icons.phone,
-                              iColor: Colors.blueGrey),
+                              iColor: Colors.blueGrey,
+                              verify: false),
                           SizedBox(
                             width: 20.0,
                           ),
                           _verificationContent(
                               text: 'CNIC',
                               icon: FontAwesomeIcons.solidIdCard,
-                              iColor: Colors.blueGrey),
+                              iColor: Colors.blueGrey,
+                              verify: false),
                         ],
                       ),
                     ],
@@ -297,6 +301,7 @@ class _WorkerCardState extends State<WorkerCard> {
     String text,
     IconData icon,
     Color iColor,
+    bool verify,
   }) {
     return Column(
       children: <Widget>[
@@ -311,11 +316,21 @@ class _WorkerCardState extends State<WorkerCard> {
         SizedBox(
           height: 3.0,
         ),
-        Icon(
-          icon,
-          color: iColor,
-          size: 20,
-        ),
+        Stack(children: [
+          Icon(
+            icon,
+            color: iColor,
+            size: 25,
+          ),
+          Visibility(
+            visible: verify,
+            child: Icon(
+              Icons.check_sharp,
+              color: Colors.green,
+              size: 30.0,
+            ),
+          ),
+        ]),
       ],
     );
   }

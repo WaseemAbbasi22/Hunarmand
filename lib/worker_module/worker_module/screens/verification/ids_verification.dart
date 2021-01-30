@@ -42,12 +42,14 @@ class _IdVerificationState extends State<IdVerification> {
                 subheading:
                     'Verify email so that you can \nget instant tasks notifications',
                 varible: emailVerified,
+                verify: true,
                 icon: Icons.email),
             _idsContainer(
                 heading: 'Phone No',
                 subheading:
                     'Verify phone so that you can \nget instant tasks notifications',
                 varible: phoneVerified,
+                verify: true,
                 icon: Icons.phone),
             _idsContainer(
                 heading: 'CNIC',
@@ -55,6 +57,7 @@ class _IdVerificationState extends State<IdVerification> {
                     'Verify CNIC so that you are\n included in trused workers',
                 varible: cnicVerified,
                 icon: FontAwesomeIcons.idCard,
+                verify: false,
                 onClick: () {
                   if (!cnicVerified) {
                     Navigator.push(
@@ -79,6 +82,7 @@ class _IdVerificationState extends State<IdVerification> {
       String subheading,
       IconData icon,
       bool varible,
+      bool verify,
       var onClick}) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10.0),
@@ -120,15 +124,28 @@ class _IdVerificationState extends State<IdVerification> {
               SizedBox(
                 width: 5.0,
               ),
-              RaisedButton(
-                color: varible ? Colors.grey : deepOrangeColor,
-                child: varible
-                    ? _textWidget(
-                        text: 'Verified',
-                      )
-                    : _textWidget(text: 'Add'),
-                onPressed: onClick,
-              ),
+              Stack(children: [
+                RaisedButton(
+                  color: varible ? Colors.grey : deepOrangeColor,
+                  child: varible
+                      ? _textWidget(
+                          text: 'Verified',
+                        )
+                      : _textWidget(text: 'Add'),
+                  onPressed: onClick,
+                ),
+                Visibility(
+                  visible: verify,
+                  child: Positioned(
+                    right: 0.0,
+                    child: Icon(
+                      Icons.check_circle,
+                      color: Colors.green,
+                      size: 30.0,
+                    ),
+                  ),
+                ),
+              ]),
             ],
           ),
           SizedBox(

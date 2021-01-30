@@ -78,7 +78,7 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
                   InkWell(
                     onTap: () {
                       setState(() {
-                        btnshow = false;
+                        btnshow = !btnshow;
                       });
                     },
                     child: Container(

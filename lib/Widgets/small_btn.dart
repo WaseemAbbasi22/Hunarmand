@@ -18,7 +18,7 @@ class SmallButton extends StatelessWidget {
         height: 50,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-              colors: [orangeColors, orangeLightColors],
+              colors: [deepOrangeColor, deepOrangelightColor],
               end: Alignment.centerLeft,
               begin: Alignment.centerRight),
           // borderRadius: BorderRadius.all(
