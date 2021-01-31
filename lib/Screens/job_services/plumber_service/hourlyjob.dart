@@ -1,3 +1,4 @@
+import 'package:Hunarmand_signIn_Ui/Screens/job_services/plumber_service/hourlyjob_detail.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/bottomcontainer_widget.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
 import 'package:flutter/material.dart';
@@ -87,8 +88,11 @@ class Hourlyjob extends StatelessWidget {
               height: 100.0,
             ),
             ButtonWidget(
-              btnText: 'Next',
-              onClick: () {},
+              btnText: 'Post',
+              onClick: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HourlyJobDetail()));
+              },
             )
             //Bottom(),
           ],

@@ -3,6 +3,7 @@ import 'package:Hunarmand_signIn_Ui/Models/service_model.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/home/slider.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/home/top_worker.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/drawer.dart';
+import 'package:Hunarmand_signIn_Ui/Widgets/notifications.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/worker_card.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,12 @@ class _HomeDashboardState extends State<HomeDashboard> {
                   Icons.notifications,
                   color: Colors.white,
                 ),
-                onPressed: () => {},
+                onPressed: () => {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => NotificationPage())),
+                },
               ),
             ],
           ),
@@ -131,82 +137,78 @@ class _HomeDashboardState extends State<HomeDashboard> {
   }
 
   _gridItem({@required Services service, var ontap}) {
-    return Expanded(
-      flex: 3,
-      child: InkWell(
-        onTap: ontap,
-        child: Column(
-          children: [
-            Container(
-              // padding: EdgeInsets.all(.0),
-              height: 50,
-              width: 50,
-              //color: deepOrangeColor,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: deepOrangelightColor,
-                  image: DecorationImage(
-                      image: AssetImage(service.serviceImage),
-                      fit: BoxFit.cover)),
-            ),
-            SizedBox(
-              height: 15.0,
-            ),
-            Text(service.title,
-                style: TextStyle(
-                  color: Colors.grey[900],
-                  fontWeight: FontWeight.w700,
-                  fontSize: 14.0,
-                  letterSpacing: 1.5,
-                  //fontWeight: FontWeight.bold,
-                ))
-          ],
-        ),
+    //flex :3
+    return InkWell(
+      onTap: ontap,
+      child: Column(
+        children: [
+          Container(
+            // padding: EdgeInsets.all(.0),
+            height: 50,
+            width: 50,
+            //color: deepOrangeColor,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: deepOrangelightColor,
+                image: DecorationImage(
+                    image: AssetImage(service.serviceImage),
+                    fit: BoxFit.cover)),
+          ),
+          SizedBox(
+            height: 15.0,
+          ),
+          Text(service.title,
+              style: TextStyle(
+                color: Colors.grey[900],
+                fontWeight: FontWeight.w700,
+                fontSize: 14.0,
+                letterSpacing: 1.5,
+                //fontWeight: FontWeight.bold,
+              ))
+        ],
       ),
     );
   }
 
   _top() {
-    return Expanded(
-      flex: 4,
-      child: Container(
-        padding: EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
-          color: deepOrangeColor,
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(30.0),
-            bottomRight: Radius.circular(30.0),
-          ),
+    //flex: 4;
+    return Container(
+      padding: EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: deepOrangeColor,
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(30.0),
+          bottomRight: Radius.circular(30.0),
         ),
-        child: Column(
-          children: [
-            Cslider(),
-            SizedBox(
-              height: 30.0,
+      ),
+      child: Column(
+        children: [
+          Cslider(),
+          SizedBox(
+            height: 30.0,
+          ),
+          Card(
+            elevation: 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
             ),
-            Card(
-              elevation: 4,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8.0),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8),
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: "Search",
-                    fillColor: Colors.white,
-                    //filled: true,
+            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8.0),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8),
+              child: TextField(
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: "Search",
+                  fillColor: Colors.white,
+                  //filled: true,
 
-                    prefixIcon: Icon(Icons.search, color: Colors.deepOrange),
-                    //suffixIcon: Icon(Icons.filter_list),
-                  ),
+                  prefixIcon: Icon(Icons.search, color: Colors.deepOrange),
+                  //suffixIcon: Icon(Icons.filter_list),
                 ),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

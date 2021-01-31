@@ -1,13 +1,17 @@
 import 'package:Hunarmand_signIn_Ui/Models/user.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/authenticate/testscreen.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/duplicate/dashborad.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
 import 'package:Hunarmand_signIn_Ui/animation/fade_amination.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/home/dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ALogin extends StatefulWidget {
-  ALogin({Key key}) : super(key: key);
+  //ALogin({Key key}) : super(key: key);
+  final String _showScreen;
+  ALogin(this._showScreen);
 
   @override
   _ALoginState createState() => _ALoginState();
@@ -51,7 +55,10 @@ class _ALoginState extends State<ALogin> {
                       1.3,
                       Text(
                         "Welcome Back",
-                        style: TextStyle(color: Colors.white, fontSize: 18),
+                        style: TextStyle(
+                            color: Colors.amber,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
                       )),
                 ],
               ),
@@ -77,16 +84,16 @@ class _ALoginState extends State<ALogin> {
                             Column(
                               children: <Widget>[
                                 _inputcard(
-                                    hintText: 'Email',
+                                    hintText: 'Enter Phone Number',
                                     icon: Icon(
-                                      Icons.email,
+                                      Icons.phone,
                                       color: Colors.deepOrange,
                                     )),
                                 SizedBox(
                                   height: 10.0,
                                 ),
                                 _inputcard(
-                                    hintText: 'Password',
+                                    hintText: 'Enter Password',
                                     icon: Icon(
                                       Icons.vpn_key,
                                       color: Colors.deepOrange,
@@ -98,9 +105,13 @@ class _ALoginState extends State<ALogin> {
                         ),
                         FadeAnimation(
                             1.5,
-                            Text(
-                              "Forgot Password?",
-                              style: TextStyle(color: Colors.grey),
+                            InkWell(
+                              onTap: () {},
+                              child: Text(
+                                "Forgot Password?",
+                                style: TextStyle(
+                                    color: Colors.blueGrey, fontSize: 16.0),
+                              ),
                             )),
                         SizedBox(
                           height: 30,
@@ -110,32 +121,29 @@ class _ALoginState extends State<ALogin> {
                             Center(
                               child: ButtonWidget(
                                 onClick: () {
-                                  _auth.signInWithEmailAndPassword(
-                                      email: _user.email,
-                                      password: _user.password);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Logout()),
-                                  );
+                                  if (widget._showScreen == 'worker') {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              WorkerDashboard()),
+                                    );
+                                  } else if (widget._showScreen == 'client') {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              HomeDashboard()),
+                                    );
+                                  }
+                                  //
+                                  // _auth.signInWithEmailAndPassword(
+                                  //     email: _user.email,
+                                  //     password: _user.password);
                                 },
                                 btnText: "Login",
                               ),
                             )),
-                        OrDivider(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            SocalIcon(
-                              iconSrc: "assets/icons/facebook.svg",
-                              press: () {},
-                            ),
-                            SocalIcon(
-                              iconSrc: "assets/icons/google-plus.svg",
-                              press: () {},
-                            ),
-                          ],
-                        )
                       ],
                     ),
                   ),

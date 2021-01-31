@@ -1,4 +1,6 @@
 //import 'package:Hunarmand_signIn_Ui/Screens/HomeScreen.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/authenticate/sign_in.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/authenticate/sign_up.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/duplicate/clipper_screen.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/duplicate/dashborad.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/awesome_button.dart';
@@ -34,7 +36,7 @@ class StarterScreen extends StatelessWidget {
                     cColor: Colors.greenAccent,
                     onpress: () {
                       Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (_) => WorkerDashboard()));
+                          MaterialPageRoute(builder: (_) => SignUp('worker')));
                     }),
                 SizedBox(
                   height: 30.0,
@@ -45,7 +47,7 @@ class StarterScreen extends StatelessWidget {
                     cColor: Colors.deepOrange,
                     onpress: () {
                       Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (_) => HomeDashboard()));
+                          MaterialPageRoute(builder: (_) => SignUp('client')));
                     }),
                 SizedBox(
                   height: 30.0,

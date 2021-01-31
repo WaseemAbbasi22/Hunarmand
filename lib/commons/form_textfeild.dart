@@ -33,7 +33,7 @@ class FormInputFeild extends StatelessWidget {
             border: InputBorder.none,
             hintText: hintText,
             hintStyle: TextStyle(
-              color: Colors.grey,
+              color: Colors.blueGrey,
               fontSize: 18.0,
             ),
             fillColor: Colors.white,

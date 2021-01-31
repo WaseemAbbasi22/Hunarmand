@@ -131,7 +131,7 @@ class _SignInState extends State<SignIn> {
                           onClick: () async {
                             var result = await _auth.signInWithPhone(phone);
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => OTPScreen(phone)));
+                                builder: (context) => OTPScreen(phone, '')));
                             // dynamic result = await _auth.signInAnon();
                             // if (result == null) {
                             //   print("Error signin");

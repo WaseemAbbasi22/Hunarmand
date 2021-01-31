@@ -1,4 +1,5 @@
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/my_orders.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -105,6 +106,17 @@ class _ScheduleState extends State<Schedule> {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              'Job will only be scheduled between 8:00 am to 8:00 pm and it last upto one week',
+              style: TextStyle(
+                  fontSize: 16.0,
+                  color: bluegrayColors,
+                  fontWeight: FontWeight.bold,
+                  height: 1.5),
+            ),
+          ),
           Text(
             'Select date and time',
             style: TextStyle(
@@ -115,7 +127,7 @@ class _ScheduleState extends State<Schedule> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               RaisedButton(
-                color: deepOrangeColor,
+                color: Colors.amber,
                 child: Text(DateFormat('yyyy-MM-dd').format(selectedDate)),
                 onPressed: () async {
                   final date =
@@ -137,7 +149,7 @@ class _ScheduleState extends State<Schedule> {
               ),
               const SizedBox(width: 8),
               RaisedButton(
-                color: deepOrangeColor,
+                color: Colors.amber,
                 child: Text(DateFormat('HH:mm').format(selectedDate)),
                 onPressed: () async {
                   final time =
@@ -161,10 +173,12 @@ class _ScheduleState extends State<Schedule> {
           ),
           const SizedBox(height: 16),
           RaisedButton(
-            color: Colors.green,
+            color: Colors.deepOrange,
             child: Text('Done!'),
             onPressed: () {
               Navigator.of(context).pop();
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => MyOrders()));
             },
 
             // highlightColor: Colors.orange,

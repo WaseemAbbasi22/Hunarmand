@@ -1,24 +1,21 @@
-//import 'dart:js';
+import 'package:Hunarmand_signIn_Ui/Screens/duplicate/dashborad.dart';
 import 'package:Hunarmand_signIn_Ui/Service/map.dart';
-import 'package:Hunarmand_signIn_Ui/Widgets/calander.dart';
+import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
+import 'package:Hunarmand_signIn_Ui/Widgets/small_btn.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/my_orders.dart';
-import 'package:intl/intl.dart';
-import 'package:Hunarmand_signIn_Ui/Widgets/small_btn.dart';
 import 'package:flutter/material.dart';
 
-class Jobdetail extends StatefulWidget {
-  Jobdetail({Key key}) : super(key: key);
+class HourlyJobDetail extends StatefulWidget {
+  HourlyJobDetail({Key key}) : super(key: key);
 
   @override
-  _JobdetailState createState() => _JobdetailState();
+  _HourlyJobDetailState createState() => _HourlyJobDetailState();
 }
 
-class _JobdetailState extends State<Jobdetail> {
+class _HourlyJobDetailState extends State<HourlyJobDetail> {
   @override
   Widget build(BuildContext context) {
-    Color dcolor = Colors.grey[900];
-
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
@@ -32,15 +29,14 @@ class _JobdetailState extends State<Jobdetail> {
           style: TextStyle(
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
-            //color: Colors.black,
+            color: Colors.black,
           ),
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
-        child: Container(
-          //color: Colors.grey[300],
+      body: Container(
+        //color: Colors.grey[300],
+        child: SingleChildScrollView(
           child: Column(
             children: [
               _topCardWidget(),
@@ -51,9 +47,15 @@ class _JobdetailState extends State<Jobdetail> {
               ),
               _cardWidget(),
               SizedBox(
-                height: 25.0,
+                height: 60.0,
               ),
-              _bottom(),
+              ButtonWidget(
+                btnText: 'POST',
+                onClick: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyOrders()));
+                },
+              ),
             ],
           ),
         ),
@@ -85,15 +87,26 @@ class _JobdetailState extends State<Jobdetail> {
               color: Colors.grey[900],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                Icon(
+                  Icons.place,
+                  color: deepOrangeColor,
+                  size: 30.0,
+                ),
+                SizedBox(
+                  width: 20.0,
+                ),
                 Text(
                   'Address detail',
                   style: TextStyle(fontSize: 19.0, color: Colors.black87),
                 ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.34,
+                ),
                 IconButton(
                   color: deepOrangeColor,
-                  icon: Icon(Icons.forward_outlined),
+                  icon: Icon(Icons.forward),
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => GMap()));
@@ -133,33 +146,18 @@ class _JobdetailState extends State<Jobdetail> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               //crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('Item detail',
+                Text('Hourly Wage.',
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.black,
                     )),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Quantity',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 20.0,
-                    ),
-                    Text(
-                      'Price',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
+                Text(
+                  'Rs. 500/ hr',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
                 )
               ],
             )
@@ -203,28 +201,38 @@ class _JobdetailState extends State<Jobdetail> {
             Divider(
               color: dcolor,
             ),
-            _rowWidget(
-              title: 'Sub Total',
-              price: 'price',
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            Divider(
-              color: dcolor,
-            ),
-            _rowWidget(
-              title: 'Total',
-              price: 'price',
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
+            _notificationContainer(),
             Divider(
               color: dcolor,
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _notificationContainer() {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.9,
+      padding: EdgeInsets.all(8.0),
+      color: Colors.amber,
+      child: Row(
+        children: [
+          Icon(
+            Icons.notification_important,
+            color: Colors.green,
+            size: 40.0,
+          ),
+          Text(
+            'Note:Total cost will be calculated on \norder completion.',
+            style: TextStyle(
+                color: Colors.blueGrey,
+                fontWeight: FontWeight.w700,
+                height: 1.5,
+                letterSpacing: 1.0),
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }
@@ -246,40 +254,6 @@ class _JobdetailState extends State<Jobdetail> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _bottom() {
-    return Container(
-      color: Colors.white,
-      height: 80,
-      // padding: EdgeInsets.symmetric(horizontal: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SmallButton(
-            btnText: 'Post Now',
-            onClick: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => MyOrders()));
-            },
-          ),
-          SmallButton(
-            btnText: 'Schedule',
-            onClick: () async {
-              DateTime selectedDate = DateTime.now();
-
-              //final DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm');
-              showDateTimeDialog(context, initialDate: selectedDate,
-                  onSelectedDate: (selectedDate) {
-                setState(() {
-                  selectedDate = selectedDate;
-                });
-              });
-            },
-          ),
-        ],
-      ),
     );
   }
 }

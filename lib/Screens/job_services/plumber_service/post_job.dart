@@ -3,6 +3,7 @@ import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/image_picker.dart';
 import 'package:Hunarmand_signIn_Ui/commons/form_textfeild.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/my_orders.dart';
 import 'package:flutter/material.dart';
 
 class Postjob extends StatefulWidget {
@@ -16,60 +17,65 @@ class _PostjobState extends State<Postjob> {
   final _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[300],
-      body: Container(
-          padding: EdgeInsets.all(5),
-          child: Padding(
-            padding: const EdgeInsets.all(0.0),
-            child: ListView(
-              children: <Widget>[
-                Column(
-                  children: [
-                    Card(
-                      color: Colors.white,
-                      elevation: 6.0,
-                      child: Container(
-                        //height: 170,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            Center(
-                              child: Image(
-                                image: AssetImage(
-                                  'assets/icons/taskupload_icon.JPG',
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: Scaffold(
+        backgroundColor: Colors.grey[200],
+        body: Container(
+            padding: EdgeInsets.all(5),
+            child: Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: ListView(
+                children: <Widget>[
+                  Column(
+                    children: [
+                      Card(
+                        color: Colors.white,
+                        elevation: 6.0,
+                        child: Container(
+                          //height: 170,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              Center(
+                                child: Image(
+                                  image: AssetImage(
+                                    'assets/icons/taskupload_icon.JPG',
+                                  ),
+                                  height: 80,
                                 ),
-                                height: 80,
                               ),
-                            ),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: _textWidget(
-                                text:
-                                    'If the service you are looking for is not in the list, describe it here relevant Hunarmand will help you',
-                                fontsize: 20.0,
-                                fontW: FontWeight.w600,
-                                fontcolor: Colors.grey,
+                              SizedBox(
+                                height: 10.0,
                               ),
-                            ),
-                          ],
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: _textWidget(
+                                  text:
+                                      'If the service you are looking for is not in the list, describe it here relevant Hunarmand will help you',
+                                  fontsize: 20.0,
+                                  fontW: FontWeight.w600,
+                                  fontcolor: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 15.0),
-                    _descriptionCard(),
-                  ],
-                ),
-              ],
-            ),
-          )),
+                      SizedBox(height: 15.0),
+                      _descriptionCard(),
+                    ],
+                  ),
+                ],
+              ),
+            )),
+      ),
     );
   }
 
@@ -117,7 +123,10 @@ class _PostjobState extends State<Postjob> {
             margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
             child: ButtonWidget(
               btnText: 'Post',
-              onClick: () => {},
+              onClick: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyOrders()));
+              },
             ),
           ),
         ],
