@@ -2,6 +2,7 @@ import 'package:Hunarmand_signIn_Ui/Models/Worker_model.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/customcard_shaper.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/rating_bar.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/home/searchfilter_form.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -87,10 +88,15 @@ class _WorkerCardState extends State<WorkerCard> {
           ),
           TextField(
             decoration: InputDecoration(
-              hintText: "Search by name",
+              hintText: "Search worker",
               fillColor: Colors.white,
               filled: true,
-              suffixIcon: Icon(Icons.filter_list, color: Colors.deepOrange),
+              suffixIcon: IconButton(
+                icon: Icon(Icons.filter_list),
+                onPressed: () {
+                  SearchFilter();
+                },
+              ),
               enabled: true,
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20.0),

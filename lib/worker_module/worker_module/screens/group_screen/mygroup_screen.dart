@@ -1,19 +1,17 @@
-import 'package:Hunarmand_signIn_Ui/Models/Worker_model.dart';
-import 'package:Hunarmand_signIn_Ui/Models/posted_job_model.dart';
+import 'package:Hunarmand_signIn_Ui/Models/group_model.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/home/searchfilter_form.dart';
-import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/joboffers/job_offers.dart';
-import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/postedjob_detail.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/group_screen/HomeScreen.dart';
 import 'package:flutter/material.dart';
 
-class MyOrders extends StatefulWidget {
-  MyOrders({Key key}) : super(key: key);
+class MyGroups extends StatefulWidget {
+  MyGroups({Key key}) : super(key: key);
 
   @override
-  _MyOrdersState createState() => _MyOrdersState();
+  _MyGroupsState createState() => _MyGroupsState();
 }
 
-class _MyOrdersState extends State<MyOrders> {
+class _MyGroupsState extends State<MyGroups> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +45,7 @@ class _MyOrdersState extends State<MyOrders> {
                   ),
                   margin: EdgeInsets.only(bottom: 10.0),
                   child: Text(
-                    'My Jobs',
+                    'My Groups',
                     style: TextStyle(
                         color: Colors.green,
                         fontFamily: 'Quicksand',
@@ -57,10 +55,10 @@ class _MyOrdersState extends State<MyOrders> {
               SizedBox(height: 10.0),
               Expanded(
                 child: ListView.builder(
-                    itemCount: posted_job.length,
+                    itemCount: groups.length,
                     itemBuilder: (context, index) {
-                      final posted_jobs = posted_job[index];
-                      return _buildListCard(pjobs: posted_jobs);
+                      final my_groups = groups[index];
+                      return _buildListCard(mygroups: my_groups);
                     }),
               )
             ],
@@ -70,23 +68,22 @@ class _MyOrdersState extends State<MyOrders> {
     );
   }
 
-  Widget _buildListCard({PostedJob pjobs}) {
+  Widget _buildListCard({MyGroupsModel mygroups}) {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Card(
         elevation: 6.0,
         child: ListTile(
             contentPadding: EdgeInsets.all(10.0),
-            leading: CircleAvatar(
-                backgroundImage: AssetImage('assets/images/user_avatar.png')),
+            leading: CircleAvatar(backgroundImage: AssetImage(mygroups.icon)),
             title: Text(
-              pjobs.title,
+              mygroups.title,
               style: TextStyle(
                   color: Colors.blueGrey,
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold),
             ),
-            subtitle: Text(pjobs.location),
+            subtitle: Text(mygroups.description),
             trailing: RaisedButton(
               color: deepOrangeColor,
               child: Text('View Detail',
@@ -94,7 +91,7 @@ class _MyOrdersState extends State<MyOrders> {
                       color: Colors.white, fontWeight: FontWeight.bold)),
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => PostedJobDetail()));
+                    MaterialPageRoute(builder: (context) => GroupScreen()));
               },
             )),
       ),

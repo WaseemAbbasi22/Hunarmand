@@ -3,6 +3,7 @@ import 'package:Hunarmand_signIn_Ui/Widgets/notifications.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/group_screen/HomeScreen.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/group_screen/chat_screen.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/group_screen/mygroup_screen.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/my_orders.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/verification/ids_verification.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/workerProfile/profile.dart';
@@ -198,7 +199,7 @@ class _MainDrawerState extends State<MainDrawer> {
                     context,
                     //  MaterialPageRoute(builder: (context) => SignIn()));
 
-                    MaterialPageRoute(builder: (context) => GroupScreen()));
+                    MaterialPageRoute(builder: (context) => MyGroups()));
               }),
           Divider(
             color: dcolor,

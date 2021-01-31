@@ -140,67 +140,74 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
                   SizedBox(
                     height: 20,
                   ),
-                  Row(
-                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                image: AssetImage(workers[3].imageUrl),
-                                fit: BoxFit.cover)),
-                      ),
-                      SizedBox(
-                        width: 30,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            "POSTED BY",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                              fontFamily: 'Quicksand',
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            workers[1].name,
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey,
-                              fontFamily: 'Quicksand',
-                              letterSpacing: 1.5,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        width: 100.0,
-                      ),
-                      SafeArea(
-                        child: Align(
-                          //alignment: Alignment.topLeft,
-                          child: Text(
-                            '1 HOUR AGO',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey,
-                              fontFamily: 'Quicksand',
-                              //letterSpacing: 1.5,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        allOfferbtn = !allOfferbtn;
+                      });
+                    },
+                    child: Row(
+                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  image: AssetImage(workers[3].imageUrl),
+                                  fit: BoxFit.cover)),
                         ),
-                      )
-                    ],
+                        SizedBox(
+                          width: 30,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "POSTED BY",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey,
+                                fontFamily: 'Quicksand',
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              workers[1].name,
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey,
+                                fontFamily: 'Quicksand',
+                                letterSpacing: 1.5,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          width: 100.0,
+                        ),
+                        SafeArea(
+                          child: Align(
+                            //alignment: Alignment.topLeft,
+                            child: Text(
+                              '1 HOUR AGO',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey,
+                                fontFamily: 'Quicksand',
+                                //letterSpacing: 1.5,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                   SizedBox(
                     height: 20,
@@ -371,11 +378,12 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
                     ),
                   ),
                   Visibility(
-                      visible: true,
+                      visible: allOfferbtn,
                       child: Center(
                         child: RaisedButton(
+                          elevation: 6.0,
                           color: deepOrangeColor,
-                          child: Text('View AllOffers',
+                          child: Text('View All Offers',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold)),

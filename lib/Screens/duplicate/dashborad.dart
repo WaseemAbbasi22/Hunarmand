@@ -25,7 +25,7 @@ class _HomeDashboardState extends State<HomeDashboard> {
       child: Scaffold(
           appBar: AppBar(
             backgroundColor: deepOrangeColor,
-            elevation: 0,
+            // elevation: 6.0,
             title: Text("HUNARMAND"),
             centerTitle: true,
             actions: [
