@@ -1,4 +1,5 @@
 //import 'dart:js';
+import 'package:Hunarmand_signIn_Ui/Service/google_map_dummy.dart';
 import 'package:Hunarmand_signIn_Ui/Service/map.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/calander.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
@@ -93,10 +94,10 @@ class _JobdetailState extends State<Jobdetail> {
                 ),
                 IconButton(
                   color: deepOrangeColor,
-                  icon: Icon(Icons.forward_outlined),
+                  icon: Icon(Icons.forward),
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => GMap()));
+                        MaterialPageRoute(builder: (context) => DummyMap()));
                   },
                 )
               ],

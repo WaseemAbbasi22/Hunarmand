@@ -3,7 +3,6 @@ import 'package:Hunarmand_signIn_Ui/Screens/duplicate/login.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/home/HomeScreen.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
-import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/home/dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pin_put/pin_put.dart';

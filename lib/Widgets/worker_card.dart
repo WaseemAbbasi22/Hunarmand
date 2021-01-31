@@ -1,6 +1,7 @@
 import 'package:Hunarmand_signIn_Ui/Models/Worker_model.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/customcard_shaper.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/rating_bar.dart';
+import 'package:Hunarmand_signIn_Ui/commons/form_textfeild.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/home/searchfilter_form.dart';
 import 'package:flutter/material.dart';
@@ -16,49 +17,53 @@ class WorkerCard extends StatefulWidget {
 class _WorkerCardState extends State<WorkerCard> {
   final double _borderRadius = 24;
   bool verified = false;
+  Color icolorwhite = Colors.white;
+  Color icolorred = Colors.red;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: deepOrangeColor,
-        elevation: 0,
-        title: Text("HUNARMAND"),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.notifications,
-              color: Colors.white,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: deepOrangeColor,
+          elevation: 0,
+          title: Text("All Workers"),
+          centerTitle: true,
+          // actions: [
+          //   IconButton(
+          //     icon: Icon(
+          //       Icons.notifications,
+          //       color: Colors.white,
+          //     ),
+          //     onPressed: () => {},
+          //   ),
+          // ],
+        ),
+        // drawer: MainDrawer(),
+        body: Column(children: <Widget>[
+          _top(),
+          SizedBox(
+            height: 10.0,
+          ),
+          Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Workers",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+                ),
+              ],
             ),
-            onPressed: () => {},
           ),
-        ],
-      ),
-      // drawer: MainDrawer(),
-      body: Column(children: <Widget>[
-        _top(),
-        SizedBox(
-          height: 10.0,
-        ),
-        Padding(
-          padding: EdgeInsets.all(10.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Workers",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-              ),
-            ],
+          SizedBox(
+            height: 10.0,
           ),
-        ),
-        SizedBox(
-          height: 10.0,
-        ),
-        Container(
-          //height: 500,
-          child: Expanded(
+          Expanded(
             child: ListView.builder(
                 itemCount: workers.length,
                 itemBuilder: (context, index) {
@@ -66,12 +71,28 @@ class _WorkerCardState extends State<WorkerCard> {
                   return _cardItem(worker: worker, ontap: () => {});
                 }),
           ),
-        ),
-      ]),
+        ]),
+      ),
     );
   }
 
   _top() {
+    void _showBottomSheet() {
+      showModalBottomSheet(
+          context: context,
+          builder: (context) {
+            return Container(
+              //height: 1000,
+              color: Colors.brown[50],
+              padding: EdgeInsets.symmetric(
+                horizontal: 60.0,
+                vertical: 20.0,
+              ),
+              child: SearchFilter(),
+            );
+          });
+    }
+
     return Container(
       padding: EdgeInsets.all(16.0),
       decoration: BoxDecoration(
@@ -86,30 +107,34 @@ class _WorkerCardState extends State<WorkerCard> {
           SizedBox(
             height: 30.0,
           ),
-          TextField(
-            decoration: InputDecoration(
-              hintText: "Search worker",
-              fillColor: Colors.white,
-              filled: true,
-              suffixIcon: IconButton(
-                icon: Icon(Icons.filter_list),
-                onPressed: () {
-                  SearchFilter();
-                },
+          Container(
+            child: Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
               ),
-              enabled: true,
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.0),
-                borderSide: BorderSide(color: Colors.transparent),
+              //margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: "Search",
+                  fillColor: Colors.white,
+                  //enabled: true,
+                  //filled: true,
+                  prefixIcon: Icon(Icons.search, color: Colors.deepOrange),
+                  suffixIcon: InkWell(
+                    child: Icon(Icons.filter_list, color: Colors.deepOrange),
+                    onTap: () {
+                      // keybo
+
+                      _showBottomSheet();
+                    },
+                  ),
+                  //suffixIcon: Icon(Icons.filter_list),
+                ),
               ),
-              disabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.0),
-                borderSide: BorderSide(color: Colors.transparent),
-              ),
-              contentPadding:
-                  EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -256,6 +281,20 @@ class _WorkerCardState extends State<WorkerCard> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
+                      IconButton(
+                        icon: Icon(
+                          Icons.favorite,
+                          color: icolorwhite,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            icolorwhite = icolorred;
+                          });
+                        },
+                      ),
+                      SizedBox(
+                        height: 5.0,
+                      ),
                       Text(
                         worker.rating.toString(),
                         style: TextStyle(

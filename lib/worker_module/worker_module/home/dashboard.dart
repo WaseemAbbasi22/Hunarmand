@@ -2,6 +2,7 @@ import 'package:Hunarmand_signIn_Ui/Models/Worker_model.dart';
 import 'package:Hunarmand_signIn_Ui/Models/posted_job_model.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/drawer.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/notifications.dart';
+import 'package:Hunarmand_signIn_Ui/commons/advance_alertdialoge.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/home/searchfilter_form.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/postedjob_detail.dart';
@@ -26,12 +27,15 @@ class _WorkerDashboardState extends State<WorkerDashboard> {
         actions: [
           IconButton(
             icon: Icon(
-              Icons.notifications,
+              Icons.add_call,
               color: Colors.white,
             ),
             onPressed: () => {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => NotificationPage())),
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AdvanceCustomAlert();
+                  })
             },
           ),
         ],

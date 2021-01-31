@@ -5,6 +5,7 @@ import 'package:Hunarmand_signIn_Ui/Screens/home/top_worker.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/drawer.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/notifications.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/worker_card.dart';
+import 'package:Hunarmand_signIn_Ui/commons/advance_alertdialoge.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:flutter/material.dart';
 
@@ -32,14 +33,15 @@ class _HomeDashboardState extends State<HomeDashboard> {
             actions: [
               IconButton(
                 icon: Icon(
-                  Icons.notifications,
+                  Icons.add_call,
                   color: Colors.white,
                 ),
-                onPressed: () => {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => NotificationPage())),
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AdvanceCustomAlert();
+                      });
                 },
               ),
             ],

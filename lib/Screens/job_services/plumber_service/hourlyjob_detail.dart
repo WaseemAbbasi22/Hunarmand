@@ -1,4 +1,5 @@
 import 'package:Hunarmand_signIn_Ui/Screens/duplicate/dashborad.dart';
+import 'package:Hunarmand_signIn_Ui/Service/google_map_dummy.dart';
 import 'package:Hunarmand_signIn_Ui/Service/map.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/small_btn.dart';
@@ -109,7 +110,7 @@ class _HourlyJobDetailState extends State<HourlyJobDetail> {
                   icon: Icon(Icons.forward),
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => GMap()));
+                        MaterialPageRoute(builder: (context) => DummyMap()));
                   },
                 )
               ],
