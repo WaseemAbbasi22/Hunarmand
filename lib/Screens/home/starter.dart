@@ -1,10 +1,9 @@
-//import 'package:Hunarmand_signIn_Ui/Screens/HomeScreen.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/authenticate/sign_in.dart';
+//import 'package:Hunarmand_signIn_Ui/Screens/HomeScreen.dart'
 import 'package:Hunarmand_signIn_Ui/Screens/authenticate/sign_up.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/duplicate/clipper_screen.dart';
+
 import 'package:Hunarmand_signIn_Ui/Screens/duplicate/dashborad.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/awesome_button.dart';
-import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/home/dashboard.dart';
+
 // import 'package:Hunarmand_signIn_Ui/Screens/duplicate/dashborad.dart';
 // import 'package:Hunarmand_signIn_Ui/Widgets/drawer.dart';
 // import 'package:Hunarmand_signIn_Ui/utils/color.dart';
