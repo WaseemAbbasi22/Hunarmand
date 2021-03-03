@@ -10,7 +10,8 @@ import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:flutter/material.dart';
 
 class HomeDashboard extends StatefulWidget {
-  HomeDashboard({Key key}) : super(key: key);
+  HomeDashboard({this.useremail});
+  final String useremail;
   //double _rating = 4.0;
 
   @override

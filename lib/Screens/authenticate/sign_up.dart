@@ -1,6 +1,5 @@
 import 'package:Hunarmand_signIn_Ui/Models/user.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/authenticate/otp.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/authenticate/testscreen.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/duplicate/dashborad.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/duplicate/login.dart';
 import 'package:Hunarmand_signIn_Ui/Service/auth.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
@@ -9,6 +8,7 @@ import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class SignUp extends StatefulWidget {
   // SignUp({Key key}) : super(key: key);
@@ -21,10 +21,11 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   final _formkey = GlobalKey<FormState>();
-  AuthService _authService = AuthService();
+  final authservice = new AuthService();
   String error = '';
-  String phone = '';
+  String email = '';
   String password = '';
+  bool isSpin = false;
   @override
   @override
   Widget build(BuildContext context) {
@@ -92,31 +93,21 @@ class _SignUpState extends State<SignUp> {
                               child: Column(
                                 children: <Widget>[
                                   _inputcard(
-                                      hintText: 'Enter your Phone No',
-                                      icon: Icon(
-                                        Icons.phone,
-                                        color: Colors.deepOrange,
-                                      ),
-                                      validate: (val) =>
-                                          val.isEmpty ? 'Enter phone ' : null,
+                                      hintText: 'Enter your Email',
+                                      icon: Icons.email,
                                       onChange: (val) {
-                                        setState(() => phone = val);
+                                        setState(() => email = val);
+                                        print(email);
                                       }),
                                   SizedBox(
                                     height: 10.0,
                                   ),
                                   _inputcard(
-                                      hintText: 'Enter 4 digit Password',
-                                      icon: Icon(
-                                        Icons.vpn_key,
-                                        color: Colors.deepOrange,
-                                      ),
-                                      validate: (val) => val.isEmpty ||
-                                              val.length < 4
-                                          ? 'Enter password more than 4 digits '
-                                          : null,
+                                      hintText: 'Enter 6 digit Password',
+                                      icon: Icons.email,
                                       onChange: (val) {
                                         setState(() => password = val);
+                                        print(password);
                                       }),
                                 ],
                               ),
@@ -134,20 +125,29 @@ class _SignUpState extends State<SignUp> {
                               //       builder: (context) => ALogin('')),
                               // );
                             },
-                            child: RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                      text: "Already a member ? ",
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            ALogin(widget._showScreen)));
+                              },
+                              child: RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                        text: "Already a member ? ",
+                                        style: TextStyle(
+                                            color: Colors.grey[900],
+                                            fontSize: 16)),
+                                    TextSpan(
+                                      text: "Login",
                                       style: TextStyle(
-                                          color: Colors.grey[900],
-                                          fontSize: 16)),
-                                  TextSpan(
-                                    text: "Login",
-                                    style: TextStyle(
-                                        color: deepOrangeColor, fontSize: 18),
-                                  ),
-                                ],
+                                          color: deepOrangeColor, fontSize: 18),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -160,13 +160,24 @@ class _SignUpState extends State<SignUp> {
                             Center(
                               child: ButtonWidget(
                                 btnText: "Register",
-                                onClick: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => OTPScreen(
-                                            phone, widget._showScreen)),
-                                  );
+                                onClick: () async {
+                                  try {
+                                    User authUser = await authservice
+                                        .registerWithEmailandPassword(
+                                            email: email, password: password);
+                                    if (authUser != null) {
+                                      print(authUser.email);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => HomeDashboard(
+                                                  useremail: authUser.email,
+                                                )),
+                                      );
+                                    }
+                                  } catch (e) {
+                                    print(e);
+                                  }
                                 },
                                 // onClick: () async {
                                 //   if (_formkey.currentState.validate()) {
@@ -211,7 +222,8 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  Widget _inputcard({String hintText, Icon icon, var validate, var onChange}) {
+  Widget _inputcard(
+      {String hintText, IconData icon, var validate, Function onChange}) {
     return Container(
       child: Card(
         elevation: 4,
@@ -228,9 +240,7 @@ class _SignUpState extends State<SignUp> {
             contentPadding: EdgeInsets.all(20),
             //enabled: true,
             //filled: true,
-            prefixIcon: icon,
-
-            //suffixIcon: Icon(Icons.filter_list),
+            prefixIcon: Icon(icon, color: Colors.deepOrange),
           ),
           onChanged: onChange,
         ),

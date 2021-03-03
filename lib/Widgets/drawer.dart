@@ -10,8 +10,12 @@ import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/group_sc
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/my_orders.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/verification/ids_verification.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/workerProfile/profile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+FirebaseAuth _auth = FirebaseAuth.instance;
 
 class MainDrawer extends StatefulWidget {
   MainDrawer({Key key}) : super(key: key);
@@ -21,6 +25,7 @@ class MainDrawer extends StatefulWidget {
 }
 
 class _MainDrawerState extends State<MainDrawer> {
+  String userEamil = _auth.currentUser.email;
   @override
   Widget build(BuildContext context) {
     String uimage = 'assets/images/user_avatar.png';
@@ -54,7 +59,7 @@ class _MainDrawerState extends State<MainDrawer> {
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                   Text(
-                    'username@gmail.com',
+                    userEamil,
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                 ],
@@ -78,6 +83,7 @@ class _MainDrawerState extends State<MainDrawer> {
                     text: 'LogOut',
                     icon: FontAwesomeIcons.arrowLeft,
                     onClick: () {
+                      _auth.signOut();
                       Navigator.pop(context);
                       Navigator.push(
                           context,

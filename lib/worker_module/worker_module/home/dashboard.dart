@@ -6,7 +6,10 @@ import 'package:Hunarmand_signIn_Ui/commons/advance_alertdialoge.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/home/searchfilter_form.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/postedjob_detail.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class WorkerDashboard extends StatefulWidget {
   WorkerDashboard({Key key}) : super(key: key);
@@ -72,20 +75,33 @@ class _WorkerDashboardState extends State<WorkerDashboard> {
                         fontSize: 14.0),
                   )),
               SizedBox(height: 10.0),
-              Expanded(
-                child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      //primary: false,
-                      crossAxisSpacing: 0.0,
-                      mainAxisSpacing: 10.0,
-                      // shrinkWrap: true,
-                    ),
-                    itemCount: posted_job.length,
-                    itemBuilder: (context, index) {
-                      final posted_jobs = posted_job[index];
-                      return _buildCard(pjobs: posted_jobs, ontap: () {});
-                    }),
+              StreamBuilder<QuerySnapshot>(
+                stream: _firestore.collection('posted_projects').snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.lightBlueAccent,
+                      ),
+                    );
+                  }
+                  return Expanded(
+                    child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          //primary: false,
+                          crossAxisSpacing: 0.0,
+                          mainAxisSpacing: 10.0,
+                          // shrinkWrap: true,
+                        ),
+                        itemCount: snapshot.data.docs.length,
+                        itemBuilder: (context, index) {
+                          DocumentSnapshot posted_jobs =
+                              snapshot.data.docs[index];
+                          return _buildCard(pjobs: posted_jobs, ontap: () {});
+                        }),
+                  );
+                },
               )
             ],
           ),
@@ -94,7 +110,7 @@ class _WorkerDashboardState extends State<WorkerDashboard> {
     );
   }
 
-  Widget _buildCard({@required PostedJob pjobs, var ontap}) {
+  Widget _buildCard({@required DocumentSnapshot pjobs, var ontap}) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       elevation: 10.0,
@@ -118,8 +134,8 @@ class _WorkerDashboardState extends State<WorkerDashboard> {
               width: 20.0,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30.0),
-                  color:
-                      pjobs.status == 'Assigned' ? Colors.amber : Colors.green,
+                  // color:
+                  //     pjobs.status == 'Assigned' ? Colors.amber : Colors.green,
                   border: Border.all(
                       color: Colors.white,
                       style: BorderStyle.solid,
@@ -127,107 +143,112 @@ class _WorkerDashboardState extends State<WorkerDashboard> {
             )
           ]),
           SizedBox(height: 8.0),
-          Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            Text(
-              pjobs.title,
-              style: TextStyle(
-                fontFamily: 'Quicksand',
-                fontWeight: FontWeight.bold,
-                fontSize: 15.0,
-              ),
-            ),
-            SizedBox(height: 5.0),
-            Center(
-              child: Container(
-                margin: EdgeInsets.only(left: 40.0),
-                child: Row(
-                  //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Icon(
-                      Icons.place,
-                      size: 20.0,
-                    ),
-                    // SizedBox(
-                    //   width: .0,
-                    // ),
-                    Text(
-                      pjobs.location,
-                      style: TextStyle(
-                          fontFamily: 'Quicksand',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12.0,
-                          color: Colors.grey),
-                    ),
-                  ],
+          Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  pjobs['title'],
+                  style: TextStyle(
+                    fontFamily: 'Quicksand',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.0,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 5.0,
-            ),
-            Center(
-              child: Container(
-                margin: EdgeInsets.only(left: 60.0),
-                child: Row(
-                  //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      'Offers',
-                      style: TextStyle(
-                          fontFamily: 'Quicksand',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14.0,
-                          color: Colors.grey),
+                SizedBox(height: 5.0),
+                Center(
+                  child: Container(
+                    margin: EdgeInsets.only(left: 40.0),
+                    child: Row(
+                      //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Icon(
+                          Icons.place,
+                          size: 20.0,
+                        ),
+                        // SizedBox(
+                        //   width: .0,
+                        // ),
+                        Text(
+                          pjobs['location'],
+                          style: TextStyle(
+                              fontFamily: 'Quicksand',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12.0,
+                              color: Colors.grey),
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Text(
-                      pjobs.offers.toString(),
-                      style: TextStyle(
-                          fontFamily: 'Quicksand',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12.0,
-                          color: Colors.grey),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-            Center(
-              child: Container(
-                margin: EdgeInsets.only(left: 60.0),
-                child: Row(
-                  //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      'Status',
-                      style: TextStyle(
-                        fontFamily: 'Quicksand',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14.0,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Text(
-                      pjobs.status,
-                      style: TextStyle(
-                        fontFamily: 'Quicksand',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12.0,
-                        color: pjobs.status == 'Open'
-                            ? Colors.green
-                            : Colors.amber,
-                      ),
-                    ),
-                  ],
+                SizedBox(
+                  height: 5.0,
                 ),
-              ),
-            ),
-          ]),
+                Center(
+                  child: Container(
+                    margin: EdgeInsets.only(left: 60.0),
+                    child: Row(
+                      //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          'Offers',
+                          style: TextStyle(
+                              fontFamily: 'Quicksand',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14.0,
+                              color: Colors.grey),
+                        ),
+                        SizedBox(
+                          width: 10.0,
+                        ),
+                        Text(
+                          '20',
+                          // pjobs.offers.toString(),
+                          style: TextStyle(
+                              fontFamily: 'Quicksand',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12.0,
+                              color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    margin: EdgeInsets.only(left: 60.0),
+                    child: Row(
+                      //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          'Status',
+                          style: TextStyle(
+                            fontFamily: 'Quicksand',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14.0,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10.0,
+                        ),
+                        Text(
+                          'Assinged',
+                          style: TextStyle(
+                            fontFamily: 'Quicksand',
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12.0,
+                            // color: pjobs.status == 'Open'
+                            //     ? Colors.green
+                            //     : Colors.amber,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ]),
           SizedBox(height: 15.0),
           Expanded(
               child: InkWell(

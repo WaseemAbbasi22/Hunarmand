@@ -1,6 +1,7 @@
 import 'package:Hunarmand_signIn_Ui/Models/user.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/authenticate/testscreen.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/duplicate/dashborad.dart';
+import 'package:Hunarmand_signIn_Ui/Service/auth.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
 import 'package:Hunarmand_signIn_Ui/animation/fade_amination.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/home/dashboard.dart';
@@ -18,8 +19,10 @@ class ALogin extends StatefulWidget {
 }
 
 class _ALoginState extends State<ALogin> {
-  final _auth = FirebaseAuth.instance;
-  final _user = new MyUser();
+  final authUser = new AuthService();
+  String email;
+  String password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,7 +87,10 @@ class _ALoginState extends State<ALogin> {
                             Column(
                               children: <Widget>[
                                 _inputcard(
-                                    hintText: 'Enter Phone Number',
+                                    hintText: 'Enter Eamil',
+                                    onChange: (val) {
+                                      email = val;
+                                    },
                                     icon: Icon(
                                       Icons.phone,
                                       color: Colors.deepOrange,
@@ -93,6 +99,9 @@ class _ALoginState extends State<ALogin> {
                                   height: 10.0,
                                 ),
                                 _inputcard(
+                                    onChange: (val) {
+                                      password = val;
+                                    },
                                     hintText: 'Enter Password',
                                     icon: Icon(
                                       Icons.vpn_key,
@@ -120,22 +129,27 @@ class _ALoginState extends State<ALogin> {
                             1.6,
                             Center(
                               child: ButtonWidget(
-                                onClick: () {
-                                  if (widget._showScreen == 'worker') {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              WorkerDashboard()),
-                                    );
-                                  } else if (widget._showScreen == 'client') {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              HomeDashboard()),
-                                    );
+                                onClick: () async {
+                                  final user = authUser.signInWithEmail(
+                                      email: email, password: password);
+                                  if (user != null) {
+                                    if (widget._showScreen == 'worker') {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                WorkerDashboard()),
+                                      );
+                                    } else if (widget._showScreen == 'client') {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                HomeDashboard()),
+                                      );
+                                    }
                                   }
+
                                   //
                                   // _auth.signInWithEmailAndPassword(
                                   //     email: _user.email,
@@ -156,7 +170,7 @@ class _ALoginState extends State<ALogin> {
     );
   }
 
-  Widget _inputcard({String hintText, Icon icon}) {
+  Widget _inputcard({String hintText, Icon icon, Function onChange}) {
     return Container(
       child: Card(
         elevation: 4,
@@ -165,6 +179,7 @@ class _ALoginState extends State<ALogin> {
         ),
         //margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8.0),
         child: TextField(
+          onChanged: onChange,
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: hintText,

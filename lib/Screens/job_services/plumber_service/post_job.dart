@@ -5,6 +5,11 @@ import 'package:Hunarmand_signIn_Ui/commons/form_textfeild.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/my_orders.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+final _firestore = FirebaseFirestore.instance;
+User _loginUser;
 
 class Postjob extends StatefulWidget {
   const Postjob({Key key}) : super(key: key);
@@ -15,6 +20,10 @@ class Postjob extends StatefulWidget {
 
 class _PostjobState extends State<Postjob> {
   final _formkey = GlobalKey<FormState>();
+  String title;
+  String location;
+  String budget;
+  String detail;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -87,27 +96,41 @@ class _PostjobState extends State<Postjob> {
             key: _formkey,
             child: Column(
               children: [
-                FormInputFeild(
-                  hintText: 'Enter job title',
+                TextField(
+                  //hintText: 'Enter job title',
+                  onChanged: (val) {
+                    title = val;
+                  },
                 ),
                 SizedBox(
                   height: 15.0,
                 ),
-                FormInputFeild(
-                  hintText: 'Enter job Location',
+                TextField(
+                  //: 'Enter job Location',
+                  onChanged: (val) {
+                    location = val;
+                  },
                 ),
                 SizedBox(
                   height: 15.0,
                 ),
-                FormInputFeild(
-                  hintText: 'Enter job Budget',
+                TextField(
+                  onChanged: (val) {
+                    print(val);
+                    budget = val;
+                    print(budget);
+                    // print(budget);
+                  },
                 ),
                 SizedBox(
                   height: 15.0,
                 ),
-                FormInputFeild(
-                  hintText: 'Enter job Detail',
-                  feildHeight: 15,
+                TextField(
+                  //hintText: 'Enter job Detail',
+                  //feildHeight: 15,
+                  onChanged: (val) {
+                    detail = val;
+                  },
                 ),
                 SizedBox(
                   height: 10.0,
@@ -124,6 +147,21 @@ class _PostjobState extends State<Postjob> {
             child: ButtonWidget(
               btnText: 'Post',
               onClick: () {
+                try {
+                  _firestore
+                      .collection('posted_projects')
+                      .add({
+                        'title': title,
+                        'location': location,
+                        'budget': budget,
+                        'detail': detail
+                      })
+                      .then((value) => print("job Added"))
+                      .catchError(
+                          (error) => print("Failed to add job: $error"));
+                } catch (e) {
+                  print(e);
+                }
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => MyOrders()));
               },

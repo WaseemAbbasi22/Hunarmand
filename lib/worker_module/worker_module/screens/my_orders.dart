@@ -4,7 +4,10 @@ import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/home/searchfilter_form.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/joboffers/job_offers.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/postedjob_detail.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+final _firestore = FirebaseFirestore.instance;
 
 class MyOrders extends StatefulWidget {
   MyOrders({Key key}) : super(key: key);
@@ -55,13 +58,25 @@ class _MyOrdersState extends State<MyOrders> {
                         fontSize: 18.0),
                   )),
               SizedBox(height: 10.0),
-              Expanded(
-                child: ListView.builder(
-                    itemCount: posted_job.length,
-                    itemBuilder: (context, index) {
-                      final posted_jobs = posted_job[index];
-                      return _buildListCard(pjobs: posted_jobs);
-                    }),
+              StreamBuilder<QuerySnapshot>(
+                stream: _firestore.collection('posted_projects').snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.lightBlueAccent,
+                      ),
+                    );
+                  }
+                  return Expanded(
+                    child: ListView.builder(
+                        itemCount: snapshot.data.docs.length,
+                        itemBuilder: (context, index) {
+                          final posted_jobs = snapshot.data.docs[index];
+                          return _buildListCard(pjobs: posted_jobs);
+                        }),
+                  );
+                },
               )
             ],
           ),
@@ -70,7 +85,7 @@ class _MyOrdersState extends State<MyOrders> {
     );
   }
 
-  Widget _buildListCard({PostedJob pjobs}) {
+  Widget _buildListCard({DocumentSnapshot pjobs}) {
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Card(
@@ -80,13 +95,13 @@ class _MyOrdersState extends State<MyOrders> {
             leading: CircleAvatar(
                 backgroundImage: AssetImage('assets/images/user_avatar.png')),
             title: Text(
-              pjobs.title,
+              pjobs['title'],
               style: TextStyle(
                   color: Colors.blueGrey,
                   fontSize: 16.0,
                   fontWeight: FontWeight.bold),
             ),
-            subtitle: Text(pjobs.location),
+            subtitle: Text(pjobs['location']),
             trailing: RaisedButton(
               color: deepOrangeColor,
               child: Text('View Detail',
