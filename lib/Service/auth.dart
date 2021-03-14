@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:Hunarmand_signIn_Ui/Service/database_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
@@ -35,6 +36,8 @@ class AuthService {
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
       User user = userCredential.user;
+      await DataBaseService(uid: user.uid)
+          .createUserCollection('waseem', '821025555', 'imageurl', 'ajk');
       return user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

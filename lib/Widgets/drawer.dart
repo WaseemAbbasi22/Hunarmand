@@ -1,17 +1,12 @@
-import 'package:Hunarmand_signIn_Ui/Screens/authenticate/login_screen.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/authenticate/sign_up.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/duplicate/login.dart';
-
 import 'package:Hunarmand_signIn_Ui/Screens/home/starter.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/notifications.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/group_screen/mygroup_screen.dart';
-
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/my_orders.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/verification/ids_verification.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/workerProfile/profile.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -25,7 +20,13 @@ class MainDrawer extends StatefulWidget {
 }
 
 class _MainDrawerState extends State<MainDrawer> {
+  var document = FirebaseFirestore.instance
+      .collection('clients')
+      .doc(_auth.currentUser.uid);
+
   String userEamil = _auth.currentUser.email;
+  // String userName =  document[''];
+
   @override
   Widget build(BuildContext context) {
     String uimage = 'assets/images/user_avatar.png';

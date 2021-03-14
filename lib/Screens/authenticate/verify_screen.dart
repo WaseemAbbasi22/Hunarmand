@@ -1,6 +1,6 @@
 //import 'package:flutter/cupertino.dart';
 import 'dart:async';
-import 'package:Hunarmand_signIn_Ui/Screens/authenticate/login_screen.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -46,8 +46,8 @@ class _VerifyScreenState extends State<VerifyScreen> {
     await user.reload();
     if (user.emailVerified) {
       timer.cancel();
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      // Navigator.pushReplacement(
+      //     context, MaterialPageRoute(builder: (context) => LoginScreen()));
     }
   }
 }

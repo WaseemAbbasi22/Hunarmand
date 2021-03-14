@@ -1,5 +1,4 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter/material.dart';
 //import 'package:carousel_slider/carousel_slider.dart';
 
@@ -58,46 +57,7 @@ class Cslider extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        // child: Column(
-        //   mainAxisAlignment: MainAxisAlignment.end,
-        //   crossAxisAlignment: CrossAxisAlignment.center,
-        //   children: <Widget>[
-        //     Text(
-        //       heading,
-        //       style: TextStyle(
-        //         color: Colors.white,
-        //         fontSize: 20.0,
-        //         fontWeight: FontWeight.bold,
-        //       ),
-        //     ),
-        //     Padding(
-        //       padding: const EdgeInsets.all(10.0),
-        //       child: Text(
-        //         sub_heading,
-        //         style: TextStyle(
-        //           color: Colors.white,
-        //           fontSize: 15.0,
-        //         ),
-        //         //textAlign: TextAlign.center,
-        //       ),
-        //     ),
-        //   ],
-        // ),
       ),
     );
   }
-  // return Swiper(
-  //     itemBuilder: (BuildContext context, int index) {
-  //       return new Image.asset(
-  //         "assets/electric_bg.jpg",
-  //         fit: BoxFit.fill,
-  //       );
-  //     },
-  //     containerHeight: 250.0,
-  //     itemHeight: 250,
-  //     itemCount: 3,
-  //     autoplay: true,
-  //     pagination: new SwiperPagination(),
-  //     control: new SwiperControl(),
-  //   );
 }

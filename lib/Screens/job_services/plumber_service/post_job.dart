@@ -1,3 +1,5 @@
+import 'package:Hunarmand_signIn_Ui/BusinessLogic/uplaod_image.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/authenticate/components/input_card.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/bottomcontainer_widget.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/image_picker.dart';
@@ -9,7 +11,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 final _firestore = FirebaseFirestore.instance;
-User _loginUser;
+final _auth = FirebaseAuth.instance;
+User _loginUser = _auth.currentUser;
 
 class Postjob extends StatefulWidget {
   const Postjob({Key key}) : super(key: key);
@@ -65,12 +68,14 @@ class _PostjobState extends State<Postjob> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: _textWidget(
-                                  text:
-                                      'If the service you are looking for is not in the list, describe it here relevant Hunarmand will help you',
-                                  fontsize: 20.0,
-                                  fontW: FontWeight.w600,
-                                  fontcolor: Colors.grey,
+                                child: Text(
+                                  'If the service you are looking for is not in the list, describe it here relevant Hunarmand will help you',
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.grey,
+                                  ),
+                                  textAlign: TextAlign.center,
                                 ),
                               ),
                             ],
@@ -96,39 +101,39 @@ class _PostjobState extends State<Postjob> {
             key: _formkey,
             child: Column(
               children: [
-                TextField(
-                  //hintText: 'Enter job title',
-                  onChanged: (val) {
+                InputCard(
+                  hintText: 'Enter job title',
+                  onChange: (val) {
                     title = val;
                   },
                 ),
                 SizedBox(
                   height: 15.0,
                 ),
-                TextField(
-                  //: 'Enter job Location',
-                  onChanged: (val) {
+                InputCard(
+                  hintText: 'Enter job Location',
+                  onChange: (val) {
                     location = val;
                   },
                 ),
                 SizedBox(
                   height: 15.0,
                 ),
-                TextField(
-                  onChanged: (val) {
-                    print(val);
+                InputCard(
+                  hintText: 'Enter job budget',
+                  onChange: (val) {
                     budget = val;
-                    print(budget);
+
                     // print(budget);
                   },
                 ),
                 SizedBox(
                   height: 15.0,
                 ),
-                TextField(
-                  //hintText: 'Enter job Detail',
-                  //feildHeight: 15,
-                  onChanged: (val) {
+                InputCard(
+                  maxline: 8,
+                  hintText: 'Enter decription',
+                  onChange: (val) {
                     detail = val;
                   },
                 ),
@@ -142,6 +147,7 @@ class _PostjobState extends State<Postjob> {
             height: 10.0,
           ),
           UploadImage(),
+          //UploadingImage(),
           Container(
             margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
             child: ButtonWidget(
@@ -154,7 +160,10 @@ class _PostjobState extends State<Postjob> {
                         'title': title,
                         'location': location,
                         'budget': budget,
-                        'detail': detail
+                        'detail': detail,
+                        'imageurl': "not avaliable",
+                        'posted_by': _loginUser.email,
+                        'posterurl': "nill"
                       })
                       .then((value) => print("job Added"))
                       .catchError(
@@ -171,82 +180,4 @@ class _PostjobState extends State<Postjob> {
       ),
     );
   }
-
-  Widget _textWidget({
-    String text,
-    double fontsize,
-    Color fontcolor,
-    FontWeight fontW,
-  }) {
-    return Text(
-      text,
-      style: TextStyle(
-        color: fontcolor,
-        fontSize: fontsize,
-        letterSpacing: 0.5,
-        fontWeight: fontW,
-      ),
-      textAlign: TextAlign.center,
-    );
-  }
 }
-
-// TextFormField(
-//   decoration: InputDecoration(
-//     // labelText: 'Title',
-//     hintText: 'Enter job title',
-//     border: OutlineInputBorder(
-//       borderRadius: BorderRadius.circular(10),
-//       //borderSide: new BorderSide(),
-//     ),
-//   ),
-// ),
-
-// SizedBox(
-//   height: 20.0,
-// ),
-// TextFormField(
-//   decoration: InputDecoration(
-//     // labelText: 'Title',
-//     hintText: 'Enter Job Budget',
-//     border: OutlineInputBorder(
-//       borderRadius: BorderRadius.circular(10),
-//       //borderSide: new BorderSide(),
-//     ),
-//   ),
-// ),
-
-// SizedBox(
-//   height: 20.0,
-// ),
-// TextFormField(
-//   decoration: InputDecoration(
-//     // labelText: 'Title',
-//     hintText: 'Enter Job Location',
-//     border: OutlineInputBorder(
-//       borderRadius: BorderRadius.circular(10),
-//       //borderSide: new BorderSide(),
-//     ),
-//   ),
-// ),
-
-// SizedBox(
-//   height: 20.0,
-// ),
-// TextFormField(
-//   decoration: InputDecoration(
-//     //labelText: 'Description',
-
-//     hintText: 'Enter Details here',
-//     // helperMaxLines: 20,
-//     border: OutlineInputBorder(
-//       borderRadius: BorderRadius.circular(10),
-//       //borderSide: new BorderSide(),
-//     ),
-//   ),
-//   // maxLength: 10,
-//   maxLines: 8,
-// ),
-// SizedBox(
-//   height: 100,
-// ),

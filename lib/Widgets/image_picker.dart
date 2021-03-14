@@ -4,6 +4,8 @@ import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+File _image;
+
 class UploadImage extends StatefulWidget {
   UploadImage({Key key}) : super(key: key);
 
@@ -12,7 +14,6 @@ class UploadImage extends StatefulWidget {
 }
 
 class _UploadImageState extends State<UploadImage> {
-  File _image;
   ImagePicker picker = ImagePicker();
   _openGallery(BuildContext context) async {
     final picture = await picker.getImage(source: ImageSource.gallery);
@@ -29,6 +30,17 @@ class _UploadImageState extends State<UploadImage> {
     });
     Navigator.of(context).pop();
   }
+
+  // Future uploadImageToFirebase(BuildContext context) async {
+  //   String fileName = basename(_imageFile.path);
+  //   StorageReference firebaseStorageRef =
+  //       FirebaseStorage.instance.ref().child('uploads/$fileName');
+  //   StorageUploadTask uploadTask = firebaseStorageRef.putFile(_imageFile);
+  //   StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+  //   taskSnapshot.ref.getDownloadURL().then(
+  //         (value) => print("Done: $value"),
+  //       );
+  // }
 
   Future<void> _showChoiceDialoge(BuildContext context) {
     return showDialog(

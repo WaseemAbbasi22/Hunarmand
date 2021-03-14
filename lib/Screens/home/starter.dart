@@ -1,7 +1,6 @@
 //import 'package:Hunarmand_signIn_Ui/Screens/HomeScreen.dart'
 import 'package:Hunarmand_signIn_Ui/Screens/authenticate/sign_up.dart';
-
-import 'package:Hunarmand_signIn_Ui/Screens/duplicate/dashborad.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/home/dashborad.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/awesome_button.dart';
 
 // import 'package:Hunarmand_signIn_Ui/Screens/duplicate/dashborad.dart';
@@ -15,7 +14,7 @@ class StarterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack( 
+      body: Stack(
         children: <Widget>[
           Container(
             width: double.infinity,
@@ -56,8 +55,10 @@ class StarterScreen extends StatelessWidget {
                     icon: Icons.dashboard,
                     cColor: Colors.indigoAccent,
                     onpress: () {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (_) => HomeDashboard()));
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomeDashboard()));
                     }),
               ],
             ),

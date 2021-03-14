@@ -1,4 +1,3 @@
-import 'package:Hunarmand_signIn_Ui/Screens/home/HomeScreen.dart';
 //import 'package:Hunarmand_signIn_Ui/Screens/home/splash_screen.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/job_services/plumber_service/service_detail_screen.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/splash/splash_screen.dart';
@@ -11,8 +10,7 @@ class RouteGernator {
     switch (setting.name) {
       case '/':
         return MaterialPageRoute(builder: (_) => SplashScreen());
-      case '/home':
-        return MaterialPageRoute(builder: (_) => Home());
+
       case '/services':
         return MaterialPageRoute(builder: (_) => ServiceDetail());
       default:

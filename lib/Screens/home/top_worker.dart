@@ -1,5 +1,4 @@
 import 'package:Hunarmand_signIn_Ui/Models/Worker_model.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/home/HomeScreen.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/rating_bar.dart';
 import 'package:Hunarmand_signIn_Ui/commons/radial_progressbar.dart';
 import 'package:Hunarmand_signIn_Ui/commons/ridial_image.dart';
@@ -20,14 +19,6 @@ class TopWorkers extends StatelessWidget {
         itemCount: workers.length,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => Home(
-                    //user: favrites[index],
-                    ),
-              ),
-            ),
             child: Padding(
               padding: const EdgeInsets.only(
                 left: 20.0,

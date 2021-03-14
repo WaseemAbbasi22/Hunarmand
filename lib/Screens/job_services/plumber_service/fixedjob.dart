@@ -1,8 +1,8 @@
 import 'package:Hunarmand_signIn_Ui/Models/electric_model.dart';
 import 'package:flutter/material.dart';
 
-class fixedjob extends StatelessWidget {
-  const fixedjob({Key key}) : super(key: key);
+class FixedJob extends StatelessWidget {
+  const FixedJob({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,6 @@ class fixedjob extends StatelessWidget {
                     top: 5.0, bottom: 20.0, right: 10.0, left: 10.0),
                 padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                 decoration: BoxDecoration(
-                  //borderRadius: BorderRadius.circular(20.0),
-                  //border: Border.all(color: Colors.grey[200]),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black45,
@@ -37,18 +35,12 @@ class fixedjob extends StatelessWidget {
                     )
                   ],
                   color: Color.fromRGBO(50, 62, 72, 0.8),
-
-                  //borderRadius: BorderRadius.all(Radius.circular(10))
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Row(
                       children: <Widget>[
-                        // CircleAvatar(
-                        //   radius: 35.0,
-                        //   backgroundImage: AssetImage(chat.sender.imageUrl),
-                        // ),
                         SizedBox(
                           width: 10.0,
                         ),

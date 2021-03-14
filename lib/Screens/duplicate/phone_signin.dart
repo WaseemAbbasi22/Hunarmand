@@ -1,4 +1,3 @@
-import 'package:Hunarmand_signIn_Ui/Screens/home/HomeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -133,11 +132,6 @@ class _PhoneLoginState extends State<PhoneLogin> {
         setState(() {
           isLoading = false;
         });
-
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Home()),
-        );
       },
       verificationFailed: (FirebaseAuthException e) {
         var msg;
@@ -311,10 +305,6 @@ class _EnterSMSState extends State<EnterSMS> {
         await user.updateProfile(displayName: nameController.text);
       }
       Navigator.of(context).popUntil((route) => route.isFirst);
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => Home()),
-      );
     } catch (err) {
       setState(() {
         isLoading = false;
