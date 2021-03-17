@@ -1,13 +1,13 @@
-import 'package:Hunarmand_signIn_Ui/Models/Worker_model.dart';
-import 'package:Hunarmand_signIn_Ui/Models/posted_job_model.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/home/searchfilter_form.dart';
-import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/joboffers/job_offers.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/postedjob_detail.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 final _firestore = FirebaseFirestore.instance;
+User _loginUser;
+String email;
 
 class MyOrders extends StatefulWidget {
   MyOrders({Key key}) : super(key: key);
@@ -17,6 +17,13 @@ class MyOrders extends StatefulWidget {
 }
 
 class _MyOrdersState extends State<MyOrders> {
+  @override
+  void initState() {
+    super.initState();
+    _loginUser = FirebaseAuth.instance.currentUser;
+    email = _loginUser.email;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,12 +66,15 @@ class _MyOrdersState extends State<MyOrders> {
                   )),
               SizedBox(height: 10.0),
               StreamBuilder<QuerySnapshot>(
-                stream: _firestore.collection('posted_projects').snapshots(),
+                stream: _firestore
+                    .collection('posted_projects')
+                    .where("posted_by", isEqualTo: email)
+                    .snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
                     return Center(
                       child: CircularProgressIndicator(
-                        backgroundColor: Colors.lightBlueAccent,
+                        backgroundColor: Colors.deepOrange,
                       ),
                     );
                   }
@@ -72,8 +82,8 @@ class _MyOrdersState extends State<MyOrders> {
                     child: ListView.builder(
                         itemCount: snapshot.data.docs.length,
                         itemBuilder: (context, index) {
-                          final posted_jobs = snapshot.data.docs[index];
-                          return _buildListCard(pjobs: posted_jobs);
+                          final postedJobs = snapshot.data.docs[index];
+                          return _buildListCard(pjobs: postedJobs);
                         }),
                   );
                 },

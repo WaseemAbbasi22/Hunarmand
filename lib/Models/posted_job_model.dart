@@ -3,7 +3,7 @@ class PostedJob {
   final String detail;
   final String location;
   final int offers;
-  final String imageUrl;
+  String imageUrl;
   final String status;
   final String budget;
 

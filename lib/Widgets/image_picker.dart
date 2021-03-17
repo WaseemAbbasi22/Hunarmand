@@ -1,25 +1,28 @@
 import 'dart:io';
-//import 'package:image_picker/image_picker.dart';
+import 'package:Hunarmand_signIn_Ui/controllers/postjob_controller.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path/path.dart' as Path;
+import 'package:provider/provider.dart';
 
 File _image;
 
 class UploadImage extends StatefulWidget {
-  UploadImage({Key key}) : super(key: key);
-
   @override
   _UploadImageState createState() => _UploadImageState();
 }
 
 class _UploadImageState extends State<UploadImage> {
+  String imageUrl;
   ImagePicker picker = ImagePicker();
   _openGallery(BuildContext context) async {
     final picture = await picker.getImage(source: ImageSource.gallery);
     setState(() {
       _image = File(picture.path);
     });
+    uploadImageToFirebase(_image);
     Navigator.of(context).pop();
   }
 
@@ -28,19 +31,39 @@ class _UploadImageState extends State<UploadImage> {
     setState(() {
       _image = File(picture.path);
     });
+    uploadImageToFirebase(_image);
     Navigator.of(context).pop();
   }
 
-  // Future uploadImageToFirebase(BuildContext context) async {
-  //   String fileName = basename(_imageFile.path);
-  //   StorageReference firebaseStorageRef =
-  //       FirebaseStorage.instance.ref().child('uploads/$fileName');
-  //   StorageUploadTask uploadTask = firebaseStorageRef.putFile(_imageFile);
-  //   StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
-  //   taskSnapshot.ref.getDownloadURL().then(
-  //         (value) => print("Done: $value"),
-  //       );
-  // }
+  Future uploadImageToFirebase(File _imagepath) async {
+    final _storage = FirebaseStorage.instance;
+
+    var fileName = Path.basename(_imagepath.toString());
+    if (_imagepath != null) {
+      var snapshot = await _storage
+          .ref()
+          .child('posted_jobs/$fileName')
+          .putFile(_imagepath);
+      setState(() async {
+        imageUrl = await snapshot.ref.getDownloadURL();
+      });
+
+      if (imageUrl != null) {
+        Provider.of<PostJobController>(context, listen: false).setUrl(imageUrl);
+      }
+
+      print(imageUrl);
+    } else {
+      print('something wrong');
+    }
+    // StorageReference firebaseStorageRef =
+    //     FirebaseStorage.instance.ref().child('uploads/$fileName');
+    // StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
+    // StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
+    // taskSnapshot.ref.getDownloadURL().then(
+    //       (value) => print("Done: $value"),
+    //     );
+  }
 
   Future<void> _showChoiceDialoge(BuildContext context) {
     return showDialog(
@@ -150,6 +173,5 @@ class _UploadImageState extends State<UploadImage> {
         ],
       ),
     );
-    ;
   }
 }

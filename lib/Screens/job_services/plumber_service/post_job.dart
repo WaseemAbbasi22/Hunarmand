@@ -1,10 +1,9 @@
-import 'package:Hunarmand_signIn_Ui/BusinessLogic/uplaod_image.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/authenticate/components/input_card.dart';
-import 'package:Hunarmand_signIn_Ui/Widgets/bottomcontainer_widget.dart';
+import 'package:Hunarmand_signIn_Ui/Service/database_service.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/image_picker.dart';
-import 'package:Hunarmand_signIn_Ui/commons/form_textfeild.dart';
-import 'package:Hunarmand_signIn_Ui/utils/color.dart';
+import 'package:Hunarmand_signIn_Ui/controllers/postjob_controller.dart';
+import 'package:provider/provider.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/my_orders.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,6 +12,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 final _firestore = FirebaseFirestore.instance;
 final _auth = FirebaseAuth.instance;
 User _loginUser = _auth.currentUser;
+DataBaseService _dbService = DataBaseService();
 
 class Postjob extends StatefulWidget {
   const Postjob({Key key}) : super(key: key);
@@ -152,22 +152,17 @@ class _PostjobState extends State<Postjob> {
             margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
             child: ButtonWidget(
               btnText: 'Post',
-              onClick: () {
+              onClick: () async {
                 try {
-                  _firestore
-                      .collection('posted_projects')
-                      .add({
-                        'title': title,
-                        'location': location,
-                        'budget': budget,
-                        'detail': detail,
-                        'imageurl': "not avaliable",
-                        'posted_by': _loginUser.email,
-                        'posterurl': "nill"
-                      })
-                      .then((value) => print("job Added"))
-                      .catchError(
-                          (error) => print("Failed to add job: $error"));
+                  Provider.of<PostJobController>(context, listen: false).addJob(
+                      title: title,
+                      location: location,
+                      budget: budget.toString(),
+                      detail: detail,
+                      offers: 2,
+                      status: 'open');
+                  // print(title);
+                  _dbService.addJobToDb(context);
                 } catch (e) {
                   print(e);
                 }

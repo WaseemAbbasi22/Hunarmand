@@ -39,7 +39,7 @@ class _ClipperDesignState extends State<ClipperDesign>
     var size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.grey[300],
-      resizeToAvoidBottomPadding: false,
+      //resizeToAvoidBottomPadding: false,
       body: Column(
         children: [
           Stack(
