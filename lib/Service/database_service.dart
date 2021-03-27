@@ -1,3 +1,4 @@
+import 'package:Hunarmand_signIn_Ui/Models/posted_job_m.dart';
 import 'package:Hunarmand_signIn_Ui/Models/posted_job_model.dart';
 import 'package:Hunarmand_signIn_Ui/controllers/postjob_controller.dart';
 
@@ -27,27 +28,27 @@ class DataBaseService {
     });
   }
 
-  void addJobToDb(BuildContext context) {
-    PostedJob _postedJob =
-        Provider.of<PostJobController>(context, listen: false).getObj();
-    try {
-      _firestore
-          .collection('posted_projects')
-          .add({
-            'title': _postedJob.title,
-            'location': _postedJob.location,
-            'budget': _postedJob.budget,
-            'detail': _postedJob.detail,
-            'imageurl': _postedJob.imageUrl,
-            'posted_by': _loginUser.email,
-            'posterurl': "nill",
-            'offer': _postedJob.offers,
-            'status': _postedJob.status,
-          })
-          .then((value) => print("job added with title ${_postedJob.budget}"))
-          .catchError((error) => print("Failed to add job: $error"));
-    } catch (e) {
-      print(e);
-    }
-  }
+  // void addJobToDb(BuildContext context) {
+  //   PostedJobM _postedJob =
+  //       Provider.of<PostJobController>(context, listen: false).getObj();
+  //   try {
+  //     _firestore
+  //         .collection('posted_projects')
+  //         .add({
+  //           'title': _postedJob.title,
+  //           'location': _postedJob.location,
+  //           'budget': _postedJob.budget,
+  //           'detail': _postedJob.detail,
+  //           'imageurl': _postedJob.imageUrl,
+  //           'posted_by': _loginUser.email,
+  //           'posterurl': "nill",
+  //           'offer': _postedJob.offers,
+  //           'status': _postedJob.status,
+  //         })
+  //         .then((value) => print("job added with title ${_postedJob.budget}"))
+  //         .catchError((error) => print("Failed to add job: $error"));
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 }

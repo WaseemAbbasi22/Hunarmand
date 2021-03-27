@@ -1,11 +1,11 @@
 class PostedJob {
-  final String title;
-  final String detail;
-  final String location;
-  final int offers;
+  String title;
+  String detail;
+  String location;
+  int offers;
   String imageUrl;
-  final String status;
-  final String budget;
+  String status;
+  String budget;
 
   PostedJob(
       {this.title,

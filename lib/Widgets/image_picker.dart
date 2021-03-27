@@ -1,13 +1,8 @@
-import 'dart:io';
-import 'package:Hunarmand_signIn_Ui/controllers/postjob_controller.dart';
+import 'package:Hunarmand_signIn_Ui/BusinessLogic/uplaod_image.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:path/path.dart' as Path;
-import 'package:provider/provider.dart';
 
-File _image;
+UploadingImage _uploadingImage = UploadingImage();
 
 class UploadImage extends StatefulWidget {
   @override
@@ -15,56 +10,6 @@ class UploadImage extends StatefulWidget {
 }
 
 class _UploadImageState extends State<UploadImage> {
-  String imageUrl;
-  ImagePicker picker = ImagePicker();
-  _openGallery(BuildContext context) async {
-    final picture = await picker.getImage(source: ImageSource.gallery);
-    setState(() {
-      _image = File(picture.path);
-    });
-    uploadImageToFirebase(_image);
-    Navigator.of(context).pop();
-  }
-
-  _openCamera(BuildContext context) async {
-    var picture = await picker.getImage(source: ImageSource.camera);
-    setState(() {
-      _image = File(picture.path);
-    });
-    uploadImageToFirebase(_image);
-    Navigator.of(context).pop();
-  }
-
-  Future uploadImageToFirebase(File _imagepath) async {
-    final _storage = FirebaseStorage.instance;
-
-    var fileName = Path.basename(_imagepath.toString());
-    if (_imagepath != null) {
-      var snapshot = await _storage
-          .ref()
-          .child('posted_jobs/$fileName')
-          .putFile(_imagepath);
-      setState(() async {
-        imageUrl = await snapshot.ref.getDownloadURL();
-      });
-
-      if (imageUrl != null) {
-        Provider.of<PostJobController>(context, listen: false).setUrl(imageUrl);
-      }
-
-      print(imageUrl);
-    } else {
-      print('something wrong');
-    }
-    // StorageReference firebaseStorageRef =
-    //     FirebaseStorage.instance.ref().child('uploads/$fileName');
-    // StorageUploadTask uploadTask = firebaseStorageRef.putFile(_image);
-    // StorageTaskSnapshot taskSnapshot = await uploadTask.onComplete;
-    // taskSnapshot.ref.getDownloadURL().then(
-    //       (value) => print("Done: $value"),
-    //     );
-  }
-
   Future<void> _showChoiceDialoge(BuildContext context) {
     return showDialog(
         context: context,
@@ -81,7 +26,7 @@ class _UploadImageState extends State<UploadImage> {
                   GestureDetector(
                     child: Text('Gallery'),
                     onTap: () {
-                      _openGallery(context);
+                      _uploadingImage.openGallery(context);
                     },
                   ),
                   Padding(
@@ -90,7 +35,7 @@ class _UploadImageState extends State<UploadImage> {
                   GestureDetector(
                     child: Text('Camera'),
                     onTap: () {
-                      _openCamera(context);
+                      _uploadingImage.openCamera(context);
                     },
                   )
                 ],
@@ -101,47 +46,44 @@ class _UploadImageState extends State<UploadImage> {
   }
 
   Widget _imageDisplay() {
-    if (_image == null) {
-      return InkWell(
-        onTap: () {
-          _showChoiceDialoge(context);
-        },
-        child: Container(
-          color: Colors.grey[300],
-          padding: EdgeInsets.all(10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Center(
-                child: Text(
-                  'UPLOAD IMAGE',
-                  style: TextStyle(
-                      color: Colors.blueGrey,
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w800),
-                  textAlign: TextAlign.center,
+    if (_uploadingImage.image == null) {
+      return Container(
+        color: Colors.grey[300],
+        padding: EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Center(
+              child: Text(
+                'UPLOAD IMAGE',
+                style: TextStyle(
+                    color: Colors.blueGrey,
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.w800),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Center(
+              child: IconButton(
+                icon: Icon(
+                  Icons.add_a_photo,
+                  size: 40.0,
+                  color: deepOrangelightColor,
                 ),
+                onPressed: () {
+                  _showChoiceDialoge(context);
+                },
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Center(
-                child: IconButton(
-                  icon: Icon(
-                    Icons.add_a_photo,
-                    size: 40.0,
-                    color: deepOrangelightColor,
-                  ),
-                  onPressed: () {},
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       );
     } else {
-      return Image.file(_image, width: 100, height: 100);
+      return Image.file(_uploadingImage.image, width: 100, height: 100);
     }
   }
 

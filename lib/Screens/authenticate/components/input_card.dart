@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class InputCard extends StatelessWidget {
-  InputCard({this.hintText, this.icon, this.onChange, this.maxline});
+  InputCard(
+      {this.hintText, this.icon, this.onChange, this.maxline, this.controller});
   final String hintText;
   final IconData icon;
   final Function onChange;
   final int maxline;
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,6 +19,7 @@ class InputCard extends StatelessWidget {
         //margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8.0),
         child: TextField(
           onChanged: onChange,
+          controller: controller,
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: hintText,

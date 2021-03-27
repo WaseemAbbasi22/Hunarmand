@@ -1,21 +1,25 @@
+import 'package:Hunarmand_signIn_Ui/BusinessLogic/uplaod_image.dart';
+import 'package:Hunarmand_signIn_Ui/Models/posted_job_m.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/authenticate/components/input_card.dart';
 import 'package:Hunarmand_signIn_Ui/Service/database_service.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/image_picker.dart';
 import 'package:Hunarmand_signIn_Ui/controllers/postjob_controller.dart';
+import 'package:Hunarmand_signIn_Ui/controllers/postjob_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/my_orders.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
-final _firestore = FirebaseFirestore.instance;
 final _auth = FirebaseAuth.instance;
 User _loginUser = _auth.currentUser;
-DataBaseService _dbService = DataBaseService();
+UploadingImage _uploadingImage;
+
+// DataBaseService _dbService = DataBaseService();
 
 class Postjob extends StatefulWidget {
-  const Postjob({Key key}) : super(key: key);
+  final PostedJobs jobs;
+  Postjob({this.jobs});
 
   @override
   _PostjobState createState() => _PostjobState();
@@ -23,12 +27,31 @@ class Postjob extends StatefulWidget {
 
 class _PostjobState extends State<Postjob> {
   final _formkey = GlobalKey<FormState>();
-  String title;
-  String location;
-  String budget;
-  String detail;
+  final jobTitleController = TextEditingController();
+  final jobLocationController = TextEditingController();
+  final jobbudgetController = TextEditingController();
+  final jobdetailController = TextEditingController();
+  // String imageUrl;
+  @override
+  void initState() {
+    super.initState();
+    final postJobController =
+        Provider.of<PostedJobProvider>(context, listen: false);
+    // if (widget.jobs != null) {
+    //   //Edit
+    //   postJobController.text = widget.jobs.title;
+
+    //   postJobController.loadAll(widget.jobs);
+    // } else {
+    //Add
+    postJobController.loadAll(null);
+    // }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final jobProvider = Provider.of<PostedJobProvider>(context);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
@@ -83,7 +106,7 @@ class _PostjobState extends State<Postjob> {
                         ),
                       ),
                       SizedBox(height: 15.0),
-                      _descriptionCard(),
+                      _descriptionCard(provider: jobProvider),
                     ],
                   ),
                 ],
@@ -93,7 +116,7 @@ class _PostjobState extends State<Postjob> {
     );
   }
 
-  Widget _descriptionCard() {
+  Widget _descriptionCard({PostedJobProvider provider}) {
     return Container(
       child: Column(
         children: [
@@ -103,8 +126,9 @@ class _PostjobState extends State<Postjob> {
               children: [
                 InputCard(
                   hintText: 'Enter job title',
-                  onChange: (val) {
-                    title = val;
+                  controller: jobTitleController,
+                  onChange: (String val) {
+                    provider.changetitle = val;
                   },
                 ),
                 SizedBox(
@@ -112,8 +136,8 @@ class _PostjobState extends State<Postjob> {
                 ),
                 InputCard(
                   hintText: 'Enter job Location',
-                  onChange: (val) {
-                    location = val;
+                  onChange: (String val) {
+                    provider.changeloction = val;
                   },
                 ),
                 SizedBox(
@@ -121,11 +145,11 @@ class _PostjobState extends State<Postjob> {
                 ),
                 InputCard(
                   hintText: 'Enter job budget',
-                  onChange: (val) {
-                    budget = val;
-
-                    // print(budget);
+                  onChange: (String val) {
+                    provider.changebudget = val;
                   },
+
+                  // print(budget);
                 ),
                 SizedBox(
                   height: 15.0,
@@ -133,8 +157,8 @@ class _PostjobState extends State<Postjob> {
                 InputCard(
                   maxline: 8,
                   hintText: 'Enter decription',
-                  onChange: (val) {
-                    detail = val;
+                  onChange: (String val) {
+                    provider.changedetail = val;
                   },
                 ),
                 SizedBox(
@@ -147,22 +171,23 @@ class _PostjobState extends State<Postjob> {
             height: 10.0,
           ),
           UploadImage(),
-          //UploadingImage(),
+          // UploadingImage(),
           Container(
             margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
             child: ButtonWidget(
               btnText: 'Post',
               onClick: () async {
                 try {
-                  Provider.of<PostJobController>(context, listen: false).addJob(
-                      title: title,
-                      location: location,
-                      budget: budget.toString(),
-                      detail: detail,
-                      offers: 2,
-                      status: 'open');
-                  // print(title);
-                  _dbService.addJobToDb(context);
+                  provider.savejobs();
+                  // Provider.of<Poste>(context, listen: false).addJob(
+                  //     title: title,
+                  //     location: location,
+                  //     budget: budget,
+                  //     detail: detail,
+                  //     offers: 2,
+                  //     status: 'open');
+                  // // print(title);
+                  // _dbService.addJobToDb(context);
                 } catch (e) {
                   print(e);
                 }
