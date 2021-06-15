@@ -33,7 +33,7 @@ class SplashContent extends StatelessWidget {
         Center(
           child: Image.asset(
             image,
-            height: getScreenHeight(230),
+            height: getScreenHeight(200),
             width: getScreenWidth(235),
           ),
         ),

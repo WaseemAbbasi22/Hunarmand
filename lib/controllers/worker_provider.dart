@@ -12,6 +12,7 @@ class WorkerProvider with ChangeNotifier {
   String _workerId = '';
   String _name = '';
   String _email = '';
+  String _cnic = '';
   String _phoneNo = '';
   String _location = '';
   int _totalJobs = 0;
@@ -20,17 +21,20 @@ class WorkerProvider with ChangeNotifier {
   String _imageUrl = '';
   String _level = '';
   String _dBirth = '';
+  String _skill = '';
   var uuid = Uuid();
 
   //Getters
   String get workername => _name;
   String get workeremail => _email;
+  String get workercnic => _cnic;
   String get workerlocation => _location;
   String get workerphoneno => _phoneNo;
   int get totaljobs => _totalJobs;
   int get completedjobs => _completedJobs;
   int get pendingjobs => _pendingJobs;
   String get workerimageurl => _imageUrl;
+  String get workerskill => _skill;
   String get workerlevel => _level;
   String get workerdbirth => _dBirth;
   String get workerid => _workerId;
@@ -38,7 +42,8 @@ class WorkerProvider with ChangeNotifier {
   Stream<List<Worker>> get workers => firestoreService.getworkers();
   Stream<List<Worker>> get singleworker =>
       firestoreService.getsingleWorker(_workerId);
-  Stream<QuerySnapshot> get worker => firestoreService.getUserStream(_workerId);
+  Stream<QuerySnapshot> get worker =>
+      firestoreService.getWorkerStream(_workerId);
 
   //Setters
   set changename(String name) {
@@ -53,6 +58,11 @@ class WorkerProvider with ChangeNotifier {
 
   set changeemail(String email) {
     _email = email;
+    notifyListeners();
+  }
+
+  set changecnic(String cnic) {
+    _cnic = cnic;
     notifyListeners();
   }
 
@@ -93,6 +103,11 @@ class WorkerProvider with ChangeNotifier {
 
   set changeimgurl(String imgurl) {
     _imageUrl = imgurl;
+    notifyListeners();
+  }
+
+  set changeskill(String skill) {
+    _skill = skill;
     notifyListeners();
   }
 
@@ -167,15 +182,37 @@ class WorkerProvider with ChangeNotifier {
     }
   }
 
-  saveworkers(String workeruid, String name, String phoneNo) {
+  saveworkers(String workeruid, String name, String phoneNo, String skill) {
     if (_workerId == null) {
+      changeworkerid = workeruid;
+      changename = name;
+      changephoneno = phoneNo;
+      changeskill = skill;
       //Add
       var newworker = Worker(
-        name: name,
+        name: _name,
         email: _email,
-        mobileNo: phoneNo,
+        mobileNo: _phoneNo,
         location: _location,
         level: _level,
+        skill: _skill,
+        imageUrl: _imageUrl,
+        totalJobs: _totalJobs,
+        pendingJobs: _pendingJobs,
+        completeJobs: _completedJobs,
+        dBirth: _dBirth,
+        workerId: _workerId,
+      );
+      firestoreService.setworkers(newworker);
+    } else {
+      //Edit
+      var updatedworker = Worker(
+        name: _name,
+        email: _email,
+        mobileNo: _phoneNo,
+        location: _location,
+        level: _level,
+        skill: _skill,
         imageUrl: _imageUrl,
         totalJobs: _totalJobs,
         pendingJobs: _pendingJobs,
@@ -183,15 +220,20 @@ class WorkerProvider with ChangeNotifier {
         dBirth: _dBirth,
         workerId: workeruid,
       );
-      firestoreService.setworkers(newworker);
-    } else {
+      firestoreService.setworkers(updatedworker);
+    }
+  }
+
+  updateworkers(String workeruid) {
+    if (workeruid != null) {
       //Edit
       var updatedworker = Worker(
-        name: name,
+        name: _name,
         email: _email,
-        mobileNo: phoneNo,
+        mobileNo: _phoneNo,
         location: _location,
         level: _level,
+        skill: _skill,
         imageUrl: _imageUrl,
         totalJobs: _totalJobs,
         pendingJobs: _pendingJobs,

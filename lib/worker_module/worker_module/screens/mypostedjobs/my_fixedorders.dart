@@ -64,7 +64,7 @@ class _FixedJobOrdersState extends State<FixedJobOrders> {
               //           fontSize: 18.0),
               //     )),
               SizedBox(height: 10.0),
-              StreamBuilder<List<PostedJobs>>(
+              StreamBuilder<List<Jobs>>(
                 //  _firestore
                 //     .collection('posted_projects')
                 //     .where("posted_by", isEqualTo: email)
@@ -131,7 +131,7 @@ class _FixedJobOrdersState extends State<FixedJobOrders> {
     );
   }
 
-  Widget _buildListCard({PostedJobs pjobs}) {}
+  Widget _buildListCard({Jobs pjobs}) {}
 
   _top() {
     void _showBottomSheet() {

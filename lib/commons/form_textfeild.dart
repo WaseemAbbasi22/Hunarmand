@@ -7,11 +7,15 @@ class FormInputFeild extends StatelessWidget {
   var onvalchange;
   int feildHeight;
   String labelText;
+  String initialvalue;
+  bool readonly;
   FormInputFeild(
       {this.hintText,
       this.ontap,
       this.onvalchange,
       this.feildHeight,
+      this.initialvalue,
+      this.readonly = false,
       this.labelText});
 
   @override
@@ -22,7 +26,10 @@ class FormInputFeild extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0),
         ),
-        child: TextField(
+        child: TextFormField(
+          readOnly: readonly,
+          onChanged: onvalchange,
+          initialValue: initialvalue,
           decoration: InputDecoration(
             labelText: labelText,
             labelStyle: TextStyle(

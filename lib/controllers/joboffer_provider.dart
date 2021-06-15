@@ -11,10 +11,12 @@ class JobOfferProvider with ChangeNotifier {
   String _offerId;
   String _sender;
   String _senderImgUrl;
+  int _budget;
   var uuid = Uuid();
 
   //Getters
   String get offerdetail => _detail;
+  int get offerbudget => _budget;
   String get offerid => _offerId;
   String get offersender => _sender;
   String get offersenderimgurl => _senderImgUrl;
@@ -31,6 +33,11 @@ class JobOfferProvider with ChangeNotifier {
 
   set changeoffersender(String sender) {
     _sender = sender;
+    notifyListeners();
+  }
+
+  set changeofferbudget(int budget) {
+    _budget = budget;
     notifyListeners();
   }
 
@@ -74,6 +81,7 @@ class JobOfferProvider with ChangeNotifier {
           sender: _sender,
           jobId: _jobId,
           detail: _detail,
+          budget: _budget,
           offerId: uuid.v1());
       firestoreService.setoffer(newoffer);
     } else {
@@ -83,6 +91,7 @@ class JobOfferProvider with ChangeNotifier {
           sender: _sender,
           jobId: _jobId,
           detail: _detail,
+          budget: _budget,
           offerId: uuid.v1());
 
       firestoreService.setoffer(updateoffer);

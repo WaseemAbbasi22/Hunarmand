@@ -56,6 +56,9 @@ class _UploadingImageState extends State<UploadingImage> {
       //   // PostJobController _controller = PostJobController();
       //   _controller.setUrl(imageUrl);
       // }
+      print('image url from upload function is......');
+      print(imageUrl);
+      print('image url from provider  function is......');
       print(imageUrl);
       return imageUrl;
     } else {
@@ -109,7 +112,7 @@ class _UploadingImageState extends State<UploadingImage> {
         color: Colors.grey[300],
         padding: EdgeInsets.all(10.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           //crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Center(
@@ -119,23 +122,21 @@ class _UploadingImageState extends State<UploadingImage> {
                     color: Colors.blueGrey,
                     fontSize: 14.0,
                     fontWeight: FontWeight.w800),
-                textAlign: TextAlign.center,
+                // textAlign: TextAlign.center,
               ),
             ),
             SizedBox(
               height: 10,
             ),
-            Center(
-              child: IconButton(
-                icon: Icon(
-                  Icons.add_a_photo,
-                  size: 40.0,
-                  color: deepOrangelightColor,
-                ),
-                onPressed: () {
-                  _showChoiceDialoge(context);
-                },
+            IconButton(
+              icon: Icon(
+                Icons.add_a_photo,
+                size: 40.0,
+                color: deepOrangelightColor,
               ),
+              onPressed: () {
+                _showChoiceDialoge(context);
+              },
             ),
           ],
         ),
@@ -146,19 +147,20 @@ class _UploadingImageState extends State<UploadingImage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 290.0),
+      margin: EdgeInsets.only(right: 250.0),
       //color: Colors.amber,
       color: Colors.grey[300],
       //height: 100,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          _imageDisplay(),
-          SizedBox(
-            height: 10.0,
-          ),
-        ],
-      ),
+      child: _imageDisplay(),
+      // child: Column(
+      //   mainAxisAlignment: MainAxisAlignment.start,
+      //   children: [
+
+      //     SizedBox(
+      //       height: 10.0,
+      //     ),
+      //   ],
+      // ),
     );
   }
 }

@@ -10,40 +10,52 @@ import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/make_off
 import 'package:flutter/material.dart';
 
 class PostedJobDetail extends StatefulWidget {
-  final PostedJobs jobs;
-
-  PostedJobDetail({this.jobs});
+  final Jobs jobs;
+  final String showScreen;
+  PostedJobDetail({this.jobs, this.showScreen});
 
   @override
   _PostedJobDetailState createState() => _PostedJobDetailState();
 }
 
 class _PostedJobDetailState extends State<PostedJobDetail> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   String url;
   String jobtype;
   bool toogleimgcontainer = false;
   @override
   void initState() {
     super.initState();
+    print(widget.showScreen);
     url = widget.jobs.imageUrl;
     jobtype = widget.jobs.jobtype;
-    if (jobtype == 'Other') {
-      toogleimgcontainer = true;
-    }
+    // if (jobtype == 'Other') {
+    //   toogleimgcontainer = true;
+    // }
     print('Image url is .............');
     print(url);
   }
 
   String btnText = 'MAKE OFFER';
   bool offerboxshow = false;
-  bool btnshow = true;
-  bool allOfferbtn = true;
+  bool btnshow = false;
+  bool allOfferbtn = false;
   @override
   Widget build(BuildContext context) {
+    if (widget.showScreen == 'worker') {
+      setState(() {
+        btnshow = true;
+      });
+    } else if (widget.showScreen == 'client') {
+      setState(() {
+        allOfferbtn = true;
+      });
+    }
     setState(() {
       url = widget.jobs.imageUrl;
     });
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.white,
       body: getBody(),
     );
@@ -55,53 +67,55 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
       child: Stack(
         children: <Widget>[
           Visibility(
-            visible: toogleimgcontainer,
-            child: url != null
-                ? Container(
-                    width: double.infinity,
-                    height: size.height * 0.5,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: NetworkImage(url), fit: BoxFit.cover),
+              // visible: toogleimgcontainer,
+              // child: url != null
+              child: Container(
+            width: double.infinity,
+            height: size.height * 0.5,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: url != null
+                      ? NetworkImage(url)
+                      : AssetImage('assets/jobimages/img_not_available.jpeg'),
+                  fit: BoxFit.cover),
+            ),
+            child: SafeArea(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(Icons.arrow_back, color: Colors.white),
+                      // Row(
+                      //   children: <Widget>[
+                      //     SvgPicture.asset("assets/images/heart_icon.svg"),
+                      //     SizedBox(
+                      //       width: 20,
+                      //     ),
+                      //     SvgPicture.asset("assets/images/share_icon.svg"),
+                      //   ],
                     ),
-                    child: SafeArea(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 30, vertical: 30),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            InkWell(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child:
-                                  Icon(Icons.arrow_back, color: Colors.white),
-                              // Row(
-                              //   children: <Widget>[
-                              //     SvgPicture.asset("assets/images/heart_icon.svg"),
-                              //     SizedBox(
-                              //       width: 20,
-                              //     ),
-                              //     SvgPicture.asset("assets/images/share_icon.svg"),
-                              //   ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  )
-                : Center(
-                    // child: Text(
-                    //   url,
-                    //   style: TextStyle(color: Colors.black),
-                    // ),
-                    child: CircularProgressIndicator(
-                      backgroundColor: Colors.deepOrange,
-                    ),
-                  ),
-          ),
+                  ],
+                ),
+              ),
+            ),
+          )
+              // : Center(
+              //     // child: Text(
+              //     //   url,
+              //     //   style: TextStyle(color: Colors.black),
+              //     // ),
+              //     child: CircularProgressIndicator(
+              //       backgroundColor: Colors.deepOrange,
+              //     ),
+              //   ),
+              ),
           Container(
             margin: EdgeInsets.only(top: size.height * 0.45),
             width: double.infinity,
@@ -292,22 +306,22 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
                       SizedBox(
                         width: 10.0,
                       ),
-                      InkWell(
-                        onTap: () {},
-                        child: Align(
-                          //alignment: Alignment.topLeft,
-                          child: Text(
-                            'VIEW ON MAP',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: deepOrangelightColor,
-                              fontFamily: 'Quicksand',
-                              //letterSpacing: 1.5,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      )
+                      // InkWell(
+                      //   onTap: () {},
+                      //   child: Align(
+                      //     //alignment: Alignment.topLeft,
+                      //     child: Text(
+                      //       'VIEW ON MAP',
+                      //       style: TextStyle(
+                      //         fontSize: 14,
+                      //         color: deepOrangelightColor,
+                      //         fontFamily: 'Quicksand',
+                      //         //letterSpacing: 1.5,
+                      //         fontWeight: FontWeight.bold,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // )
                     ],
                   ),
                   _divider(),
@@ -386,6 +400,7 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
                           child: offerboxshow
                               ? MakeOffer(
                                   jobId: widget.jobs.jobId,
+                                  scaffoldKey: _scaffoldKey,
                                 )
                               : SizedBox(height: 0.0))),
                   Visibility(

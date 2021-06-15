@@ -18,7 +18,7 @@ final _auth = FirebaseAuth.instance;
 // DataBaseService _dbService = DataBaseService();
 
 class Postjob extends StatefulWidget {
-  final PostedJobs jobs;
+  final Jobs jobs;
   Postjob({this.jobs});
 
   @override
@@ -248,7 +248,9 @@ class _PostjobState extends State<Postjob> {
                         onPressed: () {
                           _pickDate(context, provider).then((value) {
                             if (value != null) {
-                              provider.changeDate = value;
+                              setState(() {
+                                provider.changeDate = value;
+                              });
                             }
                           });
                         }),

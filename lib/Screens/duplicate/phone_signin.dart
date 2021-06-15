@@ -314,7 +314,7 @@ class _EnterSMSState extends State<EnterSMS> {
           builder: (BuildContext context) {
             return AlertDialog(
               title: Text("Error"),
-              content: Text(err.message),
+              content: Text(err.cnicfronturl),
               actions: [
                 FlatButton(
                   child: Text("OK"),

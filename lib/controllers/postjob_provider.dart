@@ -21,9 +21,14 @@ class PostedJobProvider with ChangeNotifier {
   DateTime _postedDate;
   String _serviceType;
   String _jobType;
+  String _messagebody;
+  String _messagesender;
+  String _messagetime;
+  String _messageId;
   var uuid = Uuid();
 
   //Getters
+  String get jobid => _jobId;
   String get jobtitle => _title;
   String get jobdetail => _detail;
   String get joblocation => _location;
@@ -36,10 +41,16 @@ class PostedJobProvider with ChangeNotifier {
   DateTime get jobposteddate => _postedDate;
   String get servicetype => _serviceType;
   String get jobtype => _jobType;
+  String get messagesender => _messagesender;
+  String get messageid => _messageId;
+  String get messagetime => _messagetime;
+  String get messagebody => _messagebody;
 
-  Stream<List<PostedJobs>> get jobs => firestoreService.getJobs();
-  Stream<List<PostedJobs>> get fixedjobs => firestoreService.getfixedjobs();
-  Stream<List<PostedJobs>> get otherjobs => firestoreService.getotherjobs();
+  Stream<List<Jobs>> get jobs => firestoreService.getJobs();
+  Stream<List<Jobs>> get allfixedjobs => firestoreService.getallfixedjobs();
+  Stream<List<Jobs>> get allotherjobs => firestoreService.getallotherjobs();
+  Stream<List<Jobs>> get fixedjobs => firestoreService.getfixedjobs();
+  Stream<List<Jobs>> get otherjobs => firestoreService.getotherjobs();
 
   //Setters
   set changeDate(DateTime date) {
@@ -47,10 +58,10 @@ class PostedJobProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // String setUseruser() {
-  //   String userEmail = firestoreService.getuserEmail().toString();
-  //   return userEmail;
-  // }
+  set changejobid(String jobid) {
+    _jobId = jobid;
+    notifyListeners();
+  }
 
   set changetitle(String title) {
     _title = title;
@@ -107,8 +118,28 @@ class PostedJobProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  set changemessagebody(String body) {
+    _messagebody = body;
+    notifyListeners();
+  }
+
+  set changemessageid(String messageid) {
+    _messageId = messageid;
+    notifyListeners();
+  }
+
+  set changemessagetime(String time) {
+    _messagetime = time;
+    notifyListeners();
+  }
+
+  set changemessagesender(String sender) {
+    _messagesender = sender;
+    notifyListeners();
+  }
+
   //Functions
-  loadAll(PostedJobs jobs) {
+  loadAll(Jobs jobs) {
     if (jobs != null) {
       // _date = DateTime.parse(entry.date);
       _title = jobs.title;
@@ -145,7 +176,7 @@ class PostedJobProvider with ChangeNotifier {
   savejobs() {
     if (_jobId == null) {
       //Add
-      var newjob = PostedJobs(
+      var newjob = Jobs(
           title: _title,
           location: _location,
           budget: _budget,
@@ -163,7 +194,7 @@ class PostedJobProvider with ChangeNotifier {
       firestoreService.setjob(newjob);
     } else {
       //Edit
-      var updtedjob = PostedJobs(
+      var updtedjob = Jobs(
           title: _title,
           location: _location,
           budget: _budget,
@@ -185,7 +216,7 @@ class PostedJobProvider with ChangeNotifier {
   savefixjobs() {
     if (_jobId == null) {
       //Add
-      var newjob = PostedJobs(
+      var newjob = Jobs(
           title: _title,
           location: _location,
           budget: _budget,
@@ -202,7 +233,7 @@ class PostedJobProvider with ChangeNotifier {
       firestoreService.setfixjob(newjob);
     } else {
       //Edit
-      var updtedjob = PostedJobs(
+      var updtedjob = Jobs(
           title: _title,
           location: _location,
           budget: _budget,
@@ -222,5 +253,18 @@ class PostedJobProvider with ChangeNotifier {
 
   removejob(String jobId) {
     firestoreService.removejob(jobId);
+  }
+
+  savemessage() {
+    if (_messageId == null) {
+      //Add
+      var newmessage = JobMessage(
+          message: _messagebody,
+          senderId: _messagesender,
+          time: _messagetime,
+          messageId: uuid.v1());
+
+      firestoreService.sendjobMessage(newmessage, _jobId);
+    }
   }
 }

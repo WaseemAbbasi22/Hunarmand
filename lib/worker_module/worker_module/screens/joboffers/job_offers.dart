@@ -1,5 +1,6 @@
 import 'package:Hunarmand_signIn_Ui/Models/Worker_model.dart';
 import 'package:Hunarmand_signIn_Ui/Models/job_models/joboffer_model.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/job_services/jobdiscussion.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/rating_bar.dart';
 import 'package:Hunarmand_signIn_Ui/controllers/joboffer_provider.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
@@ -74,6 +75,7 @@ class _JobOfferScreenState extends State<JobOfferScreen> {
                             itemCount: snapshot.data.length,
                             itemBuilder: (context, index) {
                               final worker = workers[index];
+
                               return InkWell(
                                 child: Stack(
                                   children: [
@@ -85,8 +87,8 @@ class _JobOfferScreenState extends State<JobOfferScreen> {
                                         child: Container(
                                           height: MediaQuery.of(context)
                                                   .size
-                                                  .height /
-                                              1.3,
+                                                  .height *
+                                              0.55,
                                         ),
                                       ),
                                     ),
@@ -133,8 +135,9 @@ class _JobOfferScreenState extends State<JobOfferScreen> {
                                                                   .start,
                                                           children: <Widget>[
                                                             _profileContent(
-                                                                title:
-                                                                    worker.name,
+                                                                title: snapshot
+                                                                    .data[index]
+                                                                    .sender,
                                                                 description: worker
                                                                     .category),
                                                             SizedBox(
@@ -167,7 +170,7 @@ class _JobOfferScreenState extends State<JobOfferScreen> {
                                                       padding:
                                                           EdgeInsets.symmetric(
                                                               horizontal: 10.0,
-                                                              vertical: 20.0),
+                                                              vertical: 10.0),
                                                       color: Colors.grey[200],
                                                       child: Column(
                                                         children: [
@@ -176,7 +179,7 @@ class _JobOfferScreenState extends State<JobOfferScreen> {
                                                                   color: Colors
                                                                       .blueGrey,
                                                                   fontSize:
-                                                                      20.0,
+                                                                      15.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold)),
@@ -339,7 +342,10 @@ class _JobOfferScreenState extends State<JobOfferScreen> {
                                                           context,
                                                           MaterialPageRoute(
                                                               builder: (context) =>
-                                                                  ChatScreen()));
+                                                                  JobDiscussion(
+                                                                    jobId: widget
+                                                                        .jobId,
+                                                                  )));
                                                     },
                                                   ),
                                                 ),

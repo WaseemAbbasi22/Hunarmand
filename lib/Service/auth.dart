@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'package:Hunarmand_signIn_Ui/Screens/authenticate/login_screen.dart';
 import 'package:Hunarmand_signIn_Ui/controllers/appstate_controller.dart';
+import 'package:Hunarmand_signIn_Ui/controllers/client_provider.dart';
+import 'package:Hunarmand_signIn_Ui/controllers/user_provider.dart';
 import 'package:Hunarmand_signIn_Ui/controllers/worker_provider.dart';
 import 'package:Hunarmand_signIn_Ui/enum/appstate.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/home/dashboard.dart';
@@ -11,6 +13,8 @@ import 'package:Hunarmand_signIn_Ui/Screens/home/dashborad.dart';
 class AuthService extends AppStateController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final WorkerProvider _workerProvider = WorkerProvider();
+  final UserProvider _userProvider = UserProvider();
+  final ClientProvider _clientProvider = ClientProvider();
   String _verificationId;
   String _phoneNo = '';
   void setverId(String vid) {
@@ -182,6 +186,37 @@ class AuthService extends AppStateController {
 //   _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(message)));
 // }
 
+//Phone signIn...
+  Future<User> signInWithPhoneNumber(
+      String smscode, String name, String type, String skill) async {
+    print(_verificationId);
+    try {
+      setViewState(ViewState.Busy);
+      final AuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: _verificationId,
+        smsCode: smscode,
+      );
+      setViewState(ViewState.Ideal);
+
+      final User user = (await _auth.signInWithCredential(credential)).user;
+      _userProvider.saveuser(user.uid, name, _phoneNo, type);
+      if (type == 'worker') {
+        _workerProvider.saveworkers(user.uid, name, _phoneNo, skill);
+      } else if (type == 'client') {
+        _clientProvider.saveclinet(user.uid, name, _phoneNo);
+      }
+
+      await _auth.currentUser.updateProfile(displayName: name);
+
+      // showSnackbar("Successfully signed in UID: ${user.uid}");
+      print(user.uid);
+      return user;
+    } catch (e) {
+      print(e.toString());
+      return null; // showSnackbar("Failed to sign in: " + e.toString());
+    }
+  }
+
   Future<String> getUserid() async {
     User user = _auth.currentUser;
     String uid = user.uid.toString();
@@ -213,30 +248,6 @@ class AuthService extends AppStateController {
 
   void logOut() async {
     return await _auth.signOut();
-  }
-
-  //Phone signIn...
-  Future<User> signInWithPhoneNumber(String smscode, String name) async {
-    print(_verificationId);
-    try {
-      setViewState(ViewState.Busy);
-      final AuthCredential credential = PhoneAuthProvider.credential(
-        verificationId: _verificationId,
-        smsCode: smscode,
-      );
-      setViewState(ViewState.Ideal);
-
-      final User user = (await _auth.signInWithCredential(credential)).user;
-      _workerProvider.saveworkers(user.uid, name, _phoneNo);
-      await _auth.currentUser.updateProfile(displayName: name);
-
-      // showSnackbar("Successfully signed in UID: ${user.uid}");
-      print(user.uid);
-      return user;
-    } catch (e) {
-      print(e.toString());
-      return null; // showSnackbar("Failed to sign in: " + e.toString());
-    }
   }
 
   phonesignIn(AuthCredential authCreds) {

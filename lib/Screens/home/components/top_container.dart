@@ -22,27 +22,27 @@ class TopContainer extends StatelessWidget {
           SizedBox(
             height: 30.0,
           ),
-          Card(
-            elevation: 4,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8.0),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8),
-              child: TextField(
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: "Search",
-                  fillColor: Colors.white,
-                  //filled: true,
+          // Card(
+          //   elevation: 4,
+          //   shape: RoundedRectangleBorder(
+          //     borderRadius: BorderRadius.circular(16),
+          //   ),
+          //   margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8.0),
+          //   child: Padding(
+          //     padding: EdgeInsets.symmetric(horizontal: 8),
+          //     child: TextField(
+          //       decoration: InputDecoration(
+          //         border: InputBorder.none,
+          //         hintText: "Search",
+          //         fillColor: Colors.white,
+          //         //filled: true,
 
-                  prefixIcon: Icon(Icons.search, color: Colors.deepOrange),
-                  //suffixIcon: Icon(Icons.filter_list),
-                ),
-              ),
-            ),
-          )
+          //         prefixIcon: Icon(Icons.search, color: Colors.deepOrange),
+          //         //suffixIcon: Icon(Icons.filter_list),
+          //       ),
+          //     ),
+          //   ),
+          // )
         ],
       ),
     );

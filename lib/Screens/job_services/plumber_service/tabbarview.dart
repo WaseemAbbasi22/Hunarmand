@@ -33,7 +33,7 @@ class _JobsstateState extends State<Jobsstate>
     super.initState();
     // final jobProvider = Provider.of<PostedJobProvider>(context, listen: false);
     // jobProvider.changeservicetype = widget.servicetype;
-    _tabController = new TabController(length: 3, vsync: this);
+    _tabController = new TabController(length: 2, vsync: this);
   }
 
   @override
@@ -61,9 +61,9 @@ class _JobsstateState extends State<Jobsstate>
               Tab(
                 text: ('Fixed Job'),
               ),
-              Tab(
-                text: ('Hourly Job'),
-              ),
+              // Tab(
+              //   text: ('Hourly Job'),
+              // ),
               Tab(
                 text: ('Post Job'),
               ),
@@ -79,9 +79,9 @@ class _JobsstateState extends State<Jobsstate>
             cat: categories,
             sType: widget.servicetype,
           ),
-          Center(
-            child: Text('hourly job'),
-          ),
+          // Center(
+          //   child: Text('hourly job'),
+          // ),
           Postjob(),
 
           // NestedTabBar(),
@@ -168,7 +168,7 @@ class _NestedTabBarState extends State<NestedTabBar>
                       ButtonWidget(
                           btnText: 'Next',
                           onClick: () {
-                            Navigator.push(
+                            Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => Jobdetail(

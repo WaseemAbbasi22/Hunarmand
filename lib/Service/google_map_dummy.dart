@@ -24,20 +24,25 @@ class _DummyMapState extends State<DummyMap> {
   @override
   void dispose() {
     final mapProvider = Provider.of<MapApplicationBloc>(context, listen: false);
-    mapProvider.dispose();
-    locationSubscription.cancel();
+    // mapProvider.dispose();
+    // locationSubscription.cancel();
     super.dispose();
   }
 
   @override
   void initState() {
     super.initState();
+    _listenstream();
+  }
+
+  _listenstream() async {
     final mapProvider = Provider.of<MapApplicationBloc>(context, listen: false);
     final jobProvider = Provider.of<PostedJobProvider>(context, listen: false);
     // if (locationSubscription.cancel()){
 
     // }) ;
-    locationSubscription = mapProvider.selectedLocation.stream.listen((place) {
+    locationSubscription =
+        await mapProvider.selectedLocation.stream.listen((place) {
       if (place != null) {
         _locationController.text = place.name;
         jobProvider.changeloction = place.name;
@@ -89,15 +94,16 @@ class _DummyMapState extends State<DummyMap> {
                   Stack(
                     children: [
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.75,
+                        height: MediaQuery.of(context).size.height * 0.7,
                         width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.all(5.0),
                         child: GoogleMap(
                           mapType: MapType.normal,
                           myLocationEnabled: true,
                           initialCameraPosition: CameraPosition(
                             target: LatLng(mapProvider.currentLocation.latitude,
                                 mapProvider.currentLocation.longitude),
-                            zoom: 14,
+                            zoom: 12,
                           ),
                           onMapCreated: (GoogleMapController controller) {
                             _mapController.complete(controller);
@@ -128,6 +134,7 @@ class _DummyMapState extends State<DummyMap> {
                                   onTap: () {
                                     mapProvider.setSelectedLocation(mapProvider
                                         .searchResults[index].placeId);
+                                    Navigator.pop(context);
                                   },
                                 );
                               }),

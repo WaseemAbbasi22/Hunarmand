@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 class RoundedImage extends StatelessWidget {
   final String imagePath;
   final Size size;
+  final bool imgtype;
 
   const RoundedImage({
     Key key,
-    @required this.imagePath,
+    this.imagePath =
+        "https://w7.pngwing.com/pngs/639/452/png-transparent-computer-icons-avatar-user-profile-people-icon-child-face-heroes.png",
     this.size = const Size.fromWidth(120),
+    this.imgtype = false,
   }) : super(key: key);
 
   @override
@@ -24,11 +27,29 @@ class RoundedImage extends StatelessWidget {
         ],
       ),
       child: ClipOval(
-        child: Image.asset(
+        child:
+            // child: imgtype == false
+            //     ? Image.asset(
+            //         imagePath,
+            //         width: size.width,
+            //         height: size.width,
+            //         fit: BoxFit.fitWidth,
+            //       ):
+            Image.network(
           imagePath,
+          loadingBuilder: (BuildContext context, Widget child,
+              ImageChunkEvent loadingProgress) {
+            if (loadingProgress == null) return child;
+            return CircularProgressIndicator(
+              value: loadingProgress.expectedTotalBytes != null
+                  ? loadingProgress.cumulativeBytesLoaded /
+                      loadingProgress.expectedTotalBytes
+                  : null,
+            );
+          },
           width: size.width,
           height: size.width,
-          fit: BoxFit.fitWidth,
+          fit: BoxFit.cover,
         ),
       ),
     );

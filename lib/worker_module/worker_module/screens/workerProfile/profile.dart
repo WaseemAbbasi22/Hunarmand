@@ -1,5 +1,6 @@
 import 'package:Hunarmand_signIn_Ui/Models/workermodel.dart';
 import 'package:Hunarmand_signIn_Ui/commons/ridial_image.dart';
+import 'package:Hunarmand_signIn_Ui/controllers/user_provider.dart';
 import 'package:Hunarmand_signIn_Ui/controllers/worker_provider.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/workerProfile/components/about_info.dart';
@@ -17,12 +18,17 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  String imgurl =
+      "https://w7.pngwing.com/pngs/639/452/png-transparent-computer-icons-avatar-user-profile-people-icon-child-face-heroes.png";
   @override
   void initState() {
     // Worker worker;
     print(widget.uid);
     final workerprovider = Provider.of<WorkerProvider>(context, listen: false);
+    final userprovider = Provider.of<UserProvider>(context, listen: false);
+
     workerprovider.changeworkerid = widget.uid;
+    userprovider.changeuserid = widget.uid;
     // workerprovider.worker;
     // workerprovider.loadAll(worker);
 
@@ -33,6 +39,8 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     @override
     final workerprovider = Provider.of<WorkerProvider>(context, listen: false);
+    final userprovider = Provider.of<UserProvider>(context, listen: false);
+
     return Scaffold(
       // bottomNavigationBar: followButton(),
       appBar: AppBar(
@@ -45,8 +53,10 @@ class _ProfilePageState extends State<ProfilePage> {
               Icons.edit,
             ),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => EditProfilePage()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => EditProfilePage(uid: widget.uid)));
             },
           )
         ],
@@ -65,13 +75,160 @@ class _ProfilePageState extends State<ProfilePage> {
           clipper: GetClipper(),
         ),
         StreamBuilder<QuerySnapshot>(
-            stream: workerprovider.worker,
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) return Text("Loading...");
-              return new ListView.builder(
-                  itemCount: snapshot.data.docs.length,
-                  itemBuilder: (BuildContext context, int index) =>
-                      buildTripCard(context, snapshot.data.docs[index]));
+            stream: userprovider.users,
+            builder: (context, usersnapshot) {
+              // switch (usersnapshot.connectionState) {
+              // case ConnectionState.waiting: return new Text("Loading...");
+              // default:
+              return StreamBuilder<QuerySnapshot>(
+                  stream: workerprovider.worker,
+                  builder: (context, workersnapshot) {
+                    switch (workersnapshot.connectionState) {
+                      case ConnectionState.waiting:
+                        return new Text("Loading...");
+                      default:
+                        return ListView.builder(
+                            itemCount: workersnapshot.data.docs.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              DocumentSnapshot wsnapshot =
+                                  workersnapshot.data.docs[index];
+                              DocumentSnapshot usnapshot =
+                                  usersnapshot.data.docs[index];
+
+                              String img = wsnapshot['imageurl'];
+                              return Stack(children: [
+                                Column(
+                                  children: <Widget>[
+                                    SizedBox(
+                                      height: 20.0,
+                                    ),
+                                    Positioned(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        top:
+                                            MediaQuery.of(context).size.height /
+                                                16.0,
+                                        child: img != null
+                                            ? RoundedImage(
+                                                imagePath:
+                                                    wsnapshot['imageurl'] != ""
+                                                        ? wsnapshot['imageurl']
+                                                        : imgurl)
+                                            : Icon(Icons.person)),
+                                    SizedBox(
+                                      height: 18.0,
+                                    ),
+                                    Center(
+                                      child: Text(
+                                        usnapshot['name'] ?? "worker name",
+                                        // snapshot.data[index].name,
+
+                                        style: TextStyle(
+                                          fontSize: 25.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10.0,
+                                    ),
+                                    SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    Center(
+                                      child: Text(
+                                        usnapshot['mobileno'] ?? "worker Phone",
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.blueGrey,
+                                        ),
+                                      ),
+                                    ),
+                                    Card(
+                                      //color: Colors.grey[300],
+                                      elevation: 6.0,
+                                      child: Container(
+                                        margin: EdgeInsets.all(10.0),
+                                        // color: Colors.brown,
+                                        child: Column(
+                                          children: [
+                                            Divider(
+                                              height: 30.0,
+                                              color: Colors.black,
+                                              // indent: 30,
+                                              // endIndent: 30,
+                                            ),
+                                            Container(
+                                              width: 350.0,
+                                              height: 60.0,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                  _jobdetailinfo(
+                                                      heading: wsnapshot[
+                                                              'totaljobs'] ??
+                                                          0,
+                                                      subheading: 'Total Jobs',
+                                                      hColor:
+                                                          Colors.blueAccent),
+                                                  VerticalDivider(
+                                                    width: 50.0,
+                                                    color: Colors.black,
+                                                  ),
+                                                  _jobdetailinfo(
+                                                      heading: wsnapshot[
+                                                              'completedjobs'] ??
+                                                          0,
+                                                      subheading: 'Completed',
+                                                      hColor: Colors.green),
+                                                  VerticalDivider(
+                                                    width: 50.0,
+                                                    color: Colors.black,
+                                                  ),
+                                                  _jobdetailinfo(
+                                                      heading: wsnapshot[
+                                                              'pendingjobs'] ??
+                                                          0,
+                                                      subheading: 'Pending',
+                                                      hColor: Colors.amber),
+                                                ],
+                                              ),
+                                            ),
+                                            Divider(
+                                              height: 30.0,
+                                              color: Colors.black,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 20.0,
+                                    ),
+                                    Divider(
+                                      height: 15,
+                                      color: Colors.grey,
+                                    ),
+                                    AboutInfo(
+                                      location: wsnapshot['location'] ?? 'n/a',
+                                      dob: wsnapshot['skill'] ?? 'n/a',
+                                    ),
+                                    Divider(
+                                      height: 15,
+                                      color: Colors.grey,
+                                    ),
+                                    ContactInfo(
+                                      email: wsnapshot['email'] ?? 'n/a',
+                                      mobileno: usnapshot['mobileno'] ?? 'n/a',
+                                    ),
+                                  ],
+                                ),
+                              ]);
+                            });
+                    }
+                  });
             }),
       ]),
     );
@@ -104,6 +261,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget buildTripCard(BuildContext context, DocumentSnapshot snapshot) {
+    String img = snapshot['imageurl'];
     return Stack(children: [
       Column(
         children: <Widget>[
@@ -113,7 +271,12 @@ class _ProfilePageState extends State<ProfilePage> {
           Positioned(
               width: MediaQuery.of(context).size.width,
               top: MediaQuery.of(context).size.height / 16.0,
-              child: RoundedImage(imagePath: 'assets/images/user_avatar.png')),
+              child: img != null
+                  ? RoundedImage(
+                      imagePath: snapshot['imageurl'] != ""
+                          ? snapshot['imageurl']
+                          : imgurl)
+                  : Icon(Icons.person)),
           SizedBox(
             height: 18.0,
           ),
@@ -204,7 +367,7 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           AboutInfo(
             location: snapshot['location'] ?? 'n/a',
-            dob: snapshot['dateofbirth'] ?? 'n/a',
+            dob: snapshot['skill'] ?? 'n/a',
           ),
           Divider(
             height: 15,

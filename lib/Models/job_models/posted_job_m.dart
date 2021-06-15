@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class PostedJobs {
+class Jobs {
   final String jobId;
   final String title;
   final String detail;
@@ -15,7 +15,7 @@ class PostedJobs {
   final String servicetype;
   final String jobtype;
 
-  PostedJobs(
+  Jobs(
       {this.title,
       this.location,
       this.detail,
@@ -30,8 +30,8 @@ class PostedJobs {
       this.jobtype,
       @required this.jobId});
 
-  factory PostedJobs.fromJson(Map<String, dynamic> json) {
-    return PostedJobs(
+  factory Jobs.fromJson(Map<String, dynamic> json) {
+    return Jobs(
         title: json['title'],
         location: json['location'],
         detail: json['detail'],
@@ -65,8 +65,8 @@ class PostedJobs {
     };
   }
 
-  factory PostedJobs.fixfromJson(Map<String, dynamic> json) {
-    return PostedJobs(
+  factory Jobs.fixfromJson(Map<String, dynamic> json) {
+    return Jobs(
         title: json['title'],
         location: json['location'],
         detail: json['detail'],
@@ -96,6 +96,30 @@ class PostedJobs {
       'servicetype': servicetype ?? '',
       'jobtype': jobtype,
       'jobId': jobId,
+    };
+  }
+}
+
+class JobMessage {
+  final String message;
+  final String senderId;
+  final String time;
+  final String messageId;
+  JobMessage({this.message, this.senderId, this.time, this.messageId});
+  factory JobMessage.fromJson(Map<String, dynamic> json) {
+    return JobMessage(
+        message: json['message'] ?? 'message text',
+        senderId: json['sender'] ?? '',
+        time: json['time'] ?? 'time',
+        messageId: json['messageid']);
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'message': message,
+      'sender': senderId,
+      'time': time,
+      'messageid': messageId,
     };
   }
 }

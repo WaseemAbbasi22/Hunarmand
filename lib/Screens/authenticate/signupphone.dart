@@ -36,6 +36,8 @@ class _SignUpPhoneState extends State<SignUpPhone> {
   final TextEditingController nameController = new TextEditingController();
   final TextEditingController cellnumberController =
       new TextEditingController();
+  final TextEditingController skillcotroller = new TextEditingController();
+
   final TextEditingController otpController = new TextEditingController();
 
   var isLoading = false;
@@ -47,6 +49,7 @@ class _SignUpPhoneState extends State<SignUpPhone> {
   final authservice = new AuthService();
   String error = '';
   String phonenumber = '';
+  String skill = '';
   String name = '';
   bool isSpin = false;
 
@@ -62,6 +65,7 @@ class _SignUpPhoneState extends State<SignUpPhone> {
     nameController.dispose();
     cellnumberController.dispose();
     otpController.dispose();
+    skillcotroller.dispose();
     super.dispose();
   }
 
@@ -183,6 +187,75 @@ class _SignUpPhoneState extends State<SignUpPhone> {
                                     ),
                                   ),
                                 ),
+                                widget._showScreen == 'worker'
+                                    ? Container(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 10.0, horizontal: 10.0),
+                                          child: TextFormField(
+                                            enabled: !isLoading,
+                                          
+                                            controller:skillcotroller ,
+                                            textInputAction:
+                                                TextInputAction.done,
+                                            onFieldSubmitted: (_) =>
+                                                node.unfocus(),
+                                            decoration: InputDecoration(
+                                                hintText:
+                                                    'Enter your skill e.g plumber,gardner....',
+                                                floatingLabelBehavior:
+                                                    FloatingLabelBehavior.never,
+                                                labelText: 'Skill'),
+                                            onChanged: (val) {
+                                              setState(() {
+                                                skill = val;
+                                              });
+                                            },
+                                            validator: (value) {
+                                              if (value.isEmpty) {
+                                                return 'Please enter skill';
+                                              } else {
+                                                return 'valid skill';
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                      )
+                                    : SizedBox(
+                                        height: 5.0,
+                                      ),
+                                FadeAnimation(
+                                  1.6,
+                                  Center(
+                                    child: ButtonWidget(
+                                      btnText: "Register",
+                                      onClick: () async {
+                                        try {
+                                          if (!isLoading) {
+                                            setState(() {
+                                              isRegister = false;
+                                              isOTPScreen = true;
+                                            });
+                                            // if (_formKey.currentState.validate()) {
+                                            final result = await authservice
+                                                .registerWithPhoneNo(
+                                                    phonenumber:
+                                                        cellnumberController
+                                                            .text);
+
+                                            // If the form is valid, we want to show a loading Snackbar
+
+                                            // } else {
+                                            //   print('validate not successfull');
+                                            // }
+                                          }
+                                        } catch (e) {
+                                          print(e);
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -190,91 +263,61 @@ class _SignUpPhoneState extends State<SignUpPhone> {
                         SizedBox(
                           height: 40,
                         ),
-                        FadeAnimation(
-                          1.5,
-                          InkWell(
-                            onTap: () {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //       builder: (context) => ALogin('')),
-                              // );
-                            },
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ALogin(widget._showScreen)));
-                              },
-                              child: RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                        text: "Already a member ? ",
-                                        style: TextStyle(
-                                            color: Colors.grey[900],
-                                            fontSize: 16)),
-                                    TextSpan(
-                                      text: "Login",
-                                      style: TextStyle(
-                                          color: deepOrangeColor, fontSize: 18),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
+                        // FadeAnimation(
+                        //   1.5,
+                        //   InkWell(
+                        //     onTap: () {
+                        //       // Navigator.push(
+                        //       //   context,
+                        //       //   MaterialPageRoute(
+                        //       //       builder: (context) => ALogin('')),
+                        //       // );
+                        //     },
+                        //     child: GestureDetector(
+                        //       onTap: () {
+                        //         Navigator.push(
+                        //             context,
+                        //             MaterialPageRoute(
+                        //                 builder: (context) =>
+                        //                     ALogin(widget._showScreen)));
+                        //       },
+                        //       child: RichText(
+                        //         text: TextSpan(
+                        //           children: [
+                        //             TextSpan(
+                        //                 text: "Already a member ? ",
+                        //                 style: TextStyle(
+                        //                     color: Colors.grey[900],
+                        //                     fontSize: 16)),
+                        //             TextSpan(
+                        //               text: "Login",
+                        //               style: TextStyle(
+                        //                   color: deepOrangeColor, fontSize: 18),
+                        //             ),
+                        //           ],
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                         SizedBox(
                           height: 30,
                         ),
-                        FadeAnimation(
-                          1.6,
-                          Center(
-                            child: ButtonWidget(
-                              btnText: "Register",
-                              onClick: () async {
-                                try {
-                                  if (!isLoading) {
-                                    setState(() {
-                                      isRegister = false;
-                                      isOTPScreen = true;
-                                    });
-                                    // if (_formKey.currentState.validate()) {
-                                    final result =
-                                        await authservice.registerWithPhoneNo(
-                                            phonenumber:
-                                                cellnumberController.text);
 
-                                    // If the form is valid, we want to show a loading Snackbar
-
-                                    // } else {
-                                    //   print('validate not successfull');
-                                    // }
-                                  }
-                                } catch (e) {
-                                  print(e);
-                                }
-                              },
-                            ),
-                          ),
-                        ),
                         OrDivider(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            SocialIcon(
-                              iconSrc: "assets/icons/facebook.svg",
-                              press: () {},
-                            ),
-                            SocialIcon(
-                              iconSrc: "assets/icons/google-plus.svg",
-                              press: () {},
-                            ),
-                          ],
-                        )
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: <Widget>[
+                        //     SocialIcon(
+                        //       iconSrc: "assets/icons/facebook.svg",
+                        //       press: () {},
+                        //     ),
+                        //     SocialIcon(
+                        //       iconSrc: "assets/icons/google-plus.svg",
+                        //       press: () {},
+                        //     ),
+                        //   ],
+                        // )
                       ],
                     ),
                   ),
@@ -331,7 +374,8 @@ class _SignUpPhoneState extends State<SignUpPhone> {
                             validator: (value) {
                               if (value.isEmpty) {
                                 return 'Please enter OTP';
-                              }
+                              } else
+                                return null;
                             },
                           ),
                         ))
@@ -352,7 +396,9 @@ class _SignUpPhoneState extends State<SignUpPhone> {
                                     final result =
                                         authservice.signInWithPhoneNumber(
                                             otpController.text,
-                                            nameController.text);
+                                            nameController.text,
+                                            widget._showScreen,
+                                            skill);
 
                                     if (result != null) {
                                       if (widget._showScreen == 'worker') {
@@ -360,7 +406,10 @@ class _SignUpPhoneState extends State<SignUpPhone> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  WorkerDashboard()),
+                                                  WorkerDashboard(
+                                                    showScreen:
+                                                        widget._showScreen,
+                                                  )),
                                         );
                                       } else if (widget._showScreen ==
                                           'client') {

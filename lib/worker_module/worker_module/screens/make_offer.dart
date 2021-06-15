@@ -8,12 +8,15 @@ final _auth = FirebaseAuth.instance;
 
 class MakeOffer extends StatefulWidget {
   final String jobId;
-  MakeOffer({this.jobId});
+  final GlobalKey<ScaffoldState> scaffoldKey;
+  MakeOffer({this.jobId, this.scaffoldKey});
   @override
   _MakeOfferState createState() => _MakeOfferState();
 }
 
 class _MakeOfferState extends State<MakeOffer> {
+  final _formKey = GlobalKey<FormState>();
+
   // @override
   // void initState() {
   //   final jobOfferprovider =
@@ -25,64 +28,101 @@ class _MakeOfferState extends State<MakeOffer> {
 
   @override
   Widget build(BuildContext context) {
-    final offerdetailController = TextEditingController();
+    // final offerdetailController = TextEditingController();
 
     final offerProvider = Provider.of<JobOfferProvider>(context);
-    setState(() {
-      offerProvider.changejobid = widget.jobId;
-      offerProvider.changeoffersender = _auth.currentUser.displayName;
-    });
+
     return Container(
       padding: EdgeInsets.all(10.0),
       //width: double.infinity,
       //color: Colors.grey[200],
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "OFFER DESCRIPTION",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey,
-              fontFamily: 'Quicksand',
+      child: Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "OFFER DESCRIPTION",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey,
+                fontFamily: 'Quicksand',
+              ),
             ),
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          Card(
-            elevation: 2,
-            color: Colors.grey[100],
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+            SizedBox(
+              height: 15,
             ),
-            //margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8.0),
-            child: TextField(
+            TextFormField(
               // controller: offerdetailController,
+              keyboardType: TextInputType.number,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your offer budget';
+                }
+                return null;
+              },
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: "Describe your offer here",
+                hintText: "Enter your offer budget",
                 fillColor: Colors.grey[300],
                 contentPadding: EdgeInsets.all(20.0),
               ),
-              maxLines: 15,
+
               onChanged: (String val) {
-                offerProvider.changedetail = val;
+                offerProvider.changeofferbudget = int.parse(val);
               },
             ),
-          ),
-          SizedBox(
-            height: 30.0,
-          ),
-          ButtonWidget(
-            btnText: 'SEND OFFER',
-            onClick: () {
-              offerProvider.saveoffers();
-              Navigator.pop(context);
-            },
-          )
-        ],
+            Card(
+              elevation: 2,
+              color: Colors.grey[100],
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              //margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8.0),
+              child: TextFormField(
+                // controller: offerdetailController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: "Describe your offer here",
+                  fillColor: Colors.grey[300],
+                  contentPadding: EdgeInsets.all(20.0),
+                ),
+                maxLines: 15,
+                onChanged: (String val) {
+                  offerProvider.changedetail = val;
+                },
+              ),
+            ),
+            SizedBox(
+              height: 30.0,
+            ),
+            ButtonWidget(
+              btnText: 'SEND OFFER',
+              onClick: () {
+                if (_formKey.currentState.validate()) {
+                  offerProvider.changejobid = widget.jobId;
+
+                  offerProvider.changeoffersender =
+                      _auth.currentUser.displayName;
+                  offerProvider.saveoffers();
+                  Navigator.pop(context);
+                } else {
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text('please describe offer'),
+                    duration: Duration(seconds: 3),
+                  ));
+                }
+              },
+            )
+          ],
+        ),
       ),
     );
   }

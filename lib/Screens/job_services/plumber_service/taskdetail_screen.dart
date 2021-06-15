@@ -1,13 +1,19 @@
 //import 'dart:js';
 import 'package:Hunarmand_signIn_Ui/Models/job_models/jobdetail_model.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/googlemaps/placepicker.dart';
 import 'package:Hunarmand_signIn_Ui/Service/google_map_dummy.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
+import 'package:date_format/date_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/mypostedjobs/my_orderhome.dart';
 import 'package:Hunarmand_signIn_Ui/controllers/postjob_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 
 final _auth = FirebaseAuth.instance;
 
@@ -18,6 +24,8 @@ String jobDetail = '';
 String postername;
 
 class Jobdetail extends StatefulWidget {
+  static final kInitialPosition = LatLng(-33.8567844, 151.213108);
+
   final String serviceType;
   Jobdetail({this.serviceType});
 
@@ -26,6 +34,9 @@ class Jobdetail extends StatefulWidget {
 }
 
 class _JobdetailState extends State<Jobdetail> {
+  PickResult selectedPlace;
+  String apikey = "AIzaSyCKBDeO6UNwsWfs3J7hx8qjy0zqUCAFAhU";
+
   @override
   void initState() {
     postername = _auth.currentUser.displayName;
@@ -85,7 +96,7 @@ class _JobdetailState extends State<Jobdetail> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Divider(
                       color: Colors.grey[900],
                     ),
@@ -98,25 +109,28 @@ class _JobdetailState extends State<Jobdetail> {
             //   height: 10.0,
             // ),
             _cardWidget(),
-            SizedBox(
-              height: 25.0,
-            ),
+            // SizedBox(
+            //   height: 10.0,
+            // ),
             // _bottom(),
-            ButtonWidget(
-              btnText: 'Post Now',
-              onClick: () {
-                jobprovider.changejobtype = 'Fixed';
-                jobprovider.changetitle = jobtitle;
-                jobprovider.changebudget = total.toString();
-                jobprovider.changedetail = jobDetail;
-                jobprovider.changepostedby = postername;
-                jobprovider.changeservicetype = widget.serviceType;
-                jobprovider.savefixjobs();
-                itemdetailprovider.itemdetail.clear();
-                jobprovider.changeloction = null;
-                Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (_) => Orderstate()));
-              },
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ButtonWidget(
+                btnText: 'Post Now',
+                onClick: () {
+                  jobprovider.changejobtype = 'Fixed';
+                  jobprovider.changetitle = jobtitle;
+                  jobprovider.changebudget = total.toString();
+                  jobprovider.changedetail = jobDetail;
+                  jobprovider.changepostedby = postername;
+                  jobprovider.changeservicetype = widget.serviceType;
+                  jobprovider.savefixjobs();
+                  itemdetailprovider.itemdetail.clear();
+                  jobprovider.changeloction = null;
+                  Navigator.pushReplacement(
+                      context, MaterialPageRoute(builder: (_) => Orderstate()));
+                },
+              ),
             ),
           ],
         ),
@@ -130,7 +144,7 @@ class _JobdetailState extends State<Jobdetail> {
     return Card(
       elevation: 6.0,
       child: Container(
-        padding: EdgeInsets.all(20.0),
+        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         color: Colors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -183,10 +197,76 @@ class _JobdetailState extends State<Jobdetail> {
                                   color: deepOrangeColor,
                                   icon: Icon(Icons.forward),
                                   onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => DummyMap()));
+                                    Navigator.push(context, MaterialPageRoute(
+                                      builder: (context) {
+                                        return PlacePicker(
+                                          apiKey: apikey,
+                                          initialPosition:
+                                              MapLocation.kInitialPosition,
+                                          useCurrentLocation: true,
+                                          selectInitialPosition: true,
+                                          usePlaceDetailSearch: true,
+                                          // strictbounds: true,
+                                          // autocompleteTypes: ['address'],
+                                          //usePlaceDetailSearch: true,
+                                          onPlacePicked: (result) {
+                                            selectedPlace = result;
+
+                                            print(result.adrAddress);
+                                            print(result.addressComponents[0]);
+                                            print(result.placeId);
+                                            print('location from provider is');
+                                            print(jobprovider.joblocation);
+                                            Navigator.of(context).pop();
+                                            // setState(() {
+                                            //   jobprovider.changeloction =
+                                            //       selectedPlace
+                                            //           .formattedAddress;
+                                            // });
+                                          },
+                                          //forceSearchOnZoomChanged: true,
+                                          //automaticallyImplyAppBarLeading: false,
+                                          //autocompleteLanguage: "ko",
+                                          //region: 'au',
+                                          //selectInitialPosition: true,
+                                          // selectedPlaceWidgetBuilder: (_, selectedPlace, state, isSearchBarFocused) {
+                                          //   print("state: $state, isSearchBarFocused: $isSearchBarFocused");
+                                          //   return isSearchBarFocused
+                                          //       ? Container()
+                                          //       : FloatingCard(
+                                          //           bottomPosition: 0.0, // MediaQuery.of(context) will cause rebuild. See MediaQuery document for the information.
+                                          //           leftPosition: 0.0,
+                                          //           rightPosition: 0.0,
+                                          //           width: 500,
+                                          //           borderRadius: BorderRadius.circular(12.0),
+                                          //           child: state == SearchingState.Searching
+                                          //               ? Center(child: CircularProgressIndicator())
+                                          //               : RaisedButton(
+                                          //                   child: Text("Pick Here"),
+                                          //                   onPressed: () {
+                                          //                     // IMPORTANT: You MUST manage selectedPlace data yourself as using this build will not invoke onPlacePicker as
+                                          //                     //            this will override default 'Select here' Button.
+                                          //                     print("do something with [selectedPlace] data");
+                                          //                     Navigator.of(context).pop();
+                                          //                   },
+                                          //                 ),
+                                          //         );
+                                          // },
+                                          // pinBuilder: (context, state) {
+                                          //   if (state == PinState.Idle) {
+                                          //     return Icon(Icons.favorite_border);
+                                          //   } else {
+                                          //     return Icon(Icons.favorite);
+                                          //   }
+                                          // },
+                                        );
+                                      },
+                                    ));
+                                    // Navigator.push(
+                                    //     context,
+                                    //     MaterialPageRoute(
+                                    //         builder: (context) =>
+                                    //             MapLocation()));
                                   },
                                 )
                         ],
@@ -201,7 +281,49 @@ class _JobdetailState extends State<Jobdetail> {
                         textAlign: TextAlign.center,
                       ),
               ],
-            )
+            ),
+            Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Pick Job Validity Date',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                  ),
+                ),
+                SizedBox(
+                  width: 12.0,
+                ),
+                IconButton(
+                    icon: Icon(
+                      Icons.calendar_today,
+                      color: Colors.deepOrange,
+                      size: 20.0,
+                    ),
+                    onPressed: () {
+                      _pickDate(context, jobprovider).then((value) {
+                        if (value != null) {
+                          DateFormat('MM/dd/yyyy').format(value);
+                          setState(() {
+                            jobprovider.changeDate = value;
+                          });
+                        }
+                      });
+                    }),
+                jobprovider.jobposteddate != null
+                    ? Text(
+                        DateFormat('MM/dd/yyyy')
+                            .format(jobprovider.jobposteddate),
+                        style:
+                            TextStyle(fontSize: 18.0, color: Colors.blueGrey),
+                      )
+                    : Text(
+                        formatDate(DateTime.now(), [MM, ' ', d, ', ', yyyy]),
+                        style:
+                            TextStyle(fontSize: 16.0, color: Colors.blueGrey),
+                      ),
+              ],
+            ),
           ],
         ),
       ),
@@ -250,7 +372,7 @@ class _JobdetailState extends State<Jobdetail> {
                               ],
                             ),
                             SizedBox(
-                              height: 20.0,
+                              height: 5.0,
                             ),
                           ],
                         ),
@@ -476,5 +598,16 @@ class _JobdetailState extends State<Jobdetail> {
     setState(() {
       jobDetail = jobdetail;
     });
+  }
+
+  Future<DateTime> _pickDate(
+      BuildContext context, PostedJobProvider jobProvider) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2019),
+        lastDate: DateTime(2050));
+
+    if (picked != null) return picked;
   }
 }

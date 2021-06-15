@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class IdVerification extends StatefulWidget {
-  IdVerification({Key key}) : super(key: key);
+  final String uid;
+  IdVerification({this.uid});
 
   @override
   _IdVerificationState createState() => _IdVerificationState();
@@ -63,7 +64,8 @@ class _IdVerificationState extends State<IdVerification> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ICardVerification()));
+                            builder: (context) =>
+                                ICardVerification(uid: widget.uid)));
                   }
                 }),
           ],

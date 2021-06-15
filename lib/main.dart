@@ -5,7 +5,10 @@ import 'package:Hunarmand_signIn_Ui/Service/mapservices/mapapp_bloc.dart';
 import 'package:Hunarmand_signIn_Ui/controllers/appstate_controller.dart';
 import 'package:Hunarmand_signIn_Ui/controllers/group_provider.dart';
 import 'package:Hunarmand_signIn_Ui/controllers/joboffer_provider.dart';
+import 'package:Hunarmand_signIn_Ui/controllers/phone_auth_controller.dart';
 import 'package:Hunarmand_signIn_Ui/controllers/postjob_provider.dart';
+import 'package:Hunarmand_signIn_Ui/controllers/user_provider.dart';
+import 'package:Hunarmand_signIn_Ui/controllers/verification_provider.dart';
 import 'package:Hunarmand_signIn_Ui/controllers/worker_provider.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,6 +35,11 @@ class MyApp extends StatelessWidget {
         // Provider(
         //   auth: AuthService(),
         // ),
+        ChangeNotifierProvider<PhoneAuthDataProvider>(
+          create: (BuildContext context) {
+            return PhoneAuthDataProvider();
+          },
+        ),
         ChangeNotifierProvider<PostedJobProvider>(
           create: (BuildContext context) {
             return PostedJobProvider();
@@ -45,6 +53,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<WorkerProvider>(
           create: (BuildContext context) {
             return WorkerProvider();
+          },
+        ),
+        ChangeNotifierProvider<UserProvider>(
+          create: (BuildContext context) {
+            return UserProvider();
           },
         ),
         ChangeNotifierProvider<MapApplicationBloc>(
@@ -62,9 +75,10 @@ class MyApp extends StatelessWidget {
             return JobDetailProvider();
           },
         ),
-        ChangeNotifierProvider<GroupProvider>(
+
+        ChangeNotifierProvider<VerificationProvider>(
           create: (BuildContext context) {
-            return GroupProvider();
+            return VerificationProvider();
           },
         ),
       ],

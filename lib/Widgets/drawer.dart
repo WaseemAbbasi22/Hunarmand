@@ -5,6 +5,7 @@ import 'package:Hunarmand_signIn_Ui/enum/appstate.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/group_screen/mygroup_screen.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/group_screen/pages/home_page.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/myorders.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/mypostedjobs/my_orderhome.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/mypostedjobs/my_fixedorders.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/verification/ids_verification.dart';
@@ -22,20 +23,23 @@ String uid;
 String uname;
 
 class MainDrawer extends StatefulWidget {
-  MainDrawer({Key key}) : super(key: key);
+  final String showscreen;
+  MainDrawer({this.showscreen});
 
   @override
   _MainDrawerState createState() => _MainDrawerState();
 }
 
 class _MainDrawerState extends State<MainDrawer> {
-  var document = FirebaseFirestore.instance
-      .collection('clients')
-      .doc(_auth.currentUser.uid);
+  // var document = FirebaseFirestore.instance
+  //     .collection('clients')
+  //     .doc(_auth.currentUser.uid);
 
   // String userName =  document[''];
   @override
   void initState() {
+    print('show screen is');
+    print(widget.showscreen);
     uid = _auth.currentUser.uid;
     setState(() {
       userEamil = _auth.currentUser.email;
@@ -87,7 +91,7 @@ class _MainDrawerState extends State<MainDrawer> {
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                   Text(
-                    userPhone,
+                    userPhone ?? "user phone",
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                 ],
@@ -113,7 +117,7 @@ class _MainDrawerState extends State<MainDrawer> {
                     onClick: () {
                       _auth.signOut();
                       Navigator.pop(context);
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) => StarterScreen()));
@@ -152,17 +156,29 @@ class _MainDrawerState extends State<MainDrawer> {
             color: dcolor,
             indent: 20.0,
           ),
-          _listtiles(
-              text: 'My Jobs',
-              icon: FontAwesomeIcons.box,
-              onClick: () {
-                Navigator.pop(context);
-                Navigator.push(
-                    context,
-                    //  MaterialPageRoute(builder: (context) => SignIn()));
+          widget.showscreen == 'client'
+              ? _listtiles(
+                  text: 'My Jobs',
+                  icon: FontAwesomeIcons.box,
+                  onClick: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        //  MaterialPageRoute(builder: (context) => SignIn()));
 
-                    MaterialPageRoute(builder: (context) => Orderstate()));
-              }),
+                        MaterialPageRoute(builder: (context) => Orderstate()));
+                  })
+              : _listtiles(
+                  text: 'My Orders',
+                  icon: FontAwesomeIcons.box,
+                  onClick: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        //  MaterialPageRoute(builder: (context) => SignIn()));
+
+                        MaterialPageRoute(builder: (context) => MyOrders()));
+                  }),
           Divider(
             color: dcolor,
             indent: 20.0,
@@ -223,7 +239,10 @@ class _MainDrawerState extends State<MainDrawer> {
                     context,
                     //  MaterialPageRoute(builder: (context) => SignIn()));
 
-                    MaterialPageRoute(builder: (context) => IdVerification()));
+                    MaterialPageRoute(
+                        builder: (context) => IdVerification(
+                              uid: uid,
+                            )));
               }),
 
           Divider(

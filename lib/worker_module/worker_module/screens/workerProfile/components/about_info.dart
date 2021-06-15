@@ -49,9 +49,9 @@ class _AboutInfoState extends State<AboutInfo> {
                     height: 20.0,
                   ),
                   _rowWidget(
-                      heading: 'DOB',
+                      heading: 'Skill',
                       subheading: widget.dob,
-                      icon: Icons.calendar_today),
+                      icon: Icons.work),
                 ],
               ),
             ),
