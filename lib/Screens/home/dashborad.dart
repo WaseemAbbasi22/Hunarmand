@@ -2,6 +2,7 @@ import 'package:Hunarmand_signIn_Ui/BusinessLogic/services.dart';
 import 'package:Hunarmand_signIn_Ui/Models/service_model.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/home/components/top_container.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/home/top_worker.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/job_services/plumber_service/tabbarview.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/drawer.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/worker_card.dart';
 import 'package:Hunarmand_signIn_Ui/commons/advance_alertdialoge.dart';
@@ -86,13 +87,16 @@ class _HomeDashboardState extends State<HomeDashboard> {
                     return _gridItem(
                       service: service,
                       ontap: () {
-                        if (index == 1) {
+                        if (index == 0) {
                           Navigator.of(context).pushNamed('/services');
-                        } else if (ind == 2) {
+                        } else if (index == 1) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => WorkerCard()));
+                                  // builder: (context) => WorkerCard()));
+                                  builder: (context) => Jobsstate(
+                                        servicetype: 'plumber',
+                                      )));
                         }
                       },
                     );
@@ -145,7 +149,7 @@ class _HomeDashboardState extends State<HomeDashboard> {
         children: [
           Container(
             // padding: EdgeInsets.all(.0),
-            height: 50,
+            height: 40,
             width: 50,
             //color: deepOrangeColor,
             decoration: BoxDecoration(

@@ -1,16 +1,25 @@
 import 'package:Hunarmand_signIn_Ui/Screens/home/starter.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/notifications.dart';
+import 'package:Hunarmand_signIn_Ui/controllers/appstate_controller.dart';
+import 'package:Hunarmand_signIn_Ui/enum/appstate.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/group_screen/mygroup_screen.dart';
-import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/my_orders.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/group_screen/pages/home_page.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/mypostedjobs/my_orderhome.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/mypostedjobs/my_fixedorders.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/verification/ids_verification.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/workerProfile/profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 FirebaseAuth _auth = FirebaseAuth.instance;
+String userEamil;
+String userPhone;
+String uid;
+String uname;
 
 class MainDrawer extends StatefulWidget {
   MainDrawer({Key key}) : super(key: key);
@@ -24,11 +33,23 @@ class _MainDrawerState extends State<MainDrawer> {
       .collection('clients')
       .doc(_auth.currentUser.uid);
 
-  String userEamil = _auth.currentUser.email;
   // String userName =  document[''];
+  @override
+  void initState() {
+    uid = _auth.currentUser.uid;
+    setState(() {
+      userEamil = _auth.currentUser.email;
+      userPhone = _auth.currentUser.phoneNumber;
+      uname = _auth.currentUser.displayName;
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final stateprovider =
+        Provider.of<AppStateController>(context, listen: false);
     String uimage = 'assets/images/user_avatar.png';
     Color dcolor = Colors.grey[600];
     bool show = true;
@@ -46,21 +67,27 @@ class _MainDrawerState extends State<MainDrawer> {
               child: Column(
                 // mainAxisAlignment: .s,
                 children: [
-                  Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            image: AssetImage(uimage), fit: BoxFit.cover)),
-                  ),
+                  stateprovider.viewState == ViewState.Busy
+                      ? CircularProgressIndicator(
+                          backgroundColor: Colors.deepOrange,
+                          semanticsLabel: "Loading Data",
+                        )
+                      : Container(
+                          width: 100,
+                          height: 100,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                  image: AssetImage(uimage),
+                                  fit: BoxFit.cover)),
+                        ),
                   SizedBox(height: 10.0),
                   Text(
-                    'username',
+                    uname ?? " user name",
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                   Text(
-                    userEamil,
+                    userPhone,
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                 ],
@@ -114,8 +141,12 @@ class _MainDrawerState extends State<MainDrawer> {
               icon: FontAwesomeIcons.userAlt,
               onClick: () {
                 Navigator.pop(context);
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ProfilePage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProfilePage(
+                              uid: uid,
+                            )));
               }),
           Divider(
             color: dcolor,
@@ -130,7 +161,7 @@ class _MainDrawerState extends State<MainDrawer> {
                     context,
                     //  MaterialPageRoute(builder: (context) => SignIn()));
 
-                    MaterialPageRoute(builder: (context) => MyOrders()));
+                    MaterialPageRoute(builder: (context) => Orderstate()));
               }),
           Divider(
             color: dcolor,
@@ -209,7 +240,8 @@ class _MainDrawerState extends State<MainDrawer> {
                     // context, MaterialPageRoute(builder: (context) => SignUp()));
 
                     context,
-                    MaterialPageRoute(builder: (context) => MyGroups()));
+                    // MaterialPageRoute(builder: (context) => MyGroups()));
+                    MaterialPageRoute(builder: (context) => HomePage()));
               }),
           Divider(
             color: dcolor,

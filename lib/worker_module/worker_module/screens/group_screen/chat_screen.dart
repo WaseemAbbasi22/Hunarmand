@@ -124,7 +124,7 @@ class _ChatScreenState extends State<ChatScreen> {
       appBar: AppBar(
         backgroundColor: deepOrangeColor,
         title: Text(
-          widget.user.name,
+          'abc',
           style: TextStyle(
             fontSize: 20.0,
             fontWeight: FontWeight.bold,

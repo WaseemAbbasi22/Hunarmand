@@ -2,7 +2,9 @@ import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:flutter/material.dart';
 
 class ContactInfo extends StatefulWidget {
-  ContactInfo({Key key}) : super(key: key);
+  final String email;
+  final String mobileno;
+  ContactInfo({this.email, this.mobileno});
 
   @override
   _ContactInfoState createState() => _ContactInfoState();
@@ -42,14 +44,14 @@ class _ContactInfoState extends State<ContactInfo> {
                 children: [
                   _rowWidget(
                       heading: 'EMAIL',
-                      subheading: 'user123@gmail.com',
+                      subheading: widget.email,
                       icon: Icons.email),
                   SizedBox(
                     height: 20.0,
                   ),
                   _rowWidget(
                       heading: 'MOBILE',
-                      subheading: '0342000000',
+                      subheading: widget.mobileno,
                       icon: Icons.phone),
                 ],
               ),

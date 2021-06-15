@@ -1,4 +1,4 @@
-import 'package:Hunarmand_signIn_Ui/Models/posted_job_m.dart';
+import 'package:Hunarmand_signIn_Ui/Models/job_models/posted_job_m.dart';
 import 'package:Hunarmand_signIn_Ui/Models/posted_job_model.dart';
 import 'package:Hunarmand_signIn_Ui/controllers/postjob_controller.dart';
 
@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
-final _firestore = FirebaseFirestore.instance;
+//final _firestore = FirebaseFirestore.instance;
 final _auth = FirebaseAuth.instance;
 User _loginUser = _auth.currentUser;
 

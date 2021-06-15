@@ -1,5 +1,5 @@
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
-import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/my_orders.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/mypostedjobs/my_fixedorders.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -178,7 +178,7 @@ class _ScheduleState extends State<Schedule> {
             onPressed: () {
               Navigator.of(context).pop();
               Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => MyOrders()));
+                  context, MaterialPageRoute(builder: (_) => FixedJobOrders()));
             },
 
             // highlightColor: Colors.orange,

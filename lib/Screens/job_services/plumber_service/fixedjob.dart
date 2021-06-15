@@ -1,4 +1,4 @@
-import 'package:Hunarmand_signIn_Ui/Models/electric_model.dart';
+import 'package:Hunarmand_signIn_Ui/Models/job_models/electric_model.dart';
 import 'package:flutter/material.dart';
 
 class FixedJob extends StatelessWidget {

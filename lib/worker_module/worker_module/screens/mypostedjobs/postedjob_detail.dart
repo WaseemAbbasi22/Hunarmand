@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:Hunarmand_signIn_Ui/Models/Worker_model.dart';
+import 'package:Hunarmand_signIn_Ui/Models/job_models/posted_job_m.dart';
 import 'package:Hunarmand_signIn_Ui/Models/posted_job_model.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
@@ -9,17 +10,39 @@ import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/make_off
 import 'package:flutter/material.dart';
 
 class PostedJobDetail extends StatefulWidget {
+  final PostedJobs jobs;
+
+  PostedJobDetail({this.jobs});
+
   @override
   _PostedJobDetailState createState() => _PostedJobDetailState();
 }
 
 class _PostedJobDetailState extends State<PostedJobDetail> {
+  String url;
+  String jobtype;
+  bool toogleimgcontainer = false;
+  @override
+  void initState() {
+    super.initState();
+    url = widget.jobs.imageUrl;
+    jobtype = widget.jobs.jobtype;
+    if (jobtype == 'Other') {
+      toogleimgcontainer = true;
+    }
+    print('Image url is .............');
+    print(url);
+  }
+
   String btnText = 'MAKE OFFER';
   bool offerboxshow = false;
   bool btnshow = true;
   bool allOfferbtn = true;
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      url = widget.jobs.imageUrl;
+    });
     return Scaffold(
       backgroundColor: Colors.white,
       body: getBody(),
@@ -31,39 +54,53 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
     return SingleChildScrollView(
       child: Stack(
         children: <Widget>[
-          Container(
-            width: double.infinity,
-            height: size.height * 0.5,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage(posted_job[1].imageUrl), fit: BoxFit.cover),
-            ),
-            child: SafeArea(
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Icon(Icons.arrow_back, color: Colors.white),
-                      // Row(
-                      //   children: <Widget>[
-                      //     SvgPicture.asset("assets/images/heart_icon.svg"),
-                      //     SizedBox(
-                      //       width: 20,
-                      //     ),
-                      //     SvgPicture.asset("assets/images/share_icon.svg"),
-                      //   ],
+          Visibility(
+            visible: toogleimgcontainer,
+            child: url != null
+                ? Container(
+                    width: double.infinity,
+                    height: size.height * 0.5,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: NetworkImage(url), fit: BoxFit.cover),
                     ),
-                  ],
-                ),
-              ),
-            ),
+                    child: SafeArea(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 30, vertical: 30),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            InkWell(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child:
+                                  Icon(Icons.arrow_back, color: Colors.white),
+                              // Row(
+                              //   children: <Widget>[
+                              //     SvgPicture.asset("assets/images/heart_icon.svg"),
+                              //     SizedBox(
+                              //       width: 20,
+                              //     ),
+                              //     SvgPicture.asset("assets/images/share_icon.svg"),
+                              //   ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                : Center(
+                    // child: Text(
+                    //   url,
+                    //   style: TextStyle(color: Colors.black),
+                    // ),
+                    child: CircularProgressIndicator(
+                      backgroundColor: Colors.deepOrange,
+                    ),
+                  ),
           ),
           Container(
             margin: EdgeInsets.only(top: size.height * 0.45),
@@ -105,7 +142,7 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
                                     fontSize: 20.0),
                               ),
                               Text(
-                                posted_job[1].budget,
+                                widget.jobs.budget,
                                 style: TextStyle(
                                     color: deepOrangeColor,
                                     fontFamily: 'Quicksand',
@@ -134,7 +171,7 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
                     height: 20,
                   ),
                   Text(
-                    posted_job[1].detail,
+                    widget.jobs.title,
                     style: TextStyle(fontSize: 20, height: 1.5),
                   ),
                   SizedBox(
@@ -177,7 +214,7 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
                               height: 5,
                             ),
                             Text(
-                              workers[1].name,
+                              widget.jobs.postedBy,
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.grey,
@@ -189,23 +226,8 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
                           ],
                         ),
                         SizedBox(
-                          width: 100.0,
+                          width: 20.0,
                         ),
-                        SafeArea(
-                          child: Align(
-                            //alignment: Alignment.topLeft,
-                            child: Text(
-                              '1 HOUR AGO',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey,
-                                fontFamily: 'Quicksand',
-                                //letterSpacing: 1.5,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        )
                       ],
                     ),
                   ),
@@ -253,7 +275,7 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
                                   height: 5,
                                 ),
                                 Text(
-                                  posted_job[1].location,
+                                  widget.jobs.location,
                                   style: TextStyle(
                                     fontSize: 14,
                                     color: Colors.grey,
@@ -268,7 +290,7 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
                         ],
                       ),
                       SizedBox(
-                        width: 20.0,
+                        width: 10.0,
                       ),
                       InkWell(
                         onTap: () {},
@@ -316,7 +338,7 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
                             height: 5,
                           ),
                           Text(
-                            '30 Jan 2021',
+                            widget.jobs.postedDate,
                             style: TextStyle(
                               fontSize: 14,
                               color: Colors.grey,
@@ -347,7 +369,7 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
                         height: 15,
                       ),
                       Text(
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                        widget.jobs.detail,
                         style: TextStyle(
                             fontSize: 18, color: Colors.grey, height: 2),
                         //textAlign: TextAlign.center,
@@ -362,7 +384,9 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
                       visible: offerboxshow,
                       child: Container(
                           child: offerboxshow
-                              ? MakeOffer()
+                              ? MakeOffer(
+                                  jobId: widget.jobs.jobId,
+                                )
                               : SizedBox(height: 0.0))),
                   Visibility(
                     visible: btnshow,
@@ -394,7 +418,9 @@ class _PostedJobDetailState extends State<PostedJobDetail> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => JobOffers()));
+                                    builder: (context) => JobOfferScreen(
+                                          jobId: widget.jobs.jobId,
+                                        )));
                           },
                         ),
                       )),

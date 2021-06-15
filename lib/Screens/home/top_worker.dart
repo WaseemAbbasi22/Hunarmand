@@ -10,8 +10,9 @@ class TopWorkers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(8.0),
-      margin: EdgeInsets.only(bottom: 10.0),
+      // color: Colors.blue,
+      padding: EdgeInsets.all(10.0),
+      // margin: EdgeInsets.only(bottom: 30.0),
       //color: Colors.grey[200],
       height: 180.0,
       child: ListView.builder(
@@ -21,12 +22,16 @@ class TopWorkers extends StatelessWidget {
           return GestureDetector(
             child: Padding(
               padding: const EdgeInsets.only(
-                left: 20.0,
+                left: 10.0,
               ),
               child: Container(
-                // height: 120,
+                margin: EdgeInsets.only(bottom: 10.0),
+                // height: 500,
+                // padding: EdgeInsets.only(bottom: 20.0),
                 decoration: BoxDecoration(
                   color: Colors.grey[100],
+                  // color: Colors.red,
+
                   borderRadius: BorderRadius.circular(20.0),
                   boxShadow: [
                     BoxShadow(
@@ -36,18 +41,18 @@ class TopWorkers extends StatelessWidget {
                     ),
                   ],
                 ),
-                padding: EdgeInsets.all(10.0),
+                padding: EdgeInsets.all(20.0),
                 child: Column(
                   // mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     RadialProgress(
                       width: 4,
                       goalCompleted: 0.9,
                       child: RoundedImage(
                         imagePath: workers[index].imageUrl,
-                        size: Size.fromWidth(80.0),
+                        size: Size.fromWidth(40.0),
                       ),
                     ),
                     // CircleAvatar(

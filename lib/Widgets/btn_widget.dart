@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 class ButtonWidget extends StatelessWidget {
   var btnText = "";
   var onClick;
+  var serviceType;
 
-  ButtonWidget({this.btnText, this.onClick});
+  ButtonWidget({this.btnText, this.onClick, this.serviceType});
 
   @override
   Widget build(BuildContext context) {

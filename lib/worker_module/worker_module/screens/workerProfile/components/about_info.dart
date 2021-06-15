@@ -2,7 +2,9 @@ import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:flutter/material.dart';
 
 class AboutInfo extends StatefulWidget {
-  AboutInfo({Key key}) : super(key: key);
+  final String location;
+  final String dob;
+  AboutInfo({this.location, this.dob});
 
   @override
   _AboutInfoState createState() => _AboutInfoState();
@@ -41,14 +43,14 @@ class _AboutInfoState extends State<AboutInfo> {
                 children: [
                   _rowWidget(
                       heading: 'LOCATION',
-                      subheading: 'I-14 Islamabad,',
+                      subheading: widget.location,
                       icon: Icons.place),
                   SizedBox(
                     height: 20.0,
                   ),
                   _rowWidget(
                       heading: 'DOB',
-                      subheading: '30 Jan 1998',
+                      subheading: widget.dob,
                       icon: Icons.calendar_today),
                 ],
               ),

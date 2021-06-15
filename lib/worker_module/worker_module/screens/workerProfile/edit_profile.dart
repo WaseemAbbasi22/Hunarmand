@@ -52,11 +52,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             color: Colors.white,
                             size: 25.0,
                           ),
-                          onTap: () {
-                            showModalBottomSheet(
-                                context: context,
-                                builder: ((builder) => UploadImage()));
-                          },
+                          // onTap: () {
+                          //   showModalBottomSheet(
+                          //       context: context,
+                          //       builder: ((builder) => UploadImage()));
+                          // },
                         ),
                       ),
                     ],

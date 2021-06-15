@@ -1,19 +1,19 @@
-import 'package:Hunarmand_signIn_Ui/BusinessLogic/uplaod_image.dart';
-import 'package:Hunarmand_signIn_Ui/Models/posted_job_m.dart';
+import 'package:Hunarmand_signIn_Ui/Models/job_models/posted_job_m.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/authenticate/components/input_card.dart';
-import 'package:Hunarmand_signIn_Ui/Service/database_service.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/mypostedjobs/my_orderhome.dart';
+import 'package:intl/intl.dart';
+import 'package:date_format/date_format.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
-import 'package:Hunarmand_signIn_Ui/Widgets/image_picker.dart';
-import 'package:Hunarmand_signIn_Ui/controllers/postjob_controller.dart';
+import 'package:Hunarmand_signIn_Ui/BusinessLogic/uplaod_image.dart';
 import 'package:Hunarmand_signIn_Ui/controllers/postjob_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/my_orders.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 final _auth = FirebaseAuth.instance;
-User _loginUser = _auth.currentUser;
-UploadingImage _uploadingImage;
+// final _authService = AuthService();
+// User _loginUser = _auth.currentUser;
+// UploadingImage _uploadingImage;
 
 // DataBaseService _dbService = DataBaseService();
 
@@ -31,12 +31,15 @@ class _PostjobState extends State<Postjob> {
   final jobLocationController = TextEditingController();
   final jobbudgetController = TextEditingController();
   final jobdetailController = TextEditingController();
+  String postedBy;
   // String imageUrl;
   @override
   void initState() {
-    super.initState();
-    final postJobController =
-        Provider.of<PostedJobProvider>(context, listen: false);
+    // final jobProvider = Provider.of<PostedJobProvider>(context);
+
+    // final postJobController =
+    // Provider.of<PostedJobProvider>(context, listen: false);
+
     // if (widget.jobs != null) {
     //   //Edit
     //   postJobController.text = widget.jobs.title;
@@ -44,14 +47,25 @@ class _PostjobState extends State<Postjob> {
     //   postJobController.loadAll(widget.jobs);
     // } else {
     //Add
-    postJobController.loadAll(null);
+    // postJobController.loadAll(null);
     // }
     super.initState();
   }
 
   @override
+  void dispose() {
+    jobTitleController.dispose();
+    jobbudgetController.dispose();
+    jobdetailController.dispose();
+    jobLocationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final jobProvider = Provider.of<PostedJobProvider>(context);
+    final jobProvider = Provider.of<PostedJobProvider>(context, listen: false);
+    postedBy = _auth.currentUser.displayName;
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
@@ -119,6 +133,7 @@ class _PostjobState extends State<Postjob> {
   Widget _descriptionCard({PostedJobProvider provider}) {
     return Container(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Form(
             key: _formkey,
@@ -134,8 +149,54 @@ class _PostjobState extends State<Postjob> {
                 SizedBox(
                   height: 15.0,
                 ),
+                // Text(
+                //   'Job Location',
+                //   style: TextStyle(color: Colors.grey[500]),
+                // ),
+                // Padding(
+                //   padding: const EdgeInsets.all(8.0),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       Padding(
+                //         padding: const EdgeInsets.all(10.0),
+                //         child: Text(
+                //           provider.joblocation != null
+                //               ? provider.joblocation
+                //               : 'Chose Job Location',
+                //           style: TextStyle(
+                //             fontSize: 16.0,
+                //           ),
+                //           textAlign: TextAlign.center,
+                //         ),
+                //       ),
+                //       SizedBox(
+                //         width: 50.0,
+                //       ),
+                //       provider.joblocation == null
+                //           ? IconButton(
+                //               color: Colors.deepOrange,
+                //               icon: Icon(Icons.forward),
+                //               onPressed: () {
+                //                 Navigator.push(
+                //                     context,
+                //                     MaterialPageRoute(
+                //                         builder: (context) => DummyMap()));
+                //               },
+                //             )
+                //           : SizedBox(
+                //               width: 2.0,
+                //             ),
+                //       // Text(
+
+                //       //   style: TextStyle(fontSize: 18.0, color: Colors.blueGrey),
+                //       // ),
+                //     ],
+                //   ),
+                // ),
                 InputCard(
                   hintText: 'Enter job Location',
+                  controller: jobLocationController,
                   onChange: (String val) {
                     provider.changeloction = val;
                   },
@@ -144,6 +205,7 @@ class _PostjobState extends State<Postjob> {
                   height: 15.0,
                 ),
                 InputCard(
+                  controller: jobbudgetController,
                   hintText: 'Enter job budget',
                   onChange: (String val) {
                     provider.changebudget = val;
@@ -155,6 +217,7 @@ class _PostjobState extends State<Postjob> {
                   height: 15.0,
                 ),
                 InputCard(
+                  controller: jobdetailController,
                   maxline: 8,
                   hintText: 'Enter decription',
                   onChange: (String val) {
@@ -164,21 +227,64 @@ class _PostjobState extends State<Postjob> {
                 SizedBox(
                   height: 10.0,
                 ),
+                Row(
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Pick Job Validity Date',
+                      style: TextStyle(
+                        fontSize: 16.0,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 30.0,
+                    ),
+                    IconButton(
+                        icon: Icon(
+                          Icons.calendar_today,
+                          color: Colors.deepOrange,
+                          size: 30.0,
+                        ),
+                        onPressed: () {
+                          _pickDate(context, provider).then((value) {
+                            if (value != null) {
+                              provider.changeDate = value;
+                            }
+                          });
+                        }),
+                    provider.jobposteddate != null
+                        ? Text(
+                            DateFormat('MM/dd/yyyy')
+                                .format(provider.jobposteddate),
+                            style: TextStyle(
+                                fontSize: 18.0, color: Colors.blueGrey),
+                          )
+                        : Text(
+                            formatDate(
+                                DateTime.now(), [MM, ' ', d, ', ', yyyy]),
+                            style: TextStyle(
+                                fontSize: 18.0, color: Colors.blueGrey),
+                          ),
+                  ],
+                ),
               ],
             ),
           ),
           SizedBox(
             height: 10.0,
           ),
-          UploadImage(),
+          UploadingImage(),
           // UploadingImage(),
           Container(
             margin: EdgeInsets.only(top: 20.0, bottom: 20.0),
             child: ButtonWidget(
               btnText: 'Post',
-              onClick: () async {
+              onClick: () {
                 try {
+                  provider.changepostedby = postedBy;
+                  provider.changejobtype = 'Other';
                   provider.savejobs();
+                  provider.changeloction = null;
                   // Provider.of<Poste>(context, listen: false).addJob(
                   //     title: title,
                   //     location: location,
@@ -191,13 +297,24 @@ class _PostjobState extends State<Postjob> {
                 } catch (e) {
                   print(e);
                 }
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyOrders()));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => Orderstate()));
               },
             ),
           ),
         ],
       ),
     );
+  }
+
+  Future<DateTime> _pickDate(
+      BuildContext context, PostedJobProvider jobProvider) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2019),
+        lastDate: DateTime(2050));
+
+    if (picked != null) return picked;
   }
 }

@@ -3,7 +3,7 @@ import 'package:Hunarmand_signIn_Ui/Service/map.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/small_btn.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
-import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/my_orders.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/mypostedjobs/my_fixedorders.dart';
 import 'package:flutter/material.dart';
 
 class HourlyJobDetail extends StatefulWidget {
@@ -52,8 +52,10 @@ class _HourlyJobDetailState extends State<HourlyJobDetail> {
               ButtonWidget(
                 btnText: 'POST',
                 onClick: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyOrders()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => FixedJobOrders()));
                 },
               ),
             ],

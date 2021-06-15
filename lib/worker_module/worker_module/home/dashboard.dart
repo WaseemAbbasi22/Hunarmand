@@ -1,13 +1,16 @@
 import 'package:Hunarmand_signIn_Ui/Models/Worker_model.dart';
+import 'package:Hunarmand_signIn_Ui/Models/job_models/posted_job_m.dart';
 import 'package:Hunarmand_signIn_Ui/Models/posted_job_model.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/drawer.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/notifications.dart';
 import 'package:Hunarmand_signIn_Ui/commons/advance_alertdialoge.dart';
+import 'package:Hunarmand_signIn_Ui/controllers/postjob_provider.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/home/searchfilter_form.dart';
-import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/postedjob_detail.dart';
+import 'package:Hunarmand_signIn_Ui/worker_module/worker_module/screens/mypostedjobs/postedjob_detail.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -21,6 +24,8 @@ class WorkerDashboard extends StatefulWidget {
 class _WorkerDashboardState extends State<WorkerDashboard> {
   @override
   Widget build(BuildContext context) {
+    final jobProvider = Provider.of<PostedJobProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: deepOrangeColor,
@@ -75,8 +80,13 @@ class _WorkerDashboardState extends State<WorkerDashboard> {
                         fontSize: 14.0),
                   )),
               SizedBox(height: 10.0),
-              StreamBuilder<QuerySnapshot>(
-                stream: _firestore.collection('posted_projects').snapshots(),
+              StreamBuilder<List<PostedJobs>>(
+                //  _firestore
+                //     .collection('posted_projects')
+                //     .where("posted_by", isEqualTo: email)
+                //     .snapshots(),
+                stream: jobProvider.jobs,
+                // stream: _firestore.collection('posted_projects').snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
                     return Center(
@@ -94,11 +104,188 @@ class _WorkerDashboardState extends State<WorkerDashboard> {
                           mainAxisSpacing: 10.0,
                           // shrinkWrap: true,
                         ),
-                        itemCount: snapshot.data.docs.length,
+                        itemCount: snapshot.data.length,
                         itemBuilder: (context, index) {
-                          DocumentSnapshot posted_jobs =
-                              snapshot.data.docs[index];
-                          return _buildCard(pjobs: posted_jobs, ontap: () {});
+                          return Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0)),
+                            elevation: 10.0,
+                            margin: EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Column(
+                              children: <Widget>[
+                                SizedBox(height: 12.0),
+                                Stack(children: <Widget>[
+                                  Container(
+                                    height: 60.0,
+                                    width: 60.0,
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                        color:
+                                            Colors.deepOrange.withOpacity(0.5),
+                                        image: DecorationImage(
+                                            image: AssetImage(
+                                                workers[3].imageUrl))),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 40.0),
+                                    height: 20.0,
+                                    width: 20.0,
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                        // color:
+                                        //     pjobs.status == 'Assigned' ? Colors.amber : Colors.green,
+                                        border: Border.all(
+                                            color: Colors.white,
+                                            style: BorderStyle.solid,
+                                            width: 2.0)),
+                                  )
+                                ]),
+                                SizedBox(height: 8.0),
+                                Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        snapshot.data[index].title,
+                                        style: TextStyle(
+                                          fontFamily: 'Quicksand',
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15.0,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      SizedBox(height: 5.0),
+                                      Center(
+                                        child: Container(
+                                          margin: EdgeInsets.only(left: 40.0),
+                                          child: Row(
+                                            //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Icon(
+                                                Icons.place,
+                                                size: 20.0,
+                                              ),
+                                              // SizedBox(
+                                              //   width: .0,
+                                              // ),
+                                              Text(
+                                                snapshot.data[index].location,
+                                                style: TextStyle(
+                                                    fontFamily: 'Quicksand',
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 12.0,
+                                                    color: Colors.grey),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5.0,
+                                      ),
+                                      Center(
+                                        child: Container(
+                                          margin: EdgeInsets.only(left: 60.0),
+                                          child: Row(
+                                            //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Text(
+                                                'Offers',
+                                                style: TextStyle(
+                                                    fontFamily: 'Quicksand',
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14.0,
+                                                    color: Colors.grey),
+                                              ),
+                                              SizedBox(
+                                                width: 10.0,
+                                              ),
+                                              Text(
+                                                '20',
+                                                // pjobs.offers.toString(),
+                                                style: TextStyle(
+                                                    fontFamily: 'Quicksand',
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 12.0,
+                                                    color: Colors.grey),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Center(
+                                        child: Container(
+                                          margin: EdgeInsets.only(left: 60.0),
+                                          child: Row(
+                                            //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Text(
+                                                'Status',
+                                                style: TextStyle(
+                                                  fontFamily: 'Quicksand',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 14.0,
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width: 10.0,
+                                              ),
+                                              Text(
+                                                'Assinged',
+                                                style: TextStyle(
+                                                  fontFamily: 'Quicksand',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 12.0,
+                                                  // color: pjobs.status == 'Open'
+                                                  //     ? Colors.green
+                                                  //     : Colors.amber,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ]),
+                                SizedBox(height: 15.0),
+                                Expanded(
+                                    child: InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                PostedJobDetail(
+                                                  jobs: snapshot.data[index],
+                                                )));
+                                  },
+                                  child: Container(
+                                      width: 200.0,
+                                      decoration: BoxDecoration(
+                                        color:
+                                            Colors.deepOrange.withOpacity(0.95),
+                                        borderRadius: BorderRadius.only(
+                                            bottomLeft: Radius.circular(10.0),
+                                            bottomRight: Radius.circular(10.0)),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          'View Detail',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontFamily: 'Quicksand'),
+                                        ),
+                                      )),
+                                ))
+                              ],
+                            ),
+                            // margin: cardIndex.isEven
+                            //     ? EdgeInsets.fromLTRB(10.0, 0.0, 25.0, 10.0)
+                            //     : EdgeInsets.fromLTRB(25.0, 0.0, 5.0, 10.0),
+                          );
                         }),
                   );
                 },

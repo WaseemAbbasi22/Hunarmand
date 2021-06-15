@@ -1,8 +1,7 @@
 import 'package:Hunarmand_signIn_Ui/Screens/job_services/plumber_service/hourlyjob.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/job_services/plumber_service/post_job.dart';
-import 'package:Hunarmand_signIn_Ui/Screens/job_services/plumber_service/services.dart';
+import 'package:Hunarmand_signIn_Ui/Screens/job_services/plumber_service/tap_services.dart';
 import 'package:Hunarmand_signIn_Ui/Screens/job_services/plumber_service/taskdetail_screen.dart';
-import 'package:Hunarmand_signIn_Ui/Widgets/bottomcontainer_widget.dart';
 import 'package:Hunarmand_signIn_Ui/Widgets/btn_widget.dart';
 import 'package:Hunarmand_signIn_Ui/utils/color.dart';
 import 'package:Hunarmand_signIn_Ui/utils/constant.dart';
@@ -63,7 +62,7 @@ class _ServiceDetailState extends State<ServiceDetail>
               ),
             ),
             Tab(
-              child: Text('Hourly Jobs', style: kTabBarTextStyle),
+              child: Text('Hourly Job', style: kTabBarTextStyle),
             ),
             Tab(
               child: Text('Post Job', style: kTabBarTextStyle),
@@ -82,7 +81,9 @@ class _ServiceDetailState extends State<ServiceDetail>
                   Divider(
                     height: 10.0,
                   ),
-                  Services(),
+                  // for (int i = 0; i < categories.length; i++)
+                  // selectedIndex == 0 ? Services() : Text('index2'),
+                  // selectedIndex == 2 ? Text('index2') : Text('index3'),
                   SizedBox(
                     height: 10.0,
                   ),
@@ -109,6 +110,7 @@ class _ServiceDetailState extends State<ServiceDetail>
   }
 
   Widget _categorySelector() {
+    // Widget showWidget;
     return Container(
         height: 80.0,
         color: Colors.white,
@@ -120,6 +122,10 @@ class _ServiceDetailState extends State<ServiceDetail>
                 onTap: () {
                   setState(() {
                     selectedIndex = index;
+                    switch (selectedIndex) {
+                      case 0:
+                        Services();
+                    }
                     // }
                   });
                 },

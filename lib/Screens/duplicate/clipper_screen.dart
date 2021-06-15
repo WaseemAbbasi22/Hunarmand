@@ -65,26 +65,6 @@ class _ClipperDesignState extends State<ClipperDesign>
                   );
                 },
               ),
-
-              // Container(
-              //   margin: EdgeInsets.only(top: 60.0),
-              //   child: Card(
-              //     color: Colors.grey[200],
-              //     elevation: 4.0,
-              //     child: Container(
-              //       padding: EdgeInsets.all(30.0),
-              //       child: Text(
-              //         'Popular Services',
-              //         style: TextStyle(
-              //           color: Colors.grey[900],
-              //           //fontWeight: FontWeight.bold,
-              //           fontSize: 20.0,
-              //           letterSpacing: 0.5,
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
               Cslider(),
             ],
           ),
